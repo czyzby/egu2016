@@ -7,6 +7,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport
 import com.badlogic.gdx.utils.viewport.Viewport
 import com.ownedoutcomes.Runner
 import com.ownedoutcomes.logic.entity.Food
+import com.ownedoutcomes.logic.entity.FoodBooster
 import com.ownedoutcomes.logic.entity.Player
 import com.ownedoutcomes.logic.entity.Shoe
 import com.ownedoutcomes.view.GameOver
@@ -31,9 +32,14 @@ class GameController {
     val players = gdxSetOf<Player>()
     val food = gdxSetOf<Food>()
     val shoes = gdxSetOf<Shoe>()
+    val boosters = gdxSetOf<FoodBooster>()
+
+    val playersToAdd = gdxSetOf<Player>()
+
     val playersToRemove = gdxArrayOf<Player>()
     val foodToRemove = gdxArrayOf<Food>()
     val shoesToRemove = gdxArrayOf<Shoe>()
+    val boostersToRemove = gdxArrayOf<FoodBooster>()
 
     private var timeSinceSpawn = 100f
     private var timeSincePlayerSpawn = 0f
@@ -57,14 +63,18 @@ class GameController {
         spawnPlayers(delta)
         spawnFood(delta)
         spawnShoe(delta)
+        spawnBoosters(delta)
+        spawnNewPlayers(delta)
         inputController.update()
         world.step(delta, 8, 3)
         players.forEach { it.update(delta) }
         food.forEach { it.update(delta) }
         shoes.forEach { it.update(delta) }
+        boosters.forEach { it.update(delta) }
         removeFood()
         removePlayers()
         removeShoes()
+        removeBoosters()
         // TODO add world bounds
         // TODO remove enemies that touch world bounds
         renderer.render(world, gameViewport.camera.combined)
@@ -90,6 +100,23 @@ class GameController {
         if (timeSinceShoeSpawn > MathUtils.random(10f, 20f)) {
             shoes.add(Shoe(world).initiate())
             timeSinceShoeSpawn = 0f
+        }
+    }
+
+    private fun spawnBoosters(delta: Float) {
+        timeSinceShoeSpawn += delta
+        if (timeSinceShoeSpawn > MathUtils.random(1f, 2f)) {
+            boosters.add(FoodBooster(world).initiate())
+            timeSinceShoeSpawn = 0f
+        }
+    }
+
+    private fun spawnNewPlayers(delta: Float) {
+        if (playersToAdd.isNotEmpty()) {
+            playersToAdd.forEach {
+                addBodies()
+            }
+            playersToAdd.clear()
         }
     }
 
@@ -130,6 +157,16 @@ class GameController {
                 shoes.remove(it)
             }
             shoesToRemove.clear()
+        }
+    }
+
+    private fun removeBoosters() {
+        if (boostersToRemove.isNotEmpty()) {
+            boostersToRemove.forEach {
+                world.destroyBody(it.body)
+                boosters.remove(it)
+            }
+            boostersToRemove.clear()
         }
     }
 

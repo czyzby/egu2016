@@ -5,6 +5,7 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse
 import com.badlogic.gdx.physics.box2d.ContactListener
 import com.badlogic.gdx.physics.box2d.Manifold
 import com.ownedoutcomes.logic.entity.Food
+import com.ownedoutcomes.logic.entity.FoodBooster
 import com.ownedoutcomes.logic.entity.Player
 
 class ContactController(val gameController: GameController) : ContactListener {
@@ -24,6 +25,22 @@ class ContactController(val gameController: GameController) : ContactListener {
                 gameController.foodToRemove.add(firstEntity)
                 secondEntity.eat(firstEntity)
             }
+        }
+
+        if (firstEntity is FoodBooster && secondEntity is Player) {
+            val newPlayer = Player(secondEntity.world, secondEntity.inputController)
+            gameController.playersToAdd.add(newPlayer)
+            gameController.boostersToRemove.add(firstEntity)
+        }
+
+        if (firstEntity is FoodBooster && secondEntity is Food) {
+            if (firstEntity.size < secondEntity.size * 1.05) {
+                gameController.boostersToRemove.add(firstEntity)
+            }
+        }
+
+        if (firstEntity is Food && secondEntity is Bound) {
+            gameController.foodToRemove.add(secondEntity as Food)
         }
     }
 
