@@ -425,13 +425,13 @@ window
   index: -1
 
 skin2.png
-size: 1024,256
+size: 1024,512
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 button
   rotate: false
-  xy: 520, 175
+  xy: 569, 447
   size: 133, 52
   split: 30, 25, 0, 0
   pad: 32, 27, 9, 9
@@ -440,14 +440,14 @@ button
   index: -1
 button-pressed
   rotate: false
-  xy: 1, 1
+  xy: 396, 273
   size: 133, 52
   orig: 133, 52
   offset: 0, 0
   index: -1
 button-pressed
   rotate: false
-  xy: 1, 1
+  xy: 396, 273
   size: 133, 52
   split: 30, 25, 0, 0
   pad: 32, 27, 9, 9
@@ -456,22 +456,29 @@ button-pressed
   index: -1
 globe
   rotate: false
-  xy: 1, 54
+  xy: 1, 1
   size: 172, 173
   orig: 173, 173
   offset: 0, 0
   index: 3
 globe
   rotate: false
-  xy: 174, 54
+  xy: 396, 326
   size: 172, 173
   orig: 173, 173
   offset: 1, 0
   index: 4
 globe
   rotate: false
-  xy: 347, 55
+  xy: 174, 2
   size: 172, 172
   orig: 173, 173
   offset: 0, 0
   index: 5
+herring
+  rotate: false
+  xy: 1, 175
+  size: 394, 324
+  orig: 400, 400
+  offset: 6, 32
+  index: -1

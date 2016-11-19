@@ -10,6 +10,7 @@ class GameRenderer(val gameController: GameController, val batch: Batch, skin: S
     private val playerSprite = skin.atlas.createSprite("player0")
     private val enemySprite = skin.atlas.createSprite("enemy0")
     private val shoeSprite = skin.atlas.createSprite("but")
+    private val herringSprite = skin.atlas.createSprite("herring")
 
     init {
         playerSprite.setOriginCenter()
@@ -53,6 +54,17 @@ class GameRenderer(val gameController: GameController, val batch: Batch, skin: S
             shoeSprite.setOrigin(shoeSprite.x, shoeSprite.y)
             shoeSprite.setSize(spriteSize, spriteSize)
             shoeSprite.draw(batch)
+        }
+
+        gameController.boosters.forEach {
+            val herringSprite = Sprite(herringSprite)
+            val spriteSize = it.size * 2
+            herringSprite.x = it.body.position.x - it.size
+            herringSprite.y = it.body.position.y - it.size
+            herringSprite.setOrigin(herringSprite.x, herringSprite.y)
+            herringSprite.setSize(spriteSize, spriteSize)
+            herringSprite.flip(it.spawnedLeft, false)
+            herringSprite.draw(batch)
         }
         batch.end()
     }
