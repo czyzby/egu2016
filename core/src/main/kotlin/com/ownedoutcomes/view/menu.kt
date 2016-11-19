@@ -10,6 +10,7 @@ import ktx.inject.inject
 import ktx.scene2d.image
 import ktx.scene2d.table
 import ktx.scene2d.textButton
+import ktx.scene2d.textField
 
 class Menu(stage: Stage) : AbstractView(stage) {
     override val root = table {
@@ -29,6 +30,10 @@ class Menu(stage: Stage) : AbstractView(stage) {
 class GameOver(stage: Stage) : AbstractView(stage) {
     override val root = table {
         setFillParent(true)
+        textField(text = "GAME OVER!", style = "game-over") {
+
+        }
+        row()
         textButton(text = "Play again!", style = "game-over-button") {
             color = Color.PINK
             onClick { event, button ->
