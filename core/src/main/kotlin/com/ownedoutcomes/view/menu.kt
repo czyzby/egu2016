@@ -3,6 +3,7 @@ package com.ownedoutcomes.view
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.ownedoutcomes.Runner
+import com.ownedoutcomes.logic.GameController
 import ktx.actors.onChange
 import ktx.inject.inject
 import ktx.scene2d.button
@@ -17,6 +18,7 @@ class Menu(stage: Stage) : AbstractView(stage) {
         button("play") {
             color = Color.PINK
             onChange { event, button ->
+                inject<GameController>().reload()
                 inject<Runner>().setCurrentView(inject<Game>())
             }
         }
