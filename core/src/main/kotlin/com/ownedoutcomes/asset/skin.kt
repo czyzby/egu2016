@@ -9,8 +9,8 @@ import ktx.style.skin
 
 fun loadSkin() = skin(atlas = loadOnDemand<TextureAtlas>(path = "skin.atlas").asset) {
     button("play") {
-        up = getDrawable("play-button")
-        over = getDrawable("play-button-over")
-        down = getDrawable("play-button-down")
+        up = getDrawable("button")
+        over = getDrawable("button-pressed")
+        down = getDrawable("button-pressed")
     }
 }
