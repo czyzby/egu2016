@@ -4,10 +4,8 @@ import com.badlogic.gdx.physics.box2d.Contact
 import com.badlogic.gdx.physics.box2d.ContactImpulse
 import com.badlogic.gdx.physics.box2d.ContactListener
 import com.badlogic.gdx.physics.box2d.Manifold
-import com.ownedoutcomes.logic.entity.Bound
 import com.ownedoutcomes.logic.entity.Food
 import com.ownedoutcomes.logic.entity.Player
-import com.ownedoutcomes.logic.entity.Shoe
 
 class ContactController(val gameController: GameController) : ContactListener {
     override fun endContact(contact: Contact) {
@@ -26,10 +24,6 @@ class ContactController(val gameController: GameController) : ContactListener {
                 gameController.foodToRemove.add(firstEntity)
                 secondEntity.eat(firstEntity)
             }
-        }
-
-        if (firstEntity is Food && secondEntity is Bound) {
-            gameController.foodToRemove.add(secondEntity as Food)
         }
     }
 
