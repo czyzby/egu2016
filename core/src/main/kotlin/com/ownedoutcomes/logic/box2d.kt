@@ -53,7 +53,6 @@ class GameController {
         food.forEach { it.update(delta) }
         removeFood()
         removePlayers()
-        // TODO remove destroyed bodies
         // TODO add world bounds
         // TODO remove enemies that touch world bounds
         renderer.render(world, gameViewport.camera.combined)
