@@ -7,6 +7,8 @@ class Menu(stage: Stage) : AbstractView(stage) {
     val root = table {
         setFillParent(true)
         image("title")
+        row()
+        button("play")
     }
 
     override fun show() {

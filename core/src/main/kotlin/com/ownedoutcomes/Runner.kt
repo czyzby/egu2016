@@ -1,5 +1,6 @@
 package com.ownedoutcomes
 
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.utils.viewport.Viewport
@@ -26,6 +27,7 @@ class Runner : KotlinApplication() {
             bindSingleton(skin)
         }
         Scene2DSkin.defaultSkin = skin
+        Gdx.input.inputProcessor = stage
         view = Menu(stage)
         view.show()
     }

@@ -1,12 +1,33 @@
 
 skin.png
-size: 512,512
+size: 1024,512
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-title
+play-button
+  rotate: false
+  xy: 2, 54
+  size: 400, 50
+  orig: 400, 50
+  offset: 0, 0
+  index: -1
+play-button-down
+  rotate: false
+  xy: 404, 456
+  size: 400, 50
+  orig: 400, 50
+  offset: 0, 0
+  index: -1
+play-button-over
   rotate: false
   xy: 2, 2
+  size: 400, 50
+  orig: 400, 50
+  offset: 0, 0
+  index: -1
+title
+  rotate: false
+  xy: 2, 106
   size: 400, 400
   orig: 400, 400
   offset: 0, 0
