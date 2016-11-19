@@ -33,7 +33,12 @@ class Game(stage: Stage, private val gameController: GameController) : AbstractV
 
     override fun show() {
         super.show()
-        stage.keyboardFocus = image
+        stage.keyboardFocus = image // TODO remove
+    }
+
+    override fun hide() {
+        super.hide()
+        gameController.destroy()
     }
 
     override fun resize(width: Int, height: Int) {

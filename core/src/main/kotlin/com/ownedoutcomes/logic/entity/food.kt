@@ -26,11 +26,15 @@ class Food(world: World) : AbstractEntity(world) {
             density = 20f
             friction = 0.3f
             restitution = 0.1f
+            filter.categoryBits = foodGroup
+            filter.maskBits = playerGroup
         }
         val result = world.createBody(body)
-        result.createFixture(fixture)
+        result.createFixture(fixture).userData = this
         return result
     }
+
+    override fun initiate(): Food = super.initiate() as Food
 
     private fun getRandomSize(): Float {
         val random = MathUtils.random(-0.2f, 1f)
@@ -38,10 +42,15 @@ class Food(world: World) : AbstractEntity(world) {
     }
 
     override fun update(delta: Float) {
+        val currentDensity = 7f + size * size * MathUtils.PI * playerDensity
+        body.applyForceToCenter(
+                -body.linearVelocity.x * currentDensity / 4f,
+                -body.linearVelocity.y * currentDensity / 4f,
+                true)
         if (spawnedLeft) {
-            body.applyForceToCenter(1f * (size * 100f) * delta, 0f, true);
+            body.applyForceToCenter(currentDensity, 0f, true);
         } else {
-            body.applyForceToCenter(-1f * (size * 100f) * delta, 0f, true);
+            body.applyForceToCenter(-currentDensity, 0f, true);
         }
     }
 }
