@@ -2,6 +2,8 @@ package com.ownedoutcomes.logic.entity
 
 import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.physics.box2d.*
+import com.ownedoutcomes.logic.halfGameWorldHeight
+import com.ownedoutcomes.logic.halfGameWorldWidth
 
 class Shoe(world: World) : AbstractEntity(world) {
     var size = getRandomSize()
@@ -15,8 +17,8 @@ class Shoe(world: World) : AbstractEntity(world) {
             type = BodyDef.BodyType.DynamicBody
             fixedRotation = true
             linearDamping = 1f
-            position.x = 0f
-            position.y = 2f
+            position.x = MathUtils.random(-halfGameWorldWidth, halfGameWorldWidth)
+            position.y = halfGameWorldHeight + 2f
         }
         val fixture = FixtureDef().apply {
             shape = circle

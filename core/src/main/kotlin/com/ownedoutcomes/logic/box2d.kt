@@ -84,7 +84,7 @@ class GameController {
 
     private fun spawnShoe(delta: Float) {
         timeSinceShoeSpawn += delta
-        if (timeSinceShoeSpawn > MathUtils.random(1f, 2f)) {
+        if (timeSinceShoeSpawn > MathUtils.random(10f, 20f)) {
             shoes.add(Shoe(world).initiate())
             timeSinceShoeSpawn = 0f
         }
