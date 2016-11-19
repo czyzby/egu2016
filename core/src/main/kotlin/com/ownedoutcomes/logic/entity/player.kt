@@ -21,14 +21,18 @@ class Player(world: World, val inputController: InputController) : AbstractEntit
             density = playerDensity
             friction = 0.3f
             restitution = 0.1f
+            filter.categoryBits = playerGroup
+            filter.maskBits = playerCollisionGroup
         }
         val result = world.createBody(body)
-        result.createFixture(fixture)
+        result.createFixture(fixture).userData = this
         return result
     }
 
+    override fun initiate(): Player = super.initiate() as Player
+
     override fun update(delta: Float) {
-        val currentDensity = 10f + size * size * MathUtils.PI * playerDensity
+        val currentDensity = 15f + size * size * MathUtils.PI * playerDensity * 1.05f
         body.applyForceToCenter(
                 -body.linearVelocity.x * currentDensity / 4f,
                 -body.linearVelocity.y * currentDensity / 4f,
@@ -52,6 +56,11 @@ class Player(world: World, val inputController: InputController) : AbstractEntit
 
     fun smaller() {
         size -= 0.2f
-        body.fixtureList.first().shape.radius -= size
+        body.fixtureList.first().shape.radius = size
+    }
+
+    fun eat(food: Food) {
+        size += food.size / 5f
+        body.fixtureList.first().shape.radius = size
     }
 }

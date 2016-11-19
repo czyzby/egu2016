@@ -8,6 +8,7 @@ import com.ownedoutcomes.logic.halfGameWorldWidth
 class Food(world: World) : AbstractEntity(world) {
     var size = getRandomSize()
     var spawnedLeft = false
+    var speedBonus = MathUtils.random(0.8f, 1.5f)
 
     override fun createBody(world: World): Body {
         val circle = CircleShape()
@@ -26,22 +27,31 @@ class Food(world: World) : AbstractEntity(world) {
             density = 20f
             friction = 0.3f
             restitution = 0.1f
+            filter.categoryBits = foodGroup
+            filter.maskBits = playerGroup
         }
         val result = world.createBody(body)
-        result.createFixture(fixture)
+        result.createFixture(fixture).userData = this
         return result
     }
 
+    override fun initiate(): Food = super.initiate() as Food
+
     private fun getRandomSize(): Float {
-        val random = MathUtils.random(-0.2f, 1f)
+        val random = Math.abs(MathUtils.random(-0.4f, 1f))
         return if (random < 0.1f) 0.1f else random // TODO uzaleznic od wielkosci gracza? eee makarena
     }
 
     override fun update(delta: Float) {
+        val currentDensity = size * size * MathUtils.PI * playerDensity * speedBonus * MathUtils.random(0.9f, 1.1f)
+        body.applyForceToCenter(
+                -body.linearVelocity.x * currentDensity / 4f,
+                -body.linearVelocity.y * currentDensity / 4f,
+                true)
         if (spawnedLeft) {
-            body.applyForceToCenter(1f * (size * 100f) * delta, 0f, true);
+            body.applyForceToCenter(currentDensity, 0f, true);
         } else {
-            body.applyForceToCenter(-1f * (size * 100f) * delta, 0f, true);
+            body.applyForceToCenter(-currentDensity, 0f, true);
         }
     }
 }
