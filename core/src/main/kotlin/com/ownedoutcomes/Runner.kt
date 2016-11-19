@@ -7,10 +7,12 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.utils.viewport.Viewport
 import com.ownedoutcomes.asset.loadSkin
 import com.ownedoutcomes.logic.GameController
+import com.ownedoutcomes.logic.GameRenderer
 import com.ownedoutcomes.view.Game
 import com.ownedoutcomes.view.Menu
 import com.ownedoutcomes.view.MockView
 import com.ownedoutcomes.view.View
+import com.ownedoutcomes.view.*
 import ktx.app.KotlinApplication
 import ktx.app.LetterboxingViewport
 import ktx.inject.inject
@@ -27,9 +29,11 @@ class Runner : KotlinApplication() {
         val skin = loadSkin()
         Scene2DSkin.defaultSkin = skin
         val menuView = Menu(stage)
+        val gameOverView = GameOver(stage)
         val gameController = GameController()
-        val gameView = Game(stage, gameController)
         val runner = this
+        val renderer = GameRenderer(gameController, batch, skin)
+        val gameView = Game(stage, gameController, renderer)
         view = menuView
         register {
             bindSingleton(runner)
@@ -39,6 +43,8 @@ class Runner : KotlinApplication() {
             bindSingleton(menuView)
             bindSingleton(gameView)
             bindSingleton(gameController)
+            bindSingleton(renderer)
+            bindSingleton(gameOverView)
         }
         Gdx.input.inputProcessor = stage
         stage.addAction(Actions.sequence(Actions.alpha(0f), Actions.fadeIn(0.5f)))

@@ -60,7 +60,7 @@ class Player(world: World, val inputController: InputController) : AbstractEntit
     }
 
     fun eat(food: Food) {
-        size += food.size / 5f
+        size += food.size / 10f
         body.fixtureList.first().shape.radius = size
     }
 }
