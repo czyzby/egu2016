@@ -21,7 +21,7 @@ val halfGameWorldWidth = gameWorldWidth / 2f
 val halfGameWorldHeight = gameWorldHeight / 2f
 
 class GameController {
-    private val gameViewport: Viewport = FitViewport(gameWorldWidth, gameWorldHeight)
+    val gameViewport: Viewport = FitViewport(gameWorldWidth, gameWorldHeight)
     private val renderer = Box2DDebugRenderer()
     private val inputController = InputController(gameViewport)
     private lateinit var world: World
@@ -30,6 +30,7 @@ class GameController {
     val playersToRemove = gdxArrayOf<Player>()
     val foodToRemove = gdxArrayOf<Food>()
     private var timeSinceSpawn = 100f
+    private var timeSincePlayerSpawn = 0f
 
     fun reload() {
         world = World(vec2(0f, 0f), true)
@@ -46,6 +47,7 @@ class GameController {
     }
 
     fun update(delta: Float) {
+        spawnPlayers(delta)
         spawnFood(delta)
         inputController.update()
         world.step(delta, 8, 3)
@@ -56,6 +58,13 @@ class GameController {
         // TODO add world bounds
         // TODO remove enemies that touch world bounds
         renderer.render(world, gameViewport.camera.combined)
+    }
+
+    private fun  spawnPlayers(delta: Float) {
+        timeSincePlayerSpawn + delta
+        if(timeSincePlayerSpawn > MathUtils.random(60f, 120f)) {
+
+        }
     }
 
     private fun spawnFood(delta: Float) {
@@ -98,5 +107,6 @@ class GameController {
         food.clear()
         foodToRemove.clear()
         timeSinceSpawn = 100f
+        timeSincePlayerSpawn = 0f
     }
 }

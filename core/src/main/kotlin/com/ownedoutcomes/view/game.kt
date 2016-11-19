@@ -6,10 +6,11 @@ import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.utils.Align
 import com.ownedoutcomes.logic.GameController
+import com.ownedoutcomes.logic.GameRenderer
 import ktx.actors.onKey
 import ktx.scene2d.*
 
-class Game(stage: Stage, private val gameController: GameController) : AbstractView(stage) {
+class Game(stage: Stage, private val gameController: GameController, val gameRenderer: GameRenderer) : AbstractView(stage) {
     lateinit var image: Actor
 
     override val root = table {
@@ -47,6 +48,7 @@ class Game(stage: Stage, private val gameController: GameController) : AbstractV
 
     override fun render(delta: Float) {
         gameController.update(delta)
+        gameRenderer.render(delta)
         super.render(delta)
     }
 }
