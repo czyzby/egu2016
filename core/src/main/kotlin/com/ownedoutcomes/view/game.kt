@@ -14,6 +14,11 @@ class Game(stage: Stage, private val gameController: GameController) : AbstractV
         }
     }
 
+    override fun resize(width: Int, height: Int) {
+        super.resize(width, height)
+        gameController.resize(width, height)
+    }
+
     override fun render(delta: Float) {
         gameController.update(delta)
         super.render(delta)

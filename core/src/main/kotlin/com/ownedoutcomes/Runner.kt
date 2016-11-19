@@ -60,6 +60,7 @@ class Runner : KotlinApplication() {
                     view.hide()
                     view = nextView
                     nextView.show()
+                    nextView.resize(Gdx.graphics.width, Gdx.graphics.height)
                 },
                 Actions.fadeIn(0.5f),
                 Actions.alpha(1f)
