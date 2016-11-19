@@ -32,6 +32,7 @@ class FoodBooster(world: World) : AbstractEntity(world) {
         }
         val result = world.createBody(body)
         result.createFixture(fixture).userData = this
+        circle.dispose()
         return result
     }
 

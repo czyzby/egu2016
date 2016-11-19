@@ -17,6 +17,7 @@ import ktx.collections.isEmpty
 import ktx.collections.isNotEmpty
 import ktx.inject.inject
 import ktx.math.vec2
+import java.util.concurrent.ThreadLocalRandom
 
 val gameWorldWidth = 8f
 val gameWorldHeight = 6f
@@ -64,7 +65,6 @@ class GameController {
         spawnFood(delta)
         spawnShoe(delta)
         spawnBoosters(delta)
-        spawnNewPlayers(delta)
         inputController.update()
         world.step(delta, 8, 3)
         players.forEach { it.update(delta) }
@@ -75,6 +75,7 @@ class GameController {
         removePlayers()
         removeShoes()
         removeBoosters()
+        spawnNewPlayers(delta)
         // TODO add world bounds
         // TODO remove enemies that touch world bounds
         renderer.render(world, gameViewport.camera.combined)
@@ -107,18 +108,21 @@ class GameController {
     }
 
     private fun spawnBoosters(delta: Float) {
-        println("spawn booster")
         timeSinceShoeSpawn += delta
+        print("1 ")
         if (timeSinceShoeSpawn > MathUtils.random(1f, 2f)) {
+            print("2 ")
             boosters.add(FoodBooster(world).initiate())
+            print("3 ")
             timeSinceShoeSpawn = 0f
+            println("4 ")
         }
     }
 
     private fun spawnNewPlayers(delta: Float) {
         println("spawn new player")
         if (playersToAdd > 0) {
-            for (i in 1 .. playersToAdd) {
+            while(playersToAdd-- > 0) {
                 addBodies()
             }
             playersToAdd = 0
@@ -191,3 +195,5 @@ class GameController {
         timeSinceShoeSpawn = 0f
     }
 }
+
+fun random(from: Float, to: Float) = from + ThreadLocalRandom.current().nextFloat()  * (to- from)

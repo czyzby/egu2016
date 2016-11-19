@@ -1,5 +1,6 @@
 package com.ownedoutcomes
 
+import com.badlogic.gdx.Application
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.scenes.scene2d.Stage
@@ -23,6 +24,7 @@ class Runner : KotlinApplication() {
     private var view: View = MockView()
 
     override fun create() {
+        Gdx.app.logLevel = Application.LOG_DEBUG
         val viewport: Viewport = LetterboxingViewport(targetPpiX = 96f, targetPpiY = 96f, aspectRatio = 4f / 3f)
         val batch = SpriteBatch()
         val stage = Stage(viewport, batch)

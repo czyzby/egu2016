@@ -43,6 +43,7 @@ class ContactController(val gameController: GameController) : ContactListener {
                 secondEntity.eat(firstEntity)
             }
         }
+        println("skończyłem sprawdzać kolizje pomiędzy $firstEntity a $secondEntity")
     }
 
     override fun preSolve(contact: Contact?, oldManifold: Manifold?) {

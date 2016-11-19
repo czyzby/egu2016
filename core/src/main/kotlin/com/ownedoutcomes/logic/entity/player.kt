@@ -17,6 +17,8 @@ class Player(world: World, val inputController: InputController) : AbstractEntit
             type = BodyDef.BodyType.DynamicBody
             fixedRotation = true
             linearDamping = 1f
+            position.x = MathUtils.random(-1f, 1f)
+            position.y = MathUtils.random(-1f, 1f)
         }
         val fixture = FixtureDef().apply {
             shape = circle
@@ -28,6 +30,7 @@ class Player(world: World, val inputController: InputController) : AbstractEntit
         }
         val result = world.createBody(body)
         result.createFixture(fixture).userData = this
+        circle.dispose()
         return result
     }
 
@@ -62,7 +65,9 @@ class Player(world: World, val inputController: InputController) : AbstractEntit
     }
 
     fun eat(food: Food) {
+        println("przed eatem")
         size += food.size / 10f
         body.fixtureList.first().shape.radius = size
+        println("po eatem")
     }
 }
