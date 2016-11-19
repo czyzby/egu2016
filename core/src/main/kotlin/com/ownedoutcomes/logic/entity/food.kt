@@ -33,7 +33,7 @@ class Food(world: World) : AbstractEntity(world) {
 
     private fun getRandomSize(): Float {
         val random = MathUtils.random(-0.2f, 1f)
-        return if (random < 0.1f) 0.1f else random // TODO uzaleznic od wielkosci gracza?
+        return if (random < 0.1f) 0.1f else random // TODO uzaleznic od wielkosci gracza? eee makarena
     }
 
     override fun update(delta: Float) {
