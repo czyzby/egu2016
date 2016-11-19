@@ -55,4 +55,14 @@ class Food(world: World) : AbstractEntity(world) {
         }
 
     }
+
+    fun eat(food: FoodBooster) {
+        size += food.size / 10f
+        body.fixtureList.first().shape.radius = size
+    }
+
+    fun eat(food: Player) {
+        size += food.size / 10f
+        body.fixtureList.first().shape.radius = size
+    }
 }

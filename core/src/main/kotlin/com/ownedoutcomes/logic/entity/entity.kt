@@ -32,4 +32,4 @@ val playerGroup: Short = 0b00000010
 val playerCollisionGroup: Short = 0b00001111
 val shoeCollisionGroup: Short = 0b00001111
 val foodCollisionGroup: Short = 0b00001110
-val foodBoosterCollisionGroup: Short = 0b00001110
+val foodBoosterCollisionGroup: Short = 0b00000110

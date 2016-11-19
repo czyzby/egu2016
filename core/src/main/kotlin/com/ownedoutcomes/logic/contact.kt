@@ -18,9 +18,14 @@ class ContactController(val gameController: GameController) : ContactListener {
     }
 
     private fun checkContact(firstEntity: Any, secondEntity: Any) {
+        println("sprawdzam kolizje pomiędzy $firstEntity a $secondEntity")
         if (firstEntity is Food && secondEntity is Player) {
             if (firstEntity.size > secondEntity.size * 1.05) {
+//                val sizeFactor = (secondEntity.size / firstEntity.size)
+//                firstEntity.body.fixtureList[0].shape.radius -=  sizeFactor * firstEntity.body.fixtureList[0].shape.radius
+//                firstEntity.size -= sizeFactor  * firstEntity.size
                 gameController.playersToRemove.add(secondEntity)
+                secondEntity.eat(firstEntity)
             } else {
                 gameController.foodToRemove.add(firstEntity)
                 secondEntity.eat(firstEntity)
@@ -28,14 +33,14 @@ class ContactController(val gameController: GameController) : ContactListener {
         }
 
         if (firstEntity is FoodBooster && secondEntity is Player) {
-            val newPlayer = Player(secondEntity.world, secondEntity.inputController)
-            gameController.playersToAdd.add(newPlayer)
+            gameController.playersToAdd++
             gameController.boostersToRemove.add(firstEntity)
         }
 
         if (firstEntity is FoodBooster && secondEntity is Food) {
             if (firstEntity.size < secondEntity.size * 1.05) {
                 gameController.boostersToRemove.add(firstEntity)
+                secondEntity.eat(firstEntity)
             }
         }
     }

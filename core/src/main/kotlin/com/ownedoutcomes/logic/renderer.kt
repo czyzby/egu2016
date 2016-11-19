@@ -18,6 +18,8 @@ class GameRenderer(val gameController: GameController, val batch: Batch, skin: S
     }
 
     fun render(delta: Float) {
+        println("renderuję skurczysynów")
+
         batch.projectionMatrix = gameController.gameViewport.camera.combined
         batch.begin()
         gameController.players.forEach {

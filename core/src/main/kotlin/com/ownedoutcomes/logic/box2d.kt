@@ -34,7 +34,7 @@ class GameController {
     val shoes = gdxSetOf<Shoe>()
     val boosters = gdxSetOf<FoodBooster>()
 
-    val playersToAdd = gdxSetOf<Player>()
+    var playersToAdd = 0
 
     val playersToRemove = gdxArrayOf<Player>()
     val foodToRemove = gdxArrayOf<Food>()
@@ -81,6 +81,7 @@ class GameController {
     }
 
     private fun spawnPlayers(delta: Float) {
+        println("spawn player")
         timeSincePlayerSpawn + delta
         if (timeSincePlayerSpawn > MathUtils.random(60f, 120f)) {
 
@@ -88,6 +89,7 @@ class GameController {
     }
 
     private fun spawnFood(delta: Float) {
+        println("spawn food")
         timeSinceSpawn += delta
         if (timeSinceSpawn > MathUtils.random(1f, 2f)) {
             food.add(Food(world).initiate())
@@ -96,6 +98,7 @@ class GameController {
     }
 
     private fun spawnShoe(delta: Float) {
+        println("spawn shoe")
         timeSinceShoeSpawn += delta
         if (timeSinceShoeSpawn > MathUtils.random(10f, 20f)) {
             shoes.add(Shoe(world).initiate())
@@ -104,6 +107,7 @@ class GameController {
     }
 
     private fun spawnBoosters(delta: Float) {
+        println("spawn booster")
         timeSinceShoeSpawn += delta
         if (timeSinceShoeSpawn > MathUtils.random(1f, 2f)) {
             boosters.add(FoodBooster(world).initiate())
@@ -112,11 +116,12 @@ class GameController {
     }
 
     private fun spawnNewPlayers(delta: Float) {
-        if (playersToAdd.isNotEmpty()) {
-            playersToAdd.forEach {
+        println("spawn new player")
+        if (playersToAdd > 0) {
+            for (i in 1 .. playersToAdd) {
                 addBodies()
             }
-            playersToAdd.clear()
+            playersToAdd = 0
         }
     }
 
@@ -178,7 +183,11 @@ class GameController {
         foodToRemove.clear()
         shoes.clear()
         shoesToRemove.clear()
+        boosters.clear()
+        playersToAdd = 0
+        boostersToRemove.clear()
         timeSinceSpawn = 100f
         timeSincePlayerSpawn = 0f
+        timeSinceShoeSpawn = 0f
     }
 }
