@@ -1,7 +1,8 @@
 package com.ownedoutcomes.logic
 
 import com.badlogic.gdx.math.MathUtils
-import com.badlogic.gdx.physics.box2d.*
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer
+import com.badlogic.gdx.physics.box2d.World
 import com.badlogic.gdx.utils.viewport.FitViewport
 import com.badlogic.gdx.utils.viewport.Viewport
 import com.ownedoutcomes.Runner
@@ -79,9 +80,9 @@ class GameController {
         renderer.render(world, gameViewport.camera.combined)
     }
 
-    private fun  spawnPlayers(delta: Float) {
+    private fun spawnPlayers(delta: Float) {
         timeSincePlayerSpawn + delta
-        if(timeSincePlayerSpawn > MathUtils.random(60f, 120f)) {
+        if (timeSincePlayerSpawn > MathUtils.random(60f, 120f)) {
 
         }
     }
@@ -126,13 +127,20 @@ class GameController {
                 players.remove(it)
             }
             playersToRemove.clear()
-            if(players.isEmpty()) {
+            if (players.isEmpty()) {
                 inject<Runner>().setCurrentView(inject<GameOver>())
             }
         }
     }
 
     private fun removeFood() {
+        food.forEach {
+            if (it.body.position.x < -10 || it.body.position.y > 10 ||
+                    it.body.position.y < -10 || it.body.position.y > 10) {
+                foodToRemove.add(it)
+            }
+        }
+
         if (foodToRemove.isNotEmpty()) {
             foodToRemove.forEach {
                 world.destroyBody(it.body)

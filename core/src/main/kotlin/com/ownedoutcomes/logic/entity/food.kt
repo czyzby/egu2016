@@ -53,5 +53,6 @@ class Food(world: World) : AbstractEntity(world) {
         } else {
             body.applyForceToCenter(-currentDensity, 0f, true);
         }
+
     }
 }

@@ -4,6 +4,7 @@ import com.badlogic.gdx.physics.box2d.Contact
 import com.badlogic.gdx.physics.box2d.ContactImpulse
 import com.badlogic.gdx.physics.box2d.ContactListener
 import com.badlogic.gdx.physics.box2d.Manifold
+import com.ownedoutcomes.logic.entity.Bound
 import com.ownedoutcomes.logic.entity.Food
 import com.ownedoutcomes.logic.entity.FoodBooster
 import com.ownedoutcomes.logic.entity.Player
@@ -37,6 +38,10 @@ class ContactController(val gameController: GameController) : ContactListener {
             if (firstEntity.size < secondEntity.size * 1.05) {
                 gameController.boostersToRemove.add(firstEntity)
             }
+        }
+
+        if (firstEntity is Food && secondEntity is Bound) {
+            gameController.foodToRemove.add(secondEntity as Food)
         }
     }
 

@@ -32,7 +32,7 @@ fun loadSkin() = skin(atlas = loadOnDemand<TextureAtlas>(path = "skin.atlas").as
 
     textField("game-over") {
         font = bitmapFont
-        messageFont= bitmapFont
+        messageFont = bitmapFont
         fontColor = Color.PINK
     }
 }
