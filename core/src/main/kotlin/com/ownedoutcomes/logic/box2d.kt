@@ -1,10 +1,12 @@
 package com.ownedoutcomes.logic
 
 import com.badlogic.gdx.math.MathUtils
-import com.badlogic.gdx.physics.box2d.*
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer
+import com.badlogic.gdx.physics.box2d.World
 import com.badlogic.gdx.utils.viewport.FitViewport
 import com.badlogic.gdx.utils.viewport.Viewport
 import com.ownedoutcomes.Runner
+import com.ownedoutcomes.logic.entity.Bound
 import com.ownedoutcomes.logic.entity.Food
 import com.ownedoutcomes.logic.entity.Player
 import com.ownedoutcomes.view.Menu
@@ -25,10 +27,13 @@ class GameController {
     private val renderer = Box2DDebugRenderer()
     private val inputController = InputController(gameViewport)
     private lateinit var world: World
+
     val players = gdxSetOf<Player>()
     val food = gdxSetOf<Food>()
     val playersToRemove = gdxArrayOf<Player>()
     val foodToRemove = gdxArrayOf<Food>()
+    val bounds = gdxArrayOf<Bound>()
+
     private var timeSinceSpawn = 100f
 
     fun reload() {
@@ -39,6 +44,7 @@ class GameController {
 
     private fun addBodies() {
         players.add(Player(world, inputController).initiate())
+        bounds.add(Bound(world).initiate())
     }
 
     fun resize(width: Int, height: Int) {
@@ -51,6 +57,7 @@ class GameController {
         world.step(delta, 8, 3)
         players.forEach { it.update(delta) }
         food.forEach { it.update(delta) }
+        bounds.forEach { it.update(delta) }
         removeFood()
         removePlayers()
         // TODO add world bounds
@@ -73,7 +80,7 @@ class GameController {
                 players.remove(it)
             }
             playersToRemove.clear()
-            if(players.isEmpty()) {
+            if (players.isEmpty()) {
                 // TODO implement game over!
                 inject<Runner>().setCurrentView(inject<Menu>())
             }
