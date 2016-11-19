@@ -38,10 +38,6 @@ class ContactController(val gameController: GameController) : ContactListener {
                 gameController.boostersToRemove.add(firstEntity)
             }
         }
-
-        if (firstEntity is Food && secondEntity is Bound) {
-            gameController.foodToRemove.add(secondEntity as Food)
-        }
     }
 
     override fun preSolve(contact: Contact?, oldManifold: Manifold?) {
