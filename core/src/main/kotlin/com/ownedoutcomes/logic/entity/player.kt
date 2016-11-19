@@ -1,14 +1,17 @@
 package com.ownedoutcomes.logic.entity
 
+import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.physics.box2d.*
+import com.ownedoutcomes.logic.InputController
 
-class Player(world: World) : AbstractEntity(world) {
+class Player(world: World, val inputController: InputController) : AbstractEntity(world) {
     override fun createBody(world: World): Body {
         val circle = CircleShape()
         circle.radius = 0.5f
         val body = BodyDef().apply {
             type = BodyDef.BodyType.DynamicBody
             fixedRotation = true
+            linearDamping = 1f
         }
         val fixture = FixtureDef().apply {
             shape = circle
@@ -19,5 +22,12 @@ class Player(world: World) : AbstractEntity(world) {
         val result = world.createBody(body)
         result.createFixture(fixture)
         return result
+    }
+
+    override fun update(delta: Float) {
+        val angle = MathUtils.atan2(inputController.y - body.position.y, inputController.x - body.position.x)
+        val xForce = MathUtils.cos(angle);
+        val yForce = MathUtils.sin(angle);
+        body.applyForceToCenter(xForce * 75, yForce * 75, true)
     }
 }
