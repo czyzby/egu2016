@@ -7,8 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.utils.Align
 import com.ownedoutcomes.logic.GameController
 import ktx.actors.onKey
-import ktx.scene2d.image
-import ktx.scene2d.table
+import ktx.scene2d.*
 
 class Game(stage: Stage, private val gameController: GameController) : AbstractView(stage) {
     lateinit var image: Actor

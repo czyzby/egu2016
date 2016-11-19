@@ -7,7 +7,7 @@ import com.badlogic.gdx.utils.viewport.Viewport
 import com.ownedoutcomes.Runner
 import com.ownedoutcomes.logic.entity.Food
 import com.ownedoutcomes.logic.entity.Player
-import com.ownedoutcomes.view.Menu
+import com.ownedoutcomes.view.GameOver
 import ktx.collections.gdxArrayOf
 import ktx.collections.gdxSetOf
 import ktx.collections.isEmpty
@@ -75,7 +75,8 @@ class GameController {
             playersToRemove.clear()
             if(players.isEmpty()) {
                 // TODO implement game over!
-                inject<Runner>().setCurrentView(inject<Menu>())
+                //                inject<Runner>().setCurrentView(inject<Menu>())
+                inject<Runner>().setCurrentView(inject<GameOver>())
             }
         }
     }
