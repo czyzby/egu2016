@@ -2,7 +2,9 @@ package com.ownedoutcomes.logic
 
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.Sprite
+import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
+
 
 class GameRenderer(val gameController: GameController, val batch: Batch, skin: Skin) {
     private val playerSprite = skin.atlas.createSprite("player0")
@@ -10,6 +12,7 @@ class GameRenderer(val gameController: GameController, val batch: Batch, skin: S
 
     init {
         playerSprite.setOriginCenter()
+        playerSprite.flip(true, false)
         enemySprite.setOriginCenter()
     }
 
@@ -22,6 +25,8 @@ class GameRenderer(val gameController: GameController, val batch: Batch, skin: S
             playerSprite.x = it.body.position.x - it.size
             playerSprite.y = it.body.position.y - it.size
             playerSprite.setSize(spriteSize, spriteSize)
+            playerSprite.setOriginCenter()
+            playerSprite.rotation = MathUtils.radiansToDegrees * it.angle
             playerSprite.draw(batch)
         }
 
