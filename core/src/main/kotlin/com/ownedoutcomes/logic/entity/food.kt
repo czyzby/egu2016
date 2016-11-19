@@ -28,7 +28,7 @@ class Food(world: World) : AbstractEntity(world) {
             friction = 0.3f
             restitution = 0.1f
             filter.categoryBits = foodGroup
-            filter.maskBits = playerGroup
+            filter.maskBits = foodCollisionGroup
         }
         val result = world.createBody(body)
         result.createFixture(fixture).userData = this

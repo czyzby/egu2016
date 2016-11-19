@@ -24,7 +24,7 @@ class Shoe(world: World) : AbstractEntity(world) {
             friction = 0.3f
             restitution = 0.1f
             filter.categoryBits = shoeGroup
-            filter.maskBits = foodGroup
+            filter.maskBits = shoeCollisionGroup
         }
         val result = world.createBody(body)
         result.createFixture(fixture).userData = this

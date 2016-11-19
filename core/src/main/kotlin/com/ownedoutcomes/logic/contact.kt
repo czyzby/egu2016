@@ -31,14 +31,8 @@ class ContactController(val gameController: GameController) : ContactListener {
                 if (firstEntity.size > secondEntity.size * 1.05) {
                     gameController.playersToRemove.add(secondEntity)
                 }
-            } else if (secondEntity is Food) {
-                if (firstEntity.size > secondEntity.size * 1.05) {
-                    gameController.foodToRemove.add(secondEntity)
-                }
             }
-
         }
-
     }
 
     override fun preSolve(contact: Contact?, oldManifold: Manifold?) {
