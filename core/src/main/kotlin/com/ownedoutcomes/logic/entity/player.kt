@@ -8,6 +8,8 @@ val playerDensity = 20f
 
 class Player(world: World, val inputController: InputController) : AbstractEntity(world) {
     var size: Float = 0.2f
+    var angle: Float = 0.0f;
+
     override fun createBody(world: World): Body {
         val circle = CircleShape()
         circle.radius = 0.2f
@@ -40,7 +42,7 @@ class Player(world: World, val inputController: InputController) : AbstractEntit
         if (body.fixtureList.first().testPoint(inputController.x, inputController.y)) {
             return
         }
-        val angle = MathUtils.atan2(inputController.y - body.position.y, inputController.x - body.position.x)
+        angle = MathUtils.atan2(inputController.y - body.position.y, inputController.x - body.position.x)
         val xForce = MathUtils.cos(angle);
         val yForce = MathUtils.sin(angle);
         body.applyForceToCenter(

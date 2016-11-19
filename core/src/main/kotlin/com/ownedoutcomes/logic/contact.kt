@@ -7,6 +7,7 @@ import com.badlogic.gdx.physics.box2d.Manifold
 import com.ownedoutcomes.logic.entity.Bound
 import com.ownedoutcomes.logic.entity.Food
 import com.ownedoutcomes.logic.entity.Player
+import com.ownedoutcomes.logic.entity.Shoe
 
 class ContactController(val gameController: GameController) : ContactListener {
     override fun endContact(contact: Contact) {
