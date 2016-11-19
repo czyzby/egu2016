@@ -12,7 +12,6 @@ class GameRenderer(val gameController: GameController, val batch: Batch, skin: S
 
     init {
         playerSprite.setOriginCenter()
-        playerSprite.flip(true, false)
         enemySprite.setOriginCenter()
     }
 
@@ -21,6 +20,7 @@ class GameRenderer(val gameController: GameController, val batch: Batch, skin: S
         batch.begin()
         gameController.players.forEach {
             val playerSprite = Sprite(playerSprite)
+            playerSprite.flip(true, false)
             val spriteSize = it.size * 2
             playerSprite.x = it.body.position.x - it.size
             playerSprite.y = it.body.position.y - it.size
