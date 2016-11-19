@@ -83,8 +83,6 @@ class GameController {
             }
             playersToRemove.clear()
             if(players.isEmpty()) {
-                // TODO implement game over!
-                //                inject<Runner>().setCurrentView(inject<Menu>())
                 inject<Runner>().setCurrentView(inject<GameOver>())
             }
         }
