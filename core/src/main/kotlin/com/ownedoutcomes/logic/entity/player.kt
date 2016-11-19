@@ -4,11 +4,13 @@ import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.physics.box2d.*
 import com.ownedoutcomes.logic.InputController
 
+val playerDensity = 20f
+
 class Player(world: World, val inputController: InputController) : AbstractEntity(world) {
-    var size: Int = 1
+    var size: Float = 0.2f
     override fun createBody(world: World): Body {
         val circle = CircleShape()
-        circle.radius = 0.5f
+        circle.radius = 0.2f
         val body = BodyDef().apply {
             type = BodyDef.BodyType.DynamicBody
             fixedRotation = true
@@ -16,7 +18,7 @@ class Player(world: World, val inputController: InputController) : AbstractEntit
         }
         val fixture = FixtureDef().apply {
             shape = circle
-            density = 20f
+            density = playerDensity
             friction = 0.3f
             restitution = 0.1f
         }
@@ -26,34 +28,25 @@ class Player(world: World, val inputController: InputController) : AbstractEntit
     }
 
     override fun update(delta: Float) {
+        val currentDensity = 10f + size * size * MathUtils.PI * playerDensity
+        body.applyForceToCenter(
+                -body.linearVelocity.x * currentDensity / 4f,
+                -body.linearVelocity.y * currentDensity / 4f,
+                true)
+        if (body.fixtureList.first().testPoint(inputController.x, inputController.y)) {
+            return
+        }
         val angle = MathUtils.atan2(inputController.y - body.position.y, inputController.x - body.position.x)
         val xForce = MathUtils.cos(angle);
         val yForce = MathUtils.sin(angle);
-
-//        bodyFixture.shape.radius = shapeRadius
-////        println("shapeRadius = $shapeRadius - radius = $bodyFixture.shape.radius")
-
-        val bodyFixture = body.fixtureList[0];
-
-        val bodyShapeRadius = bodyFixture.shape.radius
-        val magicFactor = 75 + size * 10
-
-        val negativeXForce = -(xForce * (1f / bodyShapeRadius) * 10)
-        val negativeYForce = -(yForce * (1f / bodyShapeRadius) * 10)
-        body.applyForceToCenter(negativeXForce, negativeYForce, true)
-        println("negative: X = $negativeXForce, Y = $negativeYForce")
-
-        body.applyForceToCenter(xForce * magicFactor, yForce * magicFactor, true)
-        println(size)
+        body.applyForceToCenter(
+                xForce * currentDensity,
+                yForce * currentDensity,
+                true)
     }
 
     fun enlarge() {
-        size++
-        body.fixtureList.first().shape.radius += 0.1f
-    }
-
-    fun smaller() {
-        size--
-        body.fixtureList.first().shape.radius -= 0.1f
+        size += 0.2f
+        body.fixtureList.first().shape.radius = size
     }
 }
