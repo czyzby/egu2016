@@ -1,5 +1,6 @@
 package com.ownedoutcomes.view
 
+import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Stage
 
 interface View {
@@ -10,7 +11,9 @@ interface View {
 }
 
 abstract class AbstractView(val stage: Stage) : View {
+    abstract val root: Actor
     override fun show() {
+        stage.addActor(root)
     }
 
     override fun resize(width: Int, height: Int) {
@@ -23,6 +26,7 @@ abstract class AbstractView(val stage: Stage) : View {
     }
 
     override fun hide() {
+        stage.root.clearChildren()
     }
 }
 
