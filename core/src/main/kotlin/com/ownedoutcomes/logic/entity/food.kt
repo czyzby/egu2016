@@ -8,6 +8,7 @@ import com.ownedoutcomes.logic.halfGameWorldWidth
 class Food(world: World) : AbstractEntity(world) {
     var size = getRandomSize()
     var spawnedLeft = false
+    var speedBonus = MathUtils.random(0.8f, 1.5f)
 
     override fun createBody(world: World): Body {
         val circle = CircleShape()
@@ -42,7 +43,7 @@ class Food(world: World) : AbstractEntity(world) {
     }
 
     override fun update(delta: Float) {
-        val currentDensity = 7f + size * size * MathUtils.PI * playerDensity
+        val currentDensity = size * size * MathUtils.PI * playerDensity * speedBonus * MathUtils.random(0.9f, 1.1f)
         body.applyForceToCenter(
                 -body.linearVelocity.x * currentDensity / 4f,
                 -body.linearVelocity.y * currentDensity / 4f,

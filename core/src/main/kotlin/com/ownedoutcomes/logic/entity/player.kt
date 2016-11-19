@@ -32,7 +32,7 @@ class Player(world: World, val inputController: InputController) : AbstractEntit
     override fun initiate(): Player = super.initiate() as Player
 
     override fun update(delta: Float) {
-        val currentDensity = 10f + size * size * MathUtils.PI * playerDensity
+        val currentDensity = 15f + size * size * MathUtils.PI * playerDensity * 1.05f
         body.applyForceToCenter(
                 -body.linearVelocity.x * currentDensity / 4f,
                 -body.linearVelocity.y * currentDensity / 4f,
@@ -60,7 +60,7 @@ class Player(world: World, val inputController: InputController) : AbstractEntit
     }
 
     fun eat(food: Food) {
-        size += food.size / 8f
+        size += food.size / 5f
         body.fixtureList.first().shape.radius = size
     }
 }
