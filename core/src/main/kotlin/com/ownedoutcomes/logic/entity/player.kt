@@ -29,12 +29,31 @@ class Player(world: World, val inputController: InputController) : AbstractEntit
         val angle = MathUtils.atan2(inputController.y - body.position.y, inputController.x - body.position.x)
         val xForce = MathUtils.cos(angle);
         val yForce = MathUtils.sin(angle);
-        body.applyForceToCenter(xForce * (75 + size * 10), yForce * (75 + size * 10), true)
+
+//        bodyFixture.shape.radius = shapeRadius
+////        println("shapeRadius = $shapeRadius - radius = $bodyFixture.shape.radius")
+
+        val bodyFixture = body.fixtureList[0];
+
+        val bodyShapeRadius = bodyFixture.shape.radius
+        val magicFactor = 75 + size * 10
+
+        val negativeXForce = -(xForce * (1f / bodyShapeRadius) * 10)
+        val negativeYForce = -(yForce * (1f / bodyShapeRadius) * 10)
+        body.applyForceToCenter(negativeXForce, negativeYForce, true)
+        println("negative: X = $negativeXForce, Y = $negativeYForce")
+
+        body.applyForceToCenter(xForce * magicFactor, yForce * magicFactor, true)
         println(size)
     }
 
     fun enlarge() {
         size++
-        body.fixtureList.first().shape.radius += 1
+        body.fixtureList.first().shape.radius += 0.1f
+    }
+
+    fun smaller() {
+        size--
+        body.fixtureList.first().shape.radius -= 0.1f
     }
 }
