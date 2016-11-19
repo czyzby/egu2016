@@ -38,7 +38,7 @@ class Food(world: World) : AbstractEntity(world) {
     override fun initiate(): Food = super.initiate() as Food
 
     private fun getRandomSize(): Float {
-        val random = MathUtils.random(-0.2f, 1f)
+        val random = Math.abs(MathUtils.random(-0.4f, 1f))
         return if (random < 0.1f) 0.1f else random // TODO uzaleznic od wielkosci gracza? eee makarena
     }
 
