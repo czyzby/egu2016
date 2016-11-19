@@ -24,6 +24,8 @@ abstract class AbstractEntity(val world: World) : Entity {
 
 // Collision groups:
 val foodGroup: Short = 0b00000001
+val shoeGroup: Short = 0b00000001
+
 val playerGroup: Short = 0b00000010
 
 val playerCollisionGroup: Short = 0b00000011

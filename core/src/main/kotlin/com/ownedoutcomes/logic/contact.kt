@@ -6,6 +6,7 @@ import com.badlogic.gdx.physics.box2d.ContactListener
 import com.badlogic.gdx.physics.box2d.Manifold
 import com.ownedoutcomes.logic.entity.Food
 import com.ownedoutcomes.logic.entity.Player
+import com.ownedoutcomes.logic.entity.Shoe
 
 class ContactController(val gameController: GameController) : ContactListener {
     override fun endContact(contact: Contact) {
@@ -25,6 +26,19 @@ class ContactController(val gameController: GameController) : ContactListener {
                 secondEntity.eat(firstEntity)
             }
         }
+        if (firstEntity is Shoe) {
+            if(secondEntity is Player) {
+                if (firstEntity.size > secondEntity.size * 1.05) {
+                    gameController.playersToRemove.add(secondEntity)
+                }
+            } else if (secondEntity is Food) {
+                if (firstEntity.size > secondEntity.size * 1.05) {
+                    gameController.foodToRemove.add(secondEntity)
+                }
+            }
+
+        }
+
     }
 
     override fun preSolve(contact: Contact?, oldManifold: Manifold?) {

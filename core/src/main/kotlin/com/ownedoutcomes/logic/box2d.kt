@@ -7,6 +7,7 @@ import com.badlogic.gdx.utils.viewport.Viewport
 import com.ownedoutcomes.Runner
 import com.ownedoutcomes.logic.entity.Food
 import com.ownedoutcomes.logic.entity.Player
+import com.ownedoutcomes.logic.entity.Shoe
 import com.ownedoutcomes.view.GameOver
 import ktx.collections.gdxArrayOf
 import ktx.collections.gdxSetOf
@@ -27,10 +28,13 @@ class GameController {
     private lateinit var world: World
     val players = gdxSetOf<Player>()
     val food = gdxSetOf<Food>()
+    val shoes = gdxSetOf<Shoe>()
     val playersToRemove = gdxArrayOf<Player>()
     val foodToRemove = gdxArrayOf<Food>()
+    val shoesToRemove = gdxArrayOf<Shoe>()
     private var timeSinceSpawn = 100f
     private var timeSincePlayerSpawn = 0f
+    private var timeSinceShoeSpawn = 0f
 
     fun reload() {
         world = World(vec2(0f, 0f), true)
@@ -49,12 +53,15 @@ class GameController {
     fun update(delta: Float) {
         spawnPlayers(delta)
         spawnFood(delta)
+        spawnShoe(delta)
         inputController.update()
         world.step(delta, 8, 3)
         players.forEach { it.update(delta) }
         food.forEach { it.update(delta) }
+        shoes.forEach { it.update(delta) }
         removeFood()
         removePlayers()
+        removeShoes()
         // TODO add world bounds
         // TODO remove enemies that touch world bounds
         renderer.render(world, gameViewport.camera.combined)
@@ -72,6 +79,14 @@ class GameController {
         if (timeSinceSpawn > MathUtils.random(1f, 2f)) {
             food.add(Food(world).initiate())
             timeSinceSpawn = 0f
+        }
+    }
+
+    private fun spawnShoe(delta: Float) {
+        timeSinceShoeSpawn += delta
+        if (timeSinceShoeSpawn > MathUtils.random(1f, 2f)) {
+            shoes.add(Shoe(world).initiate())
+            timeSinceShoeSpawn = 0f
         }
     }
 
@@ -98,12 +113,24 @@ class GameController {
         }
     }
 
+    private fun removeShoes() {
+        if (shoesToRemove.isNotEmpty()) {
+            shoesToRemove.forEach {
+                world.destroyBody(it.body)
+                shoes.remove(it)
+            }
+            shoesToRemove.clear()
+        }
+    }
+
     fun destroy() {
         world.dispose()
         players.clear()
         playersToRemove.clear()
         food.clear()
         foodToRemove.clear()
+        shoes.clear()
+        shoesToRemove.clear()
         timeSinceSpawn = 100f
         timeSincePlayerSpawn = 0f
     }

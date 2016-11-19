@@ -9,10 +9,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin
 class GameRenderer(val gameController: GameController, val batch: Batch, skin: Skin) {
     private val playerSprite = skin.atlas.createSprite("player0")
     private val enemySprite = skin.atlas.createSprite("enemy0")
+    private val shoeSprite = skin.atlas.createSprite("but")
 
     init {
         playerSprite.setOriginCenter()
         enemySprite.setOriginCenter()
+        shoeSprite.setOriginCenter()
     }
 
     fun render(delta: Float) {
@@ -39,6 +41,16 @@ class GameRenderer(val gameController: GameController, val batch: Batch, skin: S
             enemySprite.setSize(spriteSize, spriteSize)
             enemySprite.flip(it.spawnedLeft, false)
             enemySprite.draw(batch)
+        }
+
+        gameController.shoes.forEach {
+            val shoeSprite = Sprite(shoeSprite)
+            val spriteSize = it.size * 2
+            shoeSprite.x = it.body.position.x - it.size
+            shoeSprite.y = it.body.position.y - it.size
+            shoeSprite.setOrigin(shoeSprite.x, shoeSprite.y)
+            shoeSprite.setSize(spriteSize, spriteSize)
+            shoeSprite.draw(batch)
         }
         batch.end()
     }
