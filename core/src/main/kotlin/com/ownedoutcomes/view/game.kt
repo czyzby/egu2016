@@ -1,17 +1,32 @@
 package com.ownedoutcomes.view
 
+import com.badlogic.gdx.scenes.scene2d.Actor
+import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.utils.Align
 import com.ownedoutcomes.logic.GameController
-import ktx.scene2d.*
+import ktx.actors.onKey
+import ktx.scene2d.image
+import ktx.scene2d.table
 
 class Game(stage: Stage, private val gameController: GameController) : AbstractView(stage) {
+    lateinit var image: Actor
+
     override val root = table {
         setFillParent(true)
         table { cell ->
             cell.expand().align(Align.bottom)
-            image("play-button")
+            image = image("play-button") {
+                onKey { input: InputEvent, image: Image, c: Char -> if (c == ' ') gameController.players.forEach { it.enlarge() } }
+            }
         }
+
+    }
+
+    override fun show() {
+        super.show()
+        stage.keyboardFocus = image
     }
 
     override fun resize(width: Int, height: Int) {
