@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin
 
 class GameRenderer(val gameController: GameController, val batch: Batch, skin: Skin) {
     private val playerSprite = skin.atlas.createSprite("player0")
+    private val enemySprite = skin.atlas.createSprite("enemy0")
 
     init {
         playerSprite.setOriginCenter()
@@ -19,6 +20,14 @@ class GameRenderer(val gameController: GameController, val batch: Batch, skin: S
             playerSprite.y = it.body.position.y - it.size
             playerSprite.setSize(spriteSize, spriteSize)
             playerSprite.draw(batch)
+        }
+
+        gameController.food.forEach {
+            val spriteSize = it.size * 2
+            enemySprite.x = it.body.position.x - it.size
+            enemySprite.y = it.body.position.y - it.size
+            enemySprite.setSize(spriteSize, spriteSize)
+            enemySprite.draw(batch)
         }
         batch.end()
     }
