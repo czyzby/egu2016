@@ -1,5 +1,6 @@
 package com.ownedoutcomes.logic
 
+import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.physics.box2d.Contact
 import com.badlogic.gdx.physics.box2d.ContactImpulse
 import com.badlogic.gdx.physics.box2d.ContactListener
@@ -43,6 +44,19 @@ class ContactController(val gameController: GameController) : ContactListener {
                 secondEntity.eat(firstEntity)
             }
         }
+
+        if (firstEntity is Player && secondEntity is Player) {
+            val secondEntityPosition = secondEntity.body.position
+            val firstEntityPosition = firstEntity.body.position
+            val angle = MathUtils.atan2(secondEntityPosition.y - firstEntityPosition.y, secondEntityPosition.x - firstEntityPosition.x)
+            val xForce = MathUtils.cos(angle);
+            val yForce = MathUtils.sin(angle);
+            firstEntity.body.applyForceToCenter(
+                    xForce * 100f,
+                    yForce * 100f,
+                    true)
+        }
+
         println("skończyłem sprawdzać kolizje pomiędzy $firstEntity a $secondEntity")
     }
 

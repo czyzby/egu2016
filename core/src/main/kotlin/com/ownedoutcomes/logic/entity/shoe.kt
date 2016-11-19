@@ -4,10 +4,11 @@ import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.physics.box2d.*
 import com.ownedoutcomes.logic.halfGameWorldHeight
 import com.ownedoutcomes.logic.halfGameWorldWidth
+import com.ownedoutcomes.logic.random
 
 class Shoe(world: World) : AbstractEntity(world) {
     var size = getRandomSize()
-    var speedBonus = MathUtils.random(0.8f, 1.5f)
+    var speedBonus = random(0.8f, 1.5f)
 
     override fun createBody(world: World): Body {
         val circle = CircleShape()
@@ -17,7 +18,7 @@ class Shoe(world: World) : AbstractEntity(world) {
             type = BodyDef.BodyType.DynamicBody
             fixedRotation = true
             linearDamping = 1f
-            position.x = MathUtils.random(-halfGameWorldWidth, halfGameWorldWidth)
+            position.x = random(-halfGameWorldWidth, halfGameWorldWidth)
             position.y = halfGameWorldHeight + 2f
         }
         val fixture = FixtureDef().apply {
@@ -36,12 +37,12 @@ class Shoe(world: World) : AbstractEntity(world) {
     override fun initiate(): Shoe = super.initiate() as Shoe
 
     private fun getRandomSize(): Float {
-        val random = Math.abs(MathUtils.random(-0.4f, 1f))
+        val random = Math.abs(random(-0.4f, 1f))
         return if (random < 0.1f) 0.1f else random // TODO uzaleznic od wielkosci gracza? eee makarena
     }
 
     override fun update(delta: Float) {
-        val currentDensity = size * size * MathUtils.PI * playerDensity * speedBonus * MathUtils.random(0.9f, 1.1f)
+        val currentDensity = size * size * MathUtils.PI * playerDensity * speedBonus * random(0.9f, 1.1f)
         body.applyForceToCenter(
                 body.linearVelocity.x * currentDensity / 4f,
                 body.linearVelocity.y * currentDensity / 4f,

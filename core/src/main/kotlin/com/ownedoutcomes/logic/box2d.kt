@@ -1,20 +1,13 @@
 package com.ownedoutcomes.logic
 
-import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer
 import com.badlogic.gdx.physics.box2d.World
 import com.badlogic.gdx.utils.viewport.FitViewport
 import com.badlogic.gdx.utils.viewport.Viewport
 import com.ownedoutcomes.Runner
-import com.ownedoutcomes.logic.entity.Food
-import com.ownedoutcomes.logic.entity.FoodBooster
-import com.ownedoutcomes.logic.entity.Player
-import com.ownedoutcomes.logic.entity.Shoe
+import com.ownedoutcomes.logic.entity.*
 import com.ownedoutcomes.view.GameOver
-import ktx.collections.gdxArrayOf
-import ktx.collections.gdxSetOf
-import ktx.collections.isEmpty
-import ktx.collections.isNotEmpty
+import ktx.collections.*
 import ktx.inject.inject
 import ktx.math.vec2
 import java.util.concurrent.ThreadLocalRandom
@@ -41,6 +34,8 @@ class GameController {
     val foodToRemove = gdxArrayOf<Food>()
     val shoesToRemove = gdxArrayOf<Shoe>()
     val boostersToRemove = gdxArrayOf<FoodBooster>()
+
+    val whatToEat = gdxSetOf<Pair<AbstractEntity, AbstractEntity>>()
 
     private var timeSinceSpawn = 100f
     private var timeSincePlayerSpawn = 0f
@@ -84,7 +79,7 @@ class GameController {
     private fun spawnPlayers(delta: Float) {
         println("spawn player")
         timeSincePlayerSpawn + delta
-        if (timeSincePlayerSpawn > MathUtils.random(60f, 120f)) {
+        if (timeSincePlayerSpawn > random(60f, 120f)) {
 
         }
     }
@@ -92,7 +87,7 @@ class GameController {
     private fun spawnFood(delta: Float) {
         println("spawn food")
         timeSinceSpawn += delta
-        if (timeSinceSpawn > MathUtils.random(1f, 2f)) {
+        if (timeSinceSpawn > random(1f, 2f)) {
             food.add(Food(world).initiate())
             timeSinceSpawn = 0f
         }
@@ -101,7 +96,7 @@ class GameController {
     private fun spawnShoe(delta: Float) {
         println("spawn shoe")
         timeSinceShoeSpawn += delta
-        if (timeSinceShoeSpawn > MathUtils.random(10f, 20f)) {
+        if (timeSinceShoeSpawn > random(10f, 20f)) {
             shoes.add(Shoe(world).initiate())
             timeSinceShoeSpawn = 0f
         }
@@ -110,7 +105,7 @@ class GameController {
     private fun spawnBoosters(delta: Float) {
         timeSinceShoeSpawn += delta
         print("1 ")
-        if (timeSinceShoeSpawn > MathUtils.random(1f, 2f)) {
+        if (timeSinceShoeSpawn > random(1f, 2f)) {
             print("2 ")
             boosters.add(FoodBooster(world).initiate())
             print("3 ")

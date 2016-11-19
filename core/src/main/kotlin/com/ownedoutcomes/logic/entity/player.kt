@@ -3,6 +3,7 @@ package com.ownedoutcomes.logic.entity
 import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.physics.box2d.*
 import com.ownedoutcomes.logic.InputController
+import com.ownedoutcomes.logic.random
 
 val playerDensity = 20f
 
@@ -17,8 +18,8 @@ class Player(world: World, val inputController: InputController) : AbstractEntit
             type = BodyDef.BodyType.DynamicBody
             fixedRotation = true
             linearDamping = 1f
-            position.x = MathUtils.random(-1f, 1f)
-            position.y = MathUtils.random(-1f, 1f)
+            position.x = random(-1f, 1f)
+            position.y = random(-1f, 1f)
         }
         val fixture = FixtureDef().apply {
             shape = circle

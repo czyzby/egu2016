@@ -2,13 +2,15 @@ package com.ownedoutcomes.logic.entity
 
 import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.physics.box2d.*
+import com.ownedoutcomes.logic.GameController
 import com.ownedoutcomes.logic.halfGameWorldHeight
 import com.ownedoutcomes.logic.halfGameWorldWidth
+import com.ownedoutcomes.logic.random
 
 class Food(world: World) : AbstractEntity(world) {
     var size = getRandomSize()
     var spawnedLeft = false
-    var speedBonus = MathUtils.random(0.8f, 1.5f)
+    var speedBonus = random(0.8f, 1.5f)
 
     override fun createBody(world: World): Body {
         val circle = CircleShape()
@@ -20,7 +22,7 @@ class Food(world: World) : AbstractEntity(world) {
             fixedRotation = true
             linearDamping = 1f
             position.x = if (spawnedLeft) -halfGameWorldWidth - 1 else halfGameWorldWidth + 1
-            position.y = MathUtils.random(-halfGameWorldHeight, halfGameWorldHeight)
+            position.y = random(-halfGameWorldHeight, halfGameWorldHeight)
         }
         val fixture = FixtureDef().apply {
             shape = circle
@@ -39,12 +41,12 @@ class Food(world: World) : AbstractEntity(world) {
     override fun initiate(): Food = super.initiate() as Food
 
     private fun getRandomSize(): Float {
-        val random = Math.abs(MathUtils.random(-0.4f, 1f))
+        val random = Math.abs(random(-0.4f, 1f))
         return if (random < 0.1f) 0.1f else random // TODO uzaleznic od wielkosci gracza? eee makarena
     }
 
     override fun update(delta: Float) {
-        val currentDensity = size * size * MathUtils.PI * playerDensity * speedBonus * MathUtils.random(0.9f, 1.1f)
+        val currentDensity = size * size * MathUtils.PI * playerDensity * speedBonus * random(0.9f, 1.1f)
         body.applyForceToCenter(
                 -body.linearVelocity.x * currentDensity / 4f,
                 -body.linearVelocity.y * currentDensity / 4f,
