@@ -49,4 +49,9 @@ class Player(world: World, val inputController: InputController) : AbstractEntit
         size += 0.2f
         body.fixtureList.first().shape.radius = size
     }
+
+    fun smaller() {
+        size -= 0.2f
+        body.fixtureList.first().shape.radius -= size
+    }
 }
