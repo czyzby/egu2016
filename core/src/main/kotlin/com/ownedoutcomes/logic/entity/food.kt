@@ -2,8 +2,8 @@ package com.ownedoutcomes.logic.entity
 
 import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.physics.box2d.*
+import com.ownedoutcomes.logic.halfGameWorldHeight
 import com.ownedoutcomes.logic.halfGameWorldWidth
-import java.util.*
 
 class Food(world: World) : AbstractEntity(world) {
     var size = getRandomSize()
@@ -19,6 +19,7 @@ class Food(world: World) : AbstractEntity(world) {
             fixedRotation = true
             linearDamping = 1f
             position.x = if (spawnedLeft) -halfGameWorldWidth - 1 else halfGameWorldWidth + 1
+            position.y = MathUtils.random(-halfGameWorldHeight, halfGameWorldHeight)
         }
         val fixture = FixtureDef().apply {
             shape = circle
