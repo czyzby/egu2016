@@ -39,3 +39,13 @@ tasks.eclipse.doLast {
   delete '.classpath'
   delete '.settings/'
 }
+
+import com.badlogic.gdx.tools.texturepacker.TexturePacker
+task packUi << {
+  TexturePacker.process(
+    'raw/ui',           // Raw assets path.
+    'assets',           // Output directory.
+    'skin'              // Name of the generated atlas (without extension).
+  )
+}
+
