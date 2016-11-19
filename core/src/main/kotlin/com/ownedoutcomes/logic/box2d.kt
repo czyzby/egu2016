@@ -15,7 +15,7 @@ class GameController {
     private val renderer = Box2DDebugRenderer()
     private val inputController = InputController(gameViewport)
     private lateinit var world: World
-    private val players = gdxArrayOf<Player>()
+    val players = gdxArrayOf<Player>()
     fun reload() {
         world = World(vec2(0f, 0f), true)
         addBodies()

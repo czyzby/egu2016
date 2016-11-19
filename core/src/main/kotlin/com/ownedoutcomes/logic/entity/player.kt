@@ -5,6 +5,7 @@ import com.badlogic.gdx.physics.box2d.*
 import com.ownedoutcomes.logic.InputController
 
 class Player(world: World, val inputController: InputController) : AbstractEntity(world) {
+    var size: Int = 1
     override fun createBody(world: World): Body {
         val circle = CircleShape()
         circle.radius = 0.5f
@@ -28,18 +29,12 @@ class Player(world: World, val inputController: InputController) : AbstractEntit
         val angle = MathUtils.atan2(inputController.y - body.position.y, inputController.x - body.position.x)
         val xForce = MathUtils.cos(angle);
         val yForce = MathUtils.sin(angle);
-        val bodyFixture = body.fixtureList[0];
+        body.applyForceToCenter(xForce * (75 + size * 10), yForce * (75 + size * 10), true)
+        println(size)
+    }
 
-        val shapeRadius = bodyFixture.shape.radius - bodyFixture.shape.radius * 0.001f
-        bodyFixture.shape.radius = shapeRadius
-//        println("shapeRadius = $shapeRadius - radius = $bodyFixture.shape.radius")
-        val negativeXForce = -(xForce * (1f - shapeRadius) * 10)
-        val negativeYForce = -(yForce * (1f - shapeRadius) * 10)
-        body.applyForceToCenter(negativeXForce, negativeYForce, true)
-        val positiveXForce = xForce * (1f - shapeRadius) * 100
-        val positiveYForce = yForce * (1f - shapeRadius) * 100
-        body.applyForceToCenter(positiveXForce, positiveYForce, true)
-//        println("negative: X = $negativeXForce, Y = $negativeYForce")
-//        println("positive: X = $positiveXForce, Y = $positiveYForce")
+    fun enlarge() {
+        size++
+        body.fixtureList.first().shape.radius += 1
     }
 }
