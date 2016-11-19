@@ -18,7 +18,14 @@ class Game(stage: Stage, private val gameController: GameController) : AbstractV
         table { cell ->
             cell.expand().align(Align.bottom)
             image = image("play-button") {
-                onKey { input: InputEvent, image: Image, c: Char -> if (c == ' ') gameController.players.forEach { it.enlarge() } }
+                onKey { input: InputEvent, image: Image, c: Char ->
+                    run {
+                        if (c == ' ')
+                            gameController.players.forEach { it.enlarge() }
+                        if (c == '1')
+                            gameController.players.forEach { it.smaller() }
+                    }
+                }
             }
         }
 
