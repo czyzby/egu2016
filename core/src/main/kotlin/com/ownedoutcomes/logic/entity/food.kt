@@ -8,6 +8,7 @@ import com.ownedoutcomes.logic.halfGameWorldWidth
 import com.ownedoutcomes.logic.random
 
 class Food(world: World) : AbstractEntity(world) {
+
     var size = getRandomSize()
     var spawnedLeft = false
     var speedBonus = random(0.8f, 1.5f)
@@ -67,5 +68,13 @@ class Food(world: World) : AbstractEntity(world) {
     fun eat(food: Player) {
         size += food.size / 10f
         body.fixtureList.first().shape.radius = size
+    }
+
+    override fun eat(entity: AbstractEntity) {
+        if(entity is Player) {
+            eat(entity)
+        } else if(entity is FoodBooster) {
+            eat(entity)
+        }
     }
 }

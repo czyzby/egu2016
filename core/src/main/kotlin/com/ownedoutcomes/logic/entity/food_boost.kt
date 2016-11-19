@@ -56,4 +56,7 @@ class FoodBooster(world: World) : AbstractEntity(world) {
             body.applyForceToCenter(-currentDensity, 0f, true);
         }
     }
+
+    override fun eat(entity: AbstractEntity) {
+    }
 }

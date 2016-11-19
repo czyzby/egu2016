@@ -11,6 +11,11 @@ import ktx.collections.*
 import ktx.inject.inject
 import ktx.math.vec2
 import java.util.concurrent.ThreadLocalRandom
+import com.badlogic.gdx.Gdx.app
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.physics.box2d.Body
+import com.badlogic.gdx.utils.Array
+
 
 val gameWorldWidth = 8f
 val gameWorldHeight = 6f
@@ -30,16 +35,17 @@ class GameController {
 
     var playersToAdd = 0
 
-    val playersToRemove = gdxArrayOf<Player>()
-    val foodToRemove = gdxArrayOf<Food>()
-    val shoesToRemove = gdxArrayOf<Shoe>()
-    val boostersToRemove = gdxArrayOf<FoodBooster>()
+    val playersToRemove = gdxSetOf<Player>()
+    val foodToRemove = gdxSetOf<Food>()
+    val shoesToRemove = gdxSetOf<Shoe>()
+    val boostersToRemove = gdxSetOf<FoodBooster>()
 
     val whatToEat = gdxSetOf<Pair<AbstractEntity, AbstractEntity>>()
 
     private var timeSinceSpawn = 100f
     private var timeSincePlayerSpawn = 0f
     private var timeSinceShoeSpawn = 0f
+    private var timeSinceBoostSpawn = 0f
 
     fun reload() {
         world = World(vec2(0f, 0f), true)
@@ -48,6 +54,7 @@ class GameController {
     }
 
     private fun addBodies() {
+
         players.add(Player(world, inputController).initiate())
     }
 
@@ -56,32 +63,51 @@ class GameController {
     }
 
     fun update(delta: Float) {
-        spawnPlayers(delta)
+
+        println("inputController.update()")
+        inputController.update()
+        println("world.step(delta, 8, 3)")
+
+        world.step(delta, 8, 3)
+
+        runEeaters()
+
         spawnFood(delta)
         spawnShoe(delta)
+
+        spawnNewPlayers(delta)
         spawnBoosters(delta)
-        inputController.update()
-        world.step(delta, 8, 3)
+
+
+        println("foreache")
+
         players.forEach { it.update(delta) }
         food.forEach { it.update(delta) }
         shoes.forEach { it.update(delta) }
         boosters.forEach { it.update(delta) }
+
+        println("foreache stop")
+
+
         removeFood()
         removePlayers()
         removeShoes()
         removeBoosters()
-        spawnNewPlayers(delta)
+
         // TODO add world bounds
         // TODO remove enemies that touch world bounds
         renderer.render(world, gameViewport.camera.combined)
     }
 
-    private fun spawnPlayers(delta: Float) {
-        println("spawn player")
-        timeSincePlayerSpawn + delta
-        if (timeSincePlayerSpawn > random(60f, 120f)) {
+    private fun runEeaters() {
+        whatToEat.forEach {
+            pair ->
+            run {
+                pair.first.eat(pair.second)
+            }
 
         }
+        whatToEat.clear()
     }
 
     private fun spawnFood(delta: Float) {
@@ -103,15 +129,16 @@ class GameController {
     }
 
     private fun spawnBoosters(delta: Float) {
-        timeSinceShoeSpawn += delta
+        timeSinceBoostSpawn += delta
         print("1 ")
-        if (timeSinceShoeSpawn > random(1f, 2f)) {
+        if (timeSinceBoostSpawn > random(1f, 2f)) {
             print("2 ")
             boosters.add(FoodBooster(world).initiate())
             print("3 ")
-            timeSinceShoeSpawn = 0f
+            timeSinceBoostSpawn = 0f
             println("4 ")
         }
+        println("end spawning boost ")
     }
 
     private fun spawnNewPlayers(delta: Float) {
@@ -125,9 +152,18 @@ class GameController {
     }
 
     private fun removePlayers() {
+
+
         if (playersToRemove.isNotEmpty()) {
             playersToRemove.forEach {
-                world.destroyBody(it.body)
+                val bd = Array<Body>()
+                world.getBodies(bd);
+
+                if (bd.contains(it.body, true)) {
+                    it.body.isActive = false;
+                    world.destroyBody(it.body)
+                }
+
                 players.remove(it)
             }
             playersToRemove.clear()
@@ -176,6 +212,7 @@ class GameController {
 
     fun destroy() {
         world.dispose()
+
         players.clear()
         playersToRemove.clear()
         food.clear()
@@ -183,11 +220,15 @@ class GameController {
         shoes.clear()
         shoesToRemove.clear()
         boosters.clear()
-        playersToAdd = 0
         boostersToRemove.clear()
+        whatToEat.clear()
+
+        playersToAdd = 0
+
         timeSinceSpawn = 100f
         timeSincePlayerSpawn = 0f
         timeSinceShoeSpawn = 0f
+        timeSinceBoostSpawn = 0f
     }
 }
 

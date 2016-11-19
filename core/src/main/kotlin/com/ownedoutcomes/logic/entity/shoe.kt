@@ -49,4 +49,8 @@ class Shoe(world: World) : AbstractEntity(world) {
                 true)
         body.applyForceToCenter(0f, -currentDensity, true)
     }
+
+    override fun eat(entity: AbstractEntity) {
+    }
+
 }
