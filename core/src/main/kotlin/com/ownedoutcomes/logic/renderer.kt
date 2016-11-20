@@ -80,7 +80,7 @@ class GameRenderer(val gameController: GameController, val batch: Batch, skin: S
             stateTime = 0f
         }
         gameController.attackingPlayers.forEach {
-            val eatingAnimation = Animation(1f / 16f, textureAttackRegion1, textureAttackRegion2, textureAttackRegion3, textureAttackRegion4)
+            val eatingAnimation = Animation(1f / 8f, textureAttackRegion1, textureAttackRegion2, textureAttackRegion3, textureAttackRegion4)
             eatingAnimation.playMode = Animation.PlayMode.LOOP_PINGPONG
             eatingPlayers.put(it, eatingAnimation)
         }
