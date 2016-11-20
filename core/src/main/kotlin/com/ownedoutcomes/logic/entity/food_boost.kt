@@ -1,15 +1,17 @@
 package com.ownedoutcomes.logic.entity
 
 import com.badlogic.gdx.math.MathUtils
+import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.*
 import com.ownedoutcomes.logic.halfGameWorldHeight
 import com.ownedoutcomes.logic.halfGameWorldWidth
 import com.ownedoutcomes.logic.random
 
-class FoodBooster(world: World) : AbstractEntity(world) {
+class FoodBooster(world: World, center : Vector2) : AbstractEntity(world) {
     var size = getRandomSize()
     var spawnedLeft = false
     var speedBonus = random(0.8f, 1.5f)
+    var spawnCenter: Vector2 = center
 
     override fun createBody(world: World): Body {
         val circle = CircleShape()
@@ -20,8 +22,8 @@ class FoodBooster(world: World) : AbstractEntity(world) {
             type = BodyDef.BodyType.DynamicBody
             fixedRotation = true
             linearDamping = 1f
-            position.x = if (spawnedLeft) -halfGameWorldWidth - 1 else halfGameWorldWidth + 1
-            position.y = random(-halfGameWorldHeight, halfGameWorldHeight)
+            position.x = if (spawnedLeft) spawnCenter.x - halfGameWorldWidth - 1 else spawnCenter.x + halfGameWorldWidth + 1
+            position.y = random(spawnCenter.y - halfGameWorldHeight, spawnCenter.y + halfGameWorldHeight)
         }
         val fixture = FixtureDef().apply {
             shape = circle

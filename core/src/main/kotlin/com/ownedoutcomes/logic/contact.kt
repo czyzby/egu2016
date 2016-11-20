@@ -19,7 +19,6 @@ class ContactController(val gameController: GameController) : ContactListener {
     }
 
     private fun checkContact(firstEntity: Any, secondEntity: Any) {
-        println("sprawdzam kolizje pomiędzy $firstEntity a $secondEntity")
         if (firstEntity is Food && secondEntity is Player) {
             if (firstEntity.size > secondEntity.size * 1.05) {
                 gameController.playersToRemove.add(secondEntity)
@@ -55,8 +54,6 @@ class ContactController(val gameController: GameController) : ContactListener {
                     yForce * 100f,
                     true)
         }
-
-        println("skończyłem sprawdzać kolizje pomiędzy $firstEntity a $secondEntity")
     }
 
     override fun preSolve(contact: Contact?, oldManifold: Manifold?) {

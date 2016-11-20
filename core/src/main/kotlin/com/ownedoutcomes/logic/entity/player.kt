@@ -1,6 +1,7 @@
 package com.ownedoutcomes.logic.entity
 
 import com.badlogic.gdx.math.MathUtils
+import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.*
 import com.ownedoutcomes.logic.InputController
 import com.ownedoutcomes.logic.halfGameWorldHeight
@@ -9,9 +10,10 @@ import com.ownedoutcomes.logic.random
 
 val playerDensity = 20f
 
-class Player(world: World, val inputController: InputController) : AbstractEntity(world) {
+class Player(world: World, val inputController: InputController, center: Vector2) : AbstractEntity(world) {
     var size: Float = 0.2f
     var angle: Float = 0.0f;
+    var spawnCenter: Vector2 = center
 
     override fun createBody(world: World): Body {
         val circle = CircleShape()
@@ -20,8 +22,9 @@ class Player(world: World, val inputController: InputController) : AbstractEntit
             type = BodyDef.BodyType.DynamicBody
             fixedRotation = true
             linearDamping = 1f
-            position.x = random(-halfGameWorldWidth, halfGameWorldWidth)
-            position.y = random(-halfGameWorldHeight, halfGameWorldHeight)
+
+            position.x = random(spawnCenter.x - halfGameWorldWidth, spawnCenter.x + halfGameWorldWidth)
+            position.y = random(spawnCenter.y - halfGameWorldHeight, spawnCenter.y + halfGameWorldHeight)
         }
         val fixture = FixtureDef().apply {
             shape = circle
@@ -75,7 +78,7 @@ class Player(world: World, val inputController: InputController) : AbstractEntit
     }
 
     override fun eat(entity: AbstractEntity) {
-        if(entity is Food) {
+        if (entity is Food) {
             eat(entity)
         }
     }

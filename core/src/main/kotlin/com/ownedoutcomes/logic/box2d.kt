@@ -1,20 +1,21 @@
 package com.ownedoutcomes.logic
 
+import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.physics.box2d.Body
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer
 import com.badlogic.gdx.physics.box2d.World
+import com.badlogic.gdx.utils.Array
 import com.badlogic.gdx.utils.viewport.FitViewport
 import com.badlogic.gdx.utils.viewport.Viewport
 import com.ownedoutcomes.Runner
 import com.ownedoutcomes.logic.entity.*
 import com.ownedoutcomes.view.GameOver
-import ktx.collections.*
+import ktx.collections.gdxSetOf
+import ktx.collections.isEmpty
+import ktx.collections.isNotEmpty
 import ktx.inject.inject
 import ktx.math.vec2
 import java.util.concurrent.ThreadLocalRandom
-import com.badlogic.gdx.Gdx.app
-import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.physics.box2d.Body
-import com.badlogic.gdx.utils.Array
 
 
 val gameWorldWidth = 8f
@@ -49,15 +50,13 @@ class GameController {
     private var timeSinceShoeSpawn = 0f
     private var timeSinceBoostSpawn = 0f
 
+    var cameraX = .0f;
+    var cameraY = .0f;
+
     fun reload() {
         world = World(vec2(0f, 0f), true)
         world.setContactListener(ContactController(this))
-        addBodies()
-    }
-
-    private fun addBodies() {
-
-        players.add(Player(world, inputController).initiate())
+        players.add(Player(world, inputController, Vector2(0f, 0f)).initiate())
     }
 
     fun resize(width: Int, height: Int) {
@@ -65,32 +64,27 @@ class GameController {
     }
 
     fun update(delta: Float) {
+        if (!players.isEmpty()) {
+            updateCamera(delta)
+        }
 
-        println("inputController.update()")
         inputController.update()
-        println("world.step(delta, 8, 3)")
 
         world.step(delta, 8, 3)
 
         runEeaters()
         runFoodReduction()
 
-        spawnFood(delta)
-        spawnShoe(delta)
+        spawnFood(delta, Vector2(gameViewport.camera.position.x, gameViewport.camera.position.y))
+        spawnShoe(delta, Vector2(gameViewport.camera.position.x, gameViewport.camera.position.y))
 
-        spawnNewPlayers(delta)
-        spawnBoosters(delta)
-
-
-        println("foreache")
+        spawnNewPlayers(delta, Vector2(gameViewport.camera.position.x, gameViewport.camera.position.y))
+        spawnBoosters(delta, Vector2(gameViewport.camera.position.x, gameViewport.camera.position.y))
 
         players.forEach { it.update(delta) }
         food.forEach { it.update(delta) }
         shoes.forEach { it.update(delta) }
         boosters.forEach { it.update(delta) }
-
-        println("foreache stop")
-
 
         removeFood()
         removePlayers()
@@ -100,6 +94,17 @@ class GameController {
         // TODO add world bounds
         // TODO remove enemies that touch world bounds
         renderer.render(world, gameViewport.camera.combined)
+    }
+
+    private fun updateCamera(delta: Float) {
+        cameraX += (players.last().body.position.x - cameraX) * .8f * delta
+        cameraY += (players.last().body.position.y - cameraY) * .8f * delta
+
+        gameViewport.camera.position.set(
+                cameraX,
+                cameraY,
+                0f)
+        gameViewport.camera.update()
     }
 
     private fun runEeaters() {
@@ -124,42 +129,34 @@ class GameController {
         foodToReduce.clear()
     }
 
-    private fun spawnFood(delta: Float) {
-        println("spawn food")
+    private fun spawnFood(delta: Float, center: Vector2) {
         timeSinceSpawn += delta
         if (timeSinceSpawn > random(1f, 2f)) {
-            food.add(Food(world).initiate())
+            food.add(Food(world, center).initiate())
             timeSinceSpawn = 0f
         }
     }
 
-    private fun spawnShoe(delta: Float) {
-        println("spawn shoe")
+    private fun spawnShoe(delta: Float, center: Vector2) {
         timeSinceShoeSpawn += delta
         if (timeSinceShoeSpawn > random(10f, 20f)) {
-            shoes.add(Shoe(world).initiate())
+            shoes.add(Shoe(world, center).initiate())
             timeSinceShoeSpawn = 0f
         }
     }
 
-    private fun spawnBoosters(delta: Float) {
+    private fun spawnBoosters(delta: Float, center: Vector2) {
         timeSinceBoostSpawn += delta
-        print("1 ")
         if (timeSinceBoostSpawn > random(1f, 2f)) {
-            print("2 ")
-            boosters.add(FoodBooster(world).initiate())
-            print("3 ")
+            boosters.add(FoodBooster(world, center).initiate())
             timeSinceBoostSpawn = 0f
-            println("4 ")
         }
-        println("end spawning boost ")
     }
 
-    private fun spawnNewPlayers(delta: Float) {
-        println("spawn new player")
+    private fun spawnNewPlayers(delta: Float, center: Vector2) {
         if (playersToAdd > 0) {
-            while(playersToAdd-- > 0) {
-                addBodies()
+            while (playersToAdd-- > 0) {
+                players.add(Player(world, inputController, center).initiate())
             }
             playersToAdd = 0
         }
@@ -246,4 +243,4 @@ class GameController {
     }
 }
 
-fun random(from: Float, to: Float) = from + ThreadLocalRandom.current().nextFloat()  * (to- from)
+fun random(from: Float, to: Float) = from + ThreadLocalRandom.current().nextFloat() * (to - from)
