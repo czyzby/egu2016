@@ -19,7 +19,7 @@ class GameRenderer(val gameController: GameController, val batch: Batch, skin: S
     private val playerAttackSprite3 = skin.atlas.createSprite("fish2-3")
     private val playerAttackSprite4 = skin.atlas.createSprite("fish2-4")
 
-    private val playerSprite = skin.atlas.createSprite("player")
+    private val playerSprite = skin.atlas.createSprite("fish2-0")
     private val enemySprite = skin.atlas.createSprite("enemy0")
     private val shoeSprite = skin.atlas.createSprite("but")
     private val herringSprite = skin.atlas.createSprite("herring")
