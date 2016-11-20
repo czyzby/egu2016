@@ -378,13 +378,13 @@ but
   orig: 400, 400
   offset: 7, 44
   index: -1
-fish2
+fish2-0
   rotate: false
   xy: 1, 307
   size: 386, 359
   orig: 400, 400
   offset: 6, 24
-  index: 0
+  index: -1
 herring
   rotate: false
   xy: 402, 342
@@ -467,20 +467,20 @@ enemy0
   orig: 400, 400
   offset: 7, 30
   index: -1
-fish2
+fish2-1
   rotate: false
   xy: 394, 361
   size: 386, 359
   orig: 400, 400
   offset: 6, 24
-  index: 1
-fish2
+  index: -1
+fish2-2
   rotate: false
   xy: 394, 1
   size: 386, 359
   orig: 400, 400
   offset: 6, 24
-  index: 2
+  index: -1
 player
   rotate: false
   xy: 1, 9
@@ -494,17 +494,17 @@ size: 1024,512
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-fish2
+fish2-3
   rotate: false
   xy: 1, 1
   size: 386, 359
   orig: 400, 400
   offset: 6, 24
-  index: 3
-fish2
+  index: -1
+fish2-4
   rotate: false
   xy: 388, 1
   size: 386, 359
   orig: 400, 400
   offset: 6, 24
-  index: 4
+  index: -1

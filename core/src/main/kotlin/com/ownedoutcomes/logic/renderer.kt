@@ -11,7 +11,11 @@ import ktx.collections.isEmpty
 
 
 class GameRenderer(val gameController: GameController, val batch: Batch, skin: Skin) {
-    private val playerAttackSprite = skin.atlas.createSprite("player0")
+    private val playerAttackSprite1 = skin.atlas.createSprite("fish2-1")
+    private val playerAttackSprite2 = skin.atlas.createSprite("fish2-2")
+    private val playerAttackSprite3 = skin.atlas.createSprite("fish2-3")
+    private val playerAttackSprite4 = skin.atlas.createSprite("fish2-4")
+
     private val playerSprite = skin.atlas.createSprite("player")
     private val enemySprite = skin.atlas.createSprite("enemy0")
     private val shoeSprite = skin.atlas.createSprite("but")
@@ -24,7 +28,10 @@ class GameRenderer(val gameController: GameController, val batch: Batch, skin: S
 
     init {
         playerSprite.setOriginCenter()
-        playerAttackSprite.setOriginCenter()
+        playerAttackSprite1.setOriginCenter()
+        playerAttackSprite2.setOriginCenter()
+        playerAttackSprite3.setOriginCenter()
+        playerAttackSprite4.setOriginCenter()
         enemySprite.setOriginCenter()
         shoeSprite.setOriginCenter()
         herringSprite.setOriginCenter()
@@ -98,23 +105,25 @@ class GameRenderer(val gameController: GameController, val batch: Batch, skin: S
         if (isEating) {
             val animation = animations[0]
             println("SKURCZYSYNOW MOCNYCH Animacja atakujących - uruchomienie")
-            playerAttackSprite.setRegion(animation.getKeyFrame(stateTime))
-            playerAttackSprite.setPosition(0f, 0f)
-            playerAttackSprite.setSize(2f, 2f)
-            playerAttackSprite.draw(batch)
+
+            val animationSprite = Sprite(playerAttackSprite1)
+            val spriteSize = 2f
+            animationSprite.setSize(spriteSize, spriteSize)
+            animationSprite.setOriginCenter()
+            animationSprite.flip(true, false)
+            animationSprite.setRegion(animation.getKeyFrame(stateTime))
+            animationSprite.setPosition(0f, 0f)
+            animationSprite.draw(batch)
         } else {
             if (animations.isEmpty()) {
                 playerSprite.flip(true, false)
-                val spriteSize = 2f
-                playerSprite.x = 0f
-                playerSprite.y = 0f
-                playerSprite.setSize(spriteSize, spriteSize)
-                playerSprite.setOriginCenter()
-                val textureRegion = TextureRegion(playerSprite)
-                val textureAttackRegion = TextureRegion(playerAttackSprite)
-                val animation = Animation(1f/4f, textureRegion, textureAttackRegion, textureAttackRegion, textureRegion)
+
+                val textureAttackRegion1 = TextureRegion(playerAttackSprite1)
+                val textureAttackRegion2 = TextureRegion(playerAttackSprite2)
+                val textureAttackRegion3 = TextureRegion(playerAttackSprite3)
+                val textureAttackRegion4 = TextureRegion(playerAttackSprite4)
+                val animation = Animation(1f / 4f, textureAttackRegion1, textureAttackRegion2, textureAttackRegion3, textureAttackRegion4)
                 println("SKURCZYSYNOW MOCNYCH Animacja atakujących - rysowanie")
-                playerSprite.draw(batch)
 
                 animation.playMode = Animation.PlayMode.LOOP_PINGPONG
                 animations.add(animation)
