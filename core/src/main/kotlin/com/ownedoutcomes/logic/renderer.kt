@@ -17,6 +17,10 @@ class GameRenderer(val gameController: GameController, val batch: Batch, skin: S
     private val playerAttackSprite3 = skin.atlas.createSprite("fish2-3")
     private val playerAttackSprite4 = skin.atlas.createSprite("fish2-4")
 
+    private val enemyAttackSprite1 = skin.atlas.createSprite("enemy1")
+    private val enemyAttackSprite2= skin.atlas.createSprite("enemy2")
+    private val enemyAttackSprite3 = skin.atlas.createSprite("enemy3")
+
     private val playerSprite = skin.atlas.createSprite("fish2-0")
     private val enemySprite = skin.atlas.createSprite("enemy0")
     private val shoeSprite = skin.atlas.createSprite("but")
@@ -28,6 +32,11 @@ class GameRenderer(val gameController: GameController, val batch: Batch, skin: S
     val textureAttackRegion2 = TextureRegion(playerAttackSprite2)
     val textureAttackRegion3 = TextureRegion(playerAttackSprite3)
     val textureAttackRegion4 = TextureRegion(playerAttackSprite4)
+
+
+    val textureEnemyAttackRegion1 = TextureRegion(enemyAttackSprite1)
+    val textureEnemyAttackRegion2 = TextureRegion(enemyAttackSprite2)
+    val textureEnemyAttackRegion3 = TextureRegion(enemyAttackSprite3)
 
 
     val eatingPlayers = gdxMapOf<Player, Animation>()
