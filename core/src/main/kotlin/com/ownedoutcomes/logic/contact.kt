@@ -25,6 +25,7 @@ class ContactController(val gameController: GameController) : ContactListener {
                 val factor = secondEntity.size / firstEntity.size
                 gameController.foodToReduce.add(Pair(firstEntity, factor))
                 gameController.whatToEat.add(Pair(firstEntity, secondEntity))
+                gameController.attackingFoods.add(firstEntity)
             } else {
                 gameController.foodToRemove.add(firstEntity)
                 gameController.whatToEat.add(Pair(secondEntity, firstEntity))
@@ -45,6 +46,7 @@ class ContactController(val gameController: GameController) : ContactListener {
             if (firstEntity.size < secondEntity.size * 1.05) {
                 gameController.boostersToRemove.add(firstEntity)
                 gameController.whatToEat.add(Pair(secondEntity, firstEntity))
+                gameController.attackingFoods.add(secondEntity)
             }
         }
 
