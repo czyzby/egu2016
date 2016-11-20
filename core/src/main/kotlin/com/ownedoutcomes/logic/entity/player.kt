@@ -77,16 +77,19 @@ class Player(world: World, val inputController: InputController, center: Vector2
     fun enlarge() {
         size += 0.2f
         body.fixtureList.first().shape.radius = size
+        body.fixtureList[1].shape.radius += size
     }
 
     fun smaller() {
         size -= 0.2f
         body.fixtureList.first().shape.radius = size
+        body.fixtureList[1].shape.radius -= if (body.fixtureList[2].shape.radius < 0.2f) 0.2f else 0f
     }
 
     fun eat(food: Food) {
         size += food.size / 10f
         body.fixtureList.first().shape.radius = size
+        body.fixtureList[1].shape.radius = size * 0.9f
     }
 
     override fun eat(entity: AbstractEntity) {

@@ -3,6 +3,7 @@ package com.ownedoutcomes.view
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.utils.Align
 import com.ownedoutcomes.logic.GameController
@@ -15,6 +16,7 @@ import ktx.scene2d.table
 class Game(stage: Stage, private val gameController: GameController, val gameRenderer: GameRenderer) : AbstractView(stage) {
     private lateinit var pointsLabel: Label
 
+    public lateinit var bgActor: Image
 
     override val root = table {
         setFillParent(true)
@@ -22,9 +24,11 @@ class Game(stage: Stage, private val gameController: GameController, val gameRen
             cell.expand().align(Align.bottom)
         }
         pointsLabel = label(style = "points", text = "0") {
-            cell -> cell.align(Align.topRight)
+            cell ->
+            cell.align(Align.topRight)
         }
-        background = skin.getDrawable("background")
+        //background = skin.getDrawable("background")
+
         onKey { inputEvent: InputEvent, kTableWidget: KTableWidget, c: Char ->
             run {
                 if (c == ' ')
@@ -42,6 +46,8 @@ class Game(stage: Stage, private val gameController: GameController, val gameRen
     }
 
     override fun show() {
+        bgActor = Image(root.skin.getDrawable("background"))
+        stage.addActor(bgActor)
         super.show()
         stage.keyboardFocus = root
     }
