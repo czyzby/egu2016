@@ -4,13 +4,14 @@ import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.Body
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer
 import com.badlogic.gdx.physics.box2d.World
-import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.utils.Array
 import com.badlogic.gdx.utils.viewport.FitViewport
 import com.badlogic.gdx.utils.viewport.Viewport
 import com.ownedoutcomes.Runner
 import com.ownedoutcomes.logic.entity.*
+import com.ownedoutcomes.view.Game
 import com.ownedoutcomes.view.GameOver
+import com.ownedoutcomes.view.NextLevel
 import ktx.collections.gdxSetOf
 import ktx.collections.isEmpty
 import ktx.collections.isNotEmpty
@@ -53,12 +54,11 @@ class GameController {
     private var timeSinceShoeSpawn = 0f
     private var timeSinceBoostSpawn = 0f
 
-    public lateinit var bgActor: Image
-
     var cameraX = .0f;
     var cameraY = .0f;
 
     var points = 0
+    var level = 1
 
     fun reload() {
         world = World(vec2(0f, 0f), true)
@@ -98,17 +98,18 @@ class GameController {
         shoes.forEach { it.update(delta) }
         boosters.forEach { it.update(delta) }
 
-        if(!players.isEmpty()){
-
-        }
-
         removeFood()
         removePlayers()
         removeShoes()
         removeBoosters()
 
-        // TODO add world bounds
-        // TODO remove enemies that touch world bounds
+        if(checkIfNextLevelIsAvailable()) {
+            moveToNextLevel()
+        }
+        // TODO add tutorial
+        // TODO make fish-booster smaller
+        // TODO add sounds
+        // TODO add music
         renderer.render(world, gameViewport.camera.combined)
     }
 
@@ -253,6 +254,20 @@ class GameController {
         }
     }
 
+    private fun checkIfNextLevelIsAvailable() : Boolean {
+        return points > level * 5
+    }
+
+    private fun moveToNextLevel() {
+        val currentPoints = points
+        val currentLevel = level
+        inject<Runner>().setCurrentView(inject<NextLevel>())
+        // TODO Doesn't work :(
+        level = currentLevel
+        points = currentPoints
+    }
+
+
     fun destroy() {
         world.dispose()
 
@@ -277,6 +292,7 @@ class GameController {
         timeSinceBoostSpawn = 0f
 
         points = 0
+        level = 1
     }
 }
 
