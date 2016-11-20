@@ -144,25 +144,7 @@ class GameRenderer(val gameController: GameController, val batch: Batch, skin: S
             herringSprite.draw(batch)
         }
 
-//        gameController.attackingPlayers.forEach {
-//            println("SKURCZYSYNOW MOCNYCH Animacja atakujących - tworzenie")
-//            val playerSprite = Sprite(playerAttackSprite)
-//            playerSprite.flip(true, false)
-//            val spriteSize = it.size * 2
-//            playerSprite.x = it.body.position.x - it.size
-//            playerSprite.y = it.body.position.y - it.size
-//            playerSprite.setSize(spriteSize, spriteSize)
-//            playerSprite.setOriginCenter()
-//            playerSprite.rotation = MathUtils.radiansToDegrees * it.angle
-//            val textureRegion = TextureRegion(playerSprite)
-//            val animation = Animation(0.25f, textureRegion, textureRegion, textureRegion, textureRegion)
-//            animations.add(animation)
-//        }
-
         stateTime += delta
-
-
-
 
         gameController.attackingPlayers.clear()
         batch.end()
