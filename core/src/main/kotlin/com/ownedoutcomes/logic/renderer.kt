@@ -8,9 +8,7 @@ import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.ownedoutcomes.logic.entity.Player
 import ktx.collections.gdxMapOf
-import ktx.collections.gdxSetOf
 import ktx.collections.isNotEmpty
-import ktx.collections.removeAll
 
 
 class GameRenderer(val gameController: GameController, val batch: Batch, skin: Skin) {
@@ -78,7 +76,7 @@ class GameRenderer(val gameController: GameController, val batch: Batch, skin: S
             }
         }
 
-        if(gameController.attackingPlayers.isNotEmpty()) {
+        if (gameController.attackingPlayers.isNotEmpty()) {
             stateTime = 0f
         }
         gameController.attackingPlayers.forEach {
@@ -112,7 +110,7 @@ class GameRenderer(val gameController: GameController, val batch: Batch, skin: S
             animationSprite.draw(batch)
         }
 
-        eatingPlayers.removeAll {it.value.isAnimationFinished(stateTime) }
+        eatingPlayers.removeAll { it.value.isAnimationFinished(stateTime) }
 
         gameController.food.forEach {
             val enemySprite = Sprite(enemySprite)
@@ -164,7 +162,7 @@ class GameRenderer(val gameController: GameController, val batch: Batch, skin: S
         stateTime += delta
 
 
-        
+
 
         gameController.attackingPlayers.clear()
         batch.end()
