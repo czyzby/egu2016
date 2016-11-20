@@ -9,6 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import com.badlogic.gdx.utils.Align
 import com.ownedoutcomes.Runner
 import com.ownedoutcomes.logic.GameController
+import com.ownedoutcomes.logic.currentGameLevel
+import com.ownedoutcomes.logic.currentGamePoints
 import ktx.actors.onChange
 import ktx.actors.onClick
 import ktx.assets.getValue
@@ -52,6 +54,12 @@ class GameOver(stage: Stage) : AbstractView(stage) {
                 }
             }
         }
+    }
+
+    override fun show() {
+        currentGameLevel = 1
+        currentGamePoints = 0
+        super.show()
     }
 }
 

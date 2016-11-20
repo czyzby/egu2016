@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
+import com.ownedoutcomes.logic.entity.Food
 import com.ownedoutcomes.logic.entity.Player
 import ktx.collections.gdxMapOf
 import ktx.collections.isNotEmpty
@@ -17,12 +18,17 @@ class GameRenderer(val gameController: GameController, val batch: Batch, skin: S
     private val playerAttackSprite3 = skin.atlas.createSprite("fish2-3")
     private val playerAttackSprite4 = skin.atlas.createSprite("fish2-4")
 
+    private val enemyAttackSprite1 = skin.atlas.createSprite("enemy1")
+    private val enemyAttackSprite2= skin.atlas.createSprite("enemy2")
+    private val enemyAttackSprite3 = skin.atlas.createSprite("enemy3")
+
     private val playerSprite = skin.atlas.createSprite("fish2-0")
     private val enemySprite = skin.atlas.createSprite("enemy0")
     private val shoeSprite = skin.atlas.createSprite("but")
     private val herringSprite = skin.atlas.createSprite("herring")
 
     private var stateTime = 0f
+    private var enemyStateTime = 0f
 
     val textureAttackRegion1 = TextureRegion(playerAttackSprite1)
     val textureAttackRegion2 = TextureRegion(playerAttackSprite2)
@@ -30,7 +36,13 @@ class GameRenderer(val gameController: GameController, val batch: Batch, skin: S
     val textureAttackRegion4 = TextureRegion(playerAttackSprite4)
 
 
+    val textureEnemyAttackRegion1 = TextureRegion(enemyAttackSprite1)
+    val textureEnemyAttackRegion2 = TextureRegion(enemyAttackSprite2)
+    val textureEnemyAttackRegion3 = TextureRegion(enemyAttackSprite3)
+
+
     val eatingPlayers = gdxMapOf<Player, Animation>()
+    val eatingFoods = gdxMapOf<Food, Animation>()
 
     init {
         playerSprite.setOriginCenter()
@@ -45,6 +57,16 @@ class GameRenderer(val gameController: GameController, val batch: Batch, skin: S
         playerAttackSprite2.setOriginCenter()
         playerAttackSprite3.setOriginCenter()
         playerAttackSprite4.setOriginCenter()
+
+
+        enemyAttackSprite1.flip(true, false)
+        enemyAttackSprite2.flip(true, false)
+        enemyAttackSprite3.flip(true, false)
+
+        enemyAttackSprite1.setOriginCenter()
+        enemyAttackSprite2.setOriginCenter()
+        enemyAttackSprite3.setOriginCenter()
+
         enemySprite.setOriginCenter()
         shoeSprite.setOriginCenter()
         herringSprite.setOriginCenter()
@@ -53,7 +75,6 @@ class GameRenderer(val gameController: GameController, val batch: Batch, skin: S
     fun render(delta: Float) {
         batch.projectionMatrix = gameController.gameViewport.camera.combined
         batch.begin()
-        stateTime += delta
 
         gameController.players.forEach {
             if (!(gameController.attackingPlayers.contains(it) || it in eatingPlayers.keys())) {
@@ -112,16 +133,49 @@ class GameRenderer(val gameController: GameController, val batch: Batch, skin: S
 
         eatingPlayers.removeAll { it.value.isAnimationFinished(stateTime) }
 
+//         CO TU SIĘ ODPIERDALA TO NIE WIEM
+
         gameController.food.forEach {
-            val enemySprite = Sprite(enemySprite)
-            val spriteSize = it.size * 2
-            enemySprite.x = it.body.position.x - it.size
-            enemySprite.y = it.body.position.y - it.size
-            enemySprite.setOrigin(enemySprite.x, enemySprite.y)
-            enemySprite.setSize(spriteSize, spriteSize)
-            enemySprite.flip(it.spawnedLeft, false)
-            enemySprite.draw(batch)
+            if (!(gameController.attackingFoods.contains(it) || it in eatingFoods.keys())) {
+                val enemySprite = Sprite(enemySprite)
+                val spriteSize = it.size * 2
+                enemySprite.x = it.body.position.x - it.size
+                enemySprite.y = it.body.position.y - it.size
+                enemySprite.setOrigin(enemySprite.x, enemySprite.y)
+                enemySprite.setSize(spriteSize, spriteSize)
+                enemySprite.flip(it.spawnedLeft, false)
+                enemySprite.draw(batch)
+            }
         }
+
+        if (gameController.attackingFoods.isNotEmpty()) {
+            enemyStateTime = 0f
+        }
+        gameController.attackingFoods.forEach {
+            val eatingAnimation = Animation(1f / 6f, textureEnemyAttackRegion1, textureEnemyAttackRegion2, textureEnemyAttackRegion3)
+            eatingAnimation.playMode = Animation.PlayMode.LOOP_PINGPONG
+            eatingFoods.put(it, eatingAnimation)
+        }
+
+        eatingFoods.removeAll { !gameController.food.contains(it.key) }
+
+        eatingFoods.forEach {
+            val player = it.key
+            val animationSprite = Sprite(enemyAttackSprite1)
+            val spriteSize = player.size * 2
+
+            animationSprite.x = player.body.position.x - player.size
+            animationSprite.y = player.body.position.y - player.size
+            animationSprite.setSize(spriteSize, spriteSize)
+            animationSprite.setOriginCenter()
+            animationSprite.setRegion(it.value.getKeyFrame(enemyStateTime))
+            animationSprite.flip(player.spawnedLeft, false)
+            animationSprite.draw(batch)
+        }
+
+        eatingFoods.removeAll { it.value.isAnimationFinished(enemyStateTime) }
+
+// TU SIĘ JUŻ NIE ODPIERDALA
 
         gameController.shoes.forEach {
             val shoeSprite = Sprite(shoeSprite)
@@ -145,8 +199,10 @@ class GameRenderer(val gameController: GameController, val batch: Batch, skin: S
         }
 
         stateTime += delta
+        enemyStateTime += delta
 
         gameController.attackingPlayers.clear()
+        gameController.attackingFoods.clear()
         batch.end()
     }
 }
