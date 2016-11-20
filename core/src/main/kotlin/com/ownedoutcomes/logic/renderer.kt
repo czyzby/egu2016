@@ -91,16 +91,24 @@ class GameRenderer(val gameController: GameController, val batch: Batch, skin: S
 
         eatingPlayers.forEach {
             val player = it.key
-
-            println("SKURCZYSYNOW MOCNYCH Animacja atakujących - tworzenie")
             val animationSprite = Sprite(playerAttackSprite1)
             val spriteSize = player.size * 2
+
             animationSprite.x = player.body.position.x - player.size
             animationSprite.y = player.body.position.y - player.size
             animationSprite.setSize(spriteSize, spriteSize)
             animationSprite.setOriginCenter()
             animationSprite.rotation = MathUtils.radiansToDegrees * player.angle
             animationSprite.setRegion(it.value.getKeyFrame(stateTime))
+            animationSprite.flip(true, false)
+            var rotation = animationSprite.rotation
+            if(rotation > 180)
+                rotation -= 360
+
+            if(rotation in 90..180 || rotation in -180..-90) {
+                animationSprite.flip(false, true)
+            }
+
             animationSprite.draw(batch)
         }
 
