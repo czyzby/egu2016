@@ -6,6 +6,11 @@ import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
+import com.ownedoutcomes.logic.entity.Player
+import ktx.collections.gdxMapOf
+import ktx.collections.gdxSetOf
+import ktx.collections.isNotEmpty
+import ktx.collections.removeAll
 
 
 class GameRenderer(val gameController: GameController, val batch: Batch, skin: Skin) {
@@ -20,18 +25,24 @@ class GameRenderer(val gameController: GameController, val batch: Batch, skin: S
     private val herringSprite = skin.atlas.createSprite("herring")
 
     private var stateTime = 0f
-    private var isEating = false
-
 
     val textureAttackRegion1 = TextureRegion(playerAttackSprite1)
     val textureAttackRegion2 = TextureRegion(playerAttackSprite2)
     val textureAttackRegion3 = TextureRegion(playerAttackSprite3)
     val textureAttackRegion4 = TextureRegion(playerAttackSprite4)
-    val eatingAnimation = Animation(1f / 16f, textureAttackRegion1, textureAttackRegion2, textureAttackRegion3, textureAttackRegion4)
+
+
+    val eatingPlayers = gdxMapOf<Player, Animation>()
 
     init {
         playerSprite.setOriginCenter()
+
         playerSprite.flip(true, false)
+//        playerAttackSprite1.flip(true, false)
+//        playerAttackSprite2.flip(true, false)
+//        playerAttackSprite3.flip(true, false)
+//        playerAttackSprite4.flip(true, false)
+
         playerAttackSprite1.setOriginCenter()
         playerAttackSprite2.setOriginCenter()
         playerAttackSprite3.setOriginCenter()
@@ -39,24 +50,53 @@ class GameRenderer(val gameController: GameController, val batch: Batch, skin: S
         enemySprite.setOriginCenter()
         shoeSprite.setOriginCenter()
         herringSprite.setOriginCenter()
-
-        eatingAnimation.playMode = Animation.PlayMode.LOOP_PINGPONG
-
     }
 
     fun render(delta: Float) {
         batch.projectionMatrix = gameController.gameViewport.camera.combined
         batch.begin()
+        stateTime += delta
+
         gameController.players.forEach {
-            val playerSprite = Sprite(playerSprite)
-            val spriteSize = it.size * 2
-            playerSprite.x = it.body.position.x - it.size
-            playerSprite.y = it.body.position.y - it.size
-            playerSprite.setSize(spriteSize, spriteSize)
-            playerSprite.setOriginCenter()
-            playerSprite.rotation = MathUtils.radiansToDegrees * it.angle
-            playerSprite.draw(batch)
+            if (!(gameController.attackingPlayers.contains(it) || it in eatingPlayers.keys())) {
+                val playerSprite = Sprite(playerSprite)
+                val spriteSize = it.size * 2
+                playerSprite.x = it.body.position.x - it.size
+                playerSprite.y = it.body.position.y - it.size
+                playerSprite.setSize(spriteSize, spriteSize)
+                playerSprite.setOriginCenter()
+                playerSprite.rotation = MathUtils.radiansToDegrees * it.angle
+                playerSprite.draw(batch)
+            }
         }
+
+        if(gameController.attackingPlayers.isNotEmpty()) {
+            stateTime = 0f
+        }
+        gameController.attackingPlayers.forEach {
+            val eatingAnimation = Animation(1f / 16f, textureAttackRegion1, textureAttackRegion2, textureAttackRegion3, textureAttackRegion4)
+            eatingAnimation.playMode = Animation.PlayMode.LOOP_PINGPONG
+            eatingPlayers.put(it, eatingAnimation)
+        }
+
+        eatingPlayers.removeAll { !gameController.players.contains(it.key) }
+
+        eatingPlayers.forEach {
+            val player = it.key
+
+            println("SKURCZYSYNOW MOCNYCH Animacja atakujących - tworzenie")
+            val animationSprite = Sprite(playerAttackSprite1)
+            val spriteSize = player.size * 2
+            animationSprite.x = player.body.position.x - player.size
+            animationSprite.y = player.body.position.y - player.size
+            animationSprite.setSize(spriteSize, spriteSize)
+            animationSprite.setOriginCenter()
+            animationSprite.rotation = MathUtils.radiansToDegrees * player.angle
+            animationSprite.setRegion(it.value.getKeyFrame(stateTime))
+            animationSprite.draw(batch)
+        }
+
+        eatingPlayers.removeAll {it.value.isAnimationFinished(stateTime) }
 
         gameController.food.forEach {
             val enemySprite = Sprite(enemySprite)
@@ -88,21 +128,6 @@ class GameRenderer(val gameController: GameController, val batch: Batch, skin: S
             herringSprite.setSize(spriteSize, spriteSize)
             herringSprite.flip(it.spawnedLeft, false)
             herringSprite.draw(batch)
-        }
-
-        stateTime += delta
-
-        gameController.players.forEach {
-            println("SKURCZYSYNOW MOCNYCH Animacja atakujących - tworzenie")
-            val animationSprite = Sprite(playerAttackSprite1)
-            val spriteSize = it.size * 2
-            animationSprite.x = it.body.position.x - it.size
-            animationSprite.y = it.body.position.y - it.size
-            animationSprite.setSize(spriteSize, spriteSize)
-            animationSprite.setOriginCenter()
-            animationSprite.rotation = MathUtils.radiansToDegrees * it.angle
-            animationSprite.setRegion(eatingAnimation.getKeyFrame(stateTime))
-            animationSprite.draw(batch)
         }
 
         gameController.attackingPlayers.clear()
