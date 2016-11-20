@@ -42,8 +42,7 @@ class FoodBooster(world: World, center: Vector2) : AbstractEntity(world) {
     override fun initiate(): FoodBooster = super.initiate() as FoodBooster
 
     private fun getRandomSize(): Float {
-        val random = Math.abs(random(-0.4f, 1f))
-        return if (random < 0.1f) 0.1f else random // TODO uzaleznic od wielkosci gracza? eee makarena
+        return 0.2f
     }
 
     override fun update(delta: Float) {
