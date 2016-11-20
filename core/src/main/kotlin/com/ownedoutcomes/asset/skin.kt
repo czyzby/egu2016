@@ -40,4 +40,12 @@ fun loadSkin() = skin(atlas = loadOnDemand<TextureAtlas>(path = "skin.atlas").as
         over = getDrawable("start-over")
         down = getDrawable("start-down")
     }
+
+    button("to-menu") {
+        up = getDrawable("to-menu")
+    }
+
+    button("play-again") {
+        up = getDrawable("play-again")
+    }
 }
