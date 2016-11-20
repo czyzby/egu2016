@@ -23,6 +23,8 @@ class ContactController(val gameController: GameController) : ContactListener {
         if (firstEntity is Food && secondEntity is Player) {
             if (firstEntity.size > secondEntity.size * 1.05) {
                 gameController.playersToRemove.add(secondEntity)
+                val factor = secondEntity.size / firstEntity.size
+                gameController.foodToReduce.add(Pair(firstEntity, factor))
                 gameController.whatToEat.add(Pair(firstEntity, secondEntity))
             } else {
                 gameController.foodToRemove.add(firstEntity)

@@ -77,4 +77,9 @@ class Food(world: World) : AbstractEntity(world) {
             eat(entity)
         }
     }
+
+    fun reduce(factor: Float) {
+        size -= this.size * factor
+        body.fixtureList.first().shape.radius = size
+    }
 }
