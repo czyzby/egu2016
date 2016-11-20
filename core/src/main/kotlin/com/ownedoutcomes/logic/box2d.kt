@@ -10,7 +10,6 @@ import com.badlogic.gdx.utils.viewport.FitViewport
 import com.badlogic.gdx.utils.viewport.Viewport
 import com.ownedoutcomes.Runner
 import com.ownedoutcomes.logic.entity.*
-import com.ownedoutcomes.music.Theme
 import com.ownedoutcomes.view.GameOver
 import com.ownedoutcomes.view.NextLevel
 import ktx.assets.asset
@@ -31,7 +30,6 @@ var currentGameLevel = 1
 
 class GameController {
     val gameViewport: Viewport = FitViewport(gameWorldWidth, gameWorldHeight)
-    private val renderer = Box2DDebugRenderer()
     private val inputController = InputController(gameViewport)
     private lateinit var world: World
 
@@ -112,7 +110,7 @@ class GameController {
         // TODO make fish-booster smaller
         // TODO add sounds
         // TODO add music
-        renderer.render(world, gameViewport.camera.combined)
+        //renderer.render(world, gameViewport.camera.combined)
     }
 
     private fun updateCamera(delta: Float) {
@@ -192,6 +190,7 @@ class GameController {
                 }
 
                 players.remove(it)
+                asset<Sound>("kill.wav").play()
             }
             playersToRemove.clear()
             if (players.isEmpty()) {
@@ -258,7 +257,7 @@ class GameController {
         }
     }
 
-    private fun checkIfNextLevelIsAvailable() : Boolean {
+    private fun checkIfNextLevelIsAvailable(): Boolean {
         return currentGamePoints >= currentGameLevel * 100
     }
 
