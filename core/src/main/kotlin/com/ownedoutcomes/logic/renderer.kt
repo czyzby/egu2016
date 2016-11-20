@@ -38,10 +38,10 @@ class GameRenderer(val gameController: GameController, val batch: Batch, skin: S
         playerSprite.setOriginCenter()
 
         playerSprite.flip(true, false)
-//        playerAttackSprite1.flip(true, false)
-//        playerAttackSprite2.flip(true, false)
-//        playerAttackSprite3.flip(true, false)
-//        playerAttackSprite4.flip(true, false)
+        playerAttackSprite1.flip(true, false)
+        playerAttackSprite2.flip(true, false)
+        playerAttackSprite3.flip(true, false)
+        playerAttackSprite4.flip(true, false)
 
         playerAttackSprite1.setOriginCenter()
         playerAttackSprite2.setOriginCenter()
@@ -66,6 +66,14 @@ class GameRenderer(val gameController: GameController, val batch: Batch, skin: S
                 playerSprite.setSize(spriteSize, spriteSize)
                 playerSprite.setOriginCenter()
                 playerSprite.rotation = MathUtils.radiansToDegrees * it.angle
+
+                var rotation = playerSprite.rotation
+                if(rotation > 180)
+                    rotation -= 360
+
+                if(playerSprite.rotation in 90..180 || playerSprite.rotation in -180..-90) {
+                    playerSprite.flip(false, true)
+                }
                 playerSprite.draw(batch)
             }
         }
