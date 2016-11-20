@@ -55,6 +55,8 @@ class GameController {
     var cameraX = .0f;
     var cameraY = .0f;
 
+    var points = 0
+
     fun reload() {
         world = World(vec2(0f, 0f), true)
         world.setContactListener(ContactController(this))
@@ -260,6 +262,8 @@ class GameController {
         timeSincePlayerSpawn = 0f
         timeSinceShoeSpawn = 0f
         timeSinceBoostSpawn = 0f
+
+        points = 0
     }
 }
 
