@@ -257,8 +257,8 @@ class GameController {
         }
     }
 
-    private fun checkIfNextLevelIsAvailable(): Boolean {
-        return currentGamePoints >= currentGameLevel * 100
+    private fun checkIfNextLevelIsAvailable() : Boolean {
+        return currentGamePoints >= currentGameLevel * currentGameLevel * 100
     }
 
     private fun moveToNextLevel() {
