@@ -259,6 +259,9 @@ class GameController {
         boostersToRemove.clear()
         whatToEat.clear()
 
+        attackingPlayers.clear()
+        foodToReduce.clear()
+
         playersToAdd = 0
 
         timeSinceSpawn = 100f
