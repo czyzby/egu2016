@@ -17,7 +17,7 @@ class GameRenderer(val gameController: GameController, val batch: Batch, skin: S
     private val playerAttackSprite3 = skin.atlas.createSprite("fish2-3")
     private val playerAttackSprite4 = skin.atlas.createSprite("fish2-4")
 
-    private val playerSprite = skin.atlas.createSprite("player")
+    private val playerSprite = skin.atlas.createSprite("fish2-0")
     private val enemySprite = skin.atlas.createSprite("enemy0")
     private val shoeSprite = skin.atlas.createSprite("but")
     private val herringSprite = skin.atlas.createSprite("herring")
@@ -36,10 +36,10 @@ class GameRenderer(val gameController: GameController, val batch: Batch, skin: S
         playerSprite.setOriginCenter()
 
         playerSprite.flip(true, false)
-//        playerAttackSprite1.flip(true, false)
-//        playerAttackSprite2.flip(true, false)
-//        playerAttackSprite3.flip(true, false)
-//        playerAttackSprite4.flip(true, false)
+        playerAttackSprite1.flip(true, false)
+        playerAttackSprite2.flip(true, false)
+        playerAttackSprite3.flip(true, false)
+        playerAttackSprite4.flip(true, false)
 
         playerAttackSprite1.setOriginCenter()
         playerAttackSprite2.setOriginCenter()
@@ -64,6 +64,14 @@ class GameRenderer(val gameController: GameController, val batch: Batch, skin: S
                 playerSprite.setSize(spriteSize, spriteSize)
                 playerSprite.setOriginCenter()
                 playerSprite.rotation = MathUtils.radiansToDegrees * it.angle
+
+                var rotation = playerSprite.rotation
+                if(rotation > 180)
+                    rotation -= 360
+
+                if(playerSprite.rotation in 90..180 || playerSprite.rotation in -180..-90) {
+                    playerSprite.flip(false, true)
+                }
                 playerSprite.draw(batch)
             }
         }
@@ -81,16 +89,24 @@ class GameRenderer(val gameController: GameController, val batch: Batch, skin: S
 
         eatingPlayers.forEach {
             val player = it.key
-
-            println("SKURCZYSYNOW MOCNYCH Animacja atakujących - tworzenie")
             val animationSprite = Sprite(playerAttackSprite1)
             val spriteSize = player.size * 2
+
             animationSprite.x = player.body.position.x - player.size
             animationSprite.y = player.body.position.y - player.size
             animationSprite.setSize(spriteSize, spriteSize)
             animationSprite.setOriginCenter()
             animationSprite.rotation = MathUtils.radiansToDegrees * player.angle
             animationSprite.setRegion(it.value.getKeyFrame(stateTime))
+            animationSprite.flip(true, false)
+            var rotation = animationSprite.rotation
+            if(rotation > 180)
+                rotation -= 360
+
+            if(rotation in 90..180 || rotation in -180..-90) {
+                animationSprite.flip(false, true)
+            }
+
             animationSprite.draw(batch)
         }
 

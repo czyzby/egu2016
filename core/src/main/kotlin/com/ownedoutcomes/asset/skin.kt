@@ -5,10 +5,7 @@ import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import ktx.assets.loadOnDemand
-import ktx.style.skin
-import ktx.style.textButton
-import ktx.style.textField
-import ktx.style.window
+import ktx.style.*
 
 fun loadSkin() = skin(atlas = loadOnDemand<TextureAtlas>(path = "skin.atlas").asset) {
     val bitmapFont = BitmapFont(Gdx.files.internal("font-export.fnt"), getRegion("font-export"), false)
@@ -34,5 +31,11 @@ fun loadSkin() = skin(atlas = loadOnDemand<TextureAtlas>(path = "skin.atlas").as
         font = bitmapFont
         messageFont = bitmapFont
         fontColor = Color.PINK
+    }
+
+    button("start") {
+        up = getDrawable("start-up")
+        over = getDrawable("start-over")
+        down = getDrawable("start-down")
     }
 }
