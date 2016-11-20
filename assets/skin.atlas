@@ -318,37 +318,23 @@ size: 1024,1024
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-but
+background1
   rotate: false
-  xy: 1, 50
-  size: 363, 248
-  orig: 400, 400
-  offset: 7, 44
-  index: -1
-enemy0
-  rotate: false
-  xy: 471, 651
-  size: 392, 355
-  orig: 400, 400
-  offset: 7, 30
-  index: -1
-player
-  rotate: false
-  xy: 470, 295
-  size: 392, 355
-  orig: 400, 400
-  offset: 7, 30
+  xy: 1, 215
+  size: 1000, 800
+  orig: 1000, 800
+  offset: 0, 0
   index: -1
 select-box
   rotate: false
-  xy: 864, 846
+  xy: 918, 105
   size: 27, 40
   orig: 27, 40
   offset: 0, 0
   index: -1
 select-box
   rotate: false
-  xy: 864, 846
+  xy: 918, 105
   size: 27, 40
   split: 0, 15, 15, 0
   pad: 11, 15, 1, 1
@@ -357,14 +343,14 @@ select-box
   index: -1
 select-box-pressed
   rotate: false
-  xy: 905, 897
+  xy: 946, 133
   size: 27, 40
   orig: 27, 40
   offset: 0, 0
   index: -1
 select-box-pressed
   rotate: false
-  xy: 905, 897
+  xy: 946, 133
   size: 27, 40
   split: 0, 15, 15, 0
   pad: 11, 15, 1, 1
@@ -373,14 +359,14 @@ select-box-pressed
   index: -1
 signal-bar-3
   rotate: false
-  xy: 1, 1
+  xy: 1, 42
   size: 188, 48
   orig: 188, 48
   offset: 0, 0
   index: -1
 slider-horizontal
   rotate: false
-  xy: 657, 130
+  xy: 1, 1
   size: 50, 40
   split: 23, 23, 0, 0
   pad: 0, 0, 0, 0
@@ -389,35 +375,35 @@ slider-horizontal
   index: -1
 slider-knob-over-horizontal
   rotate: false
-  xy: 933, 966
+  xy: 946, 174
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 slider-knob-over-vertical
   rotate: false
-  xy: 657, 89
+  xy: 52, 1
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 slider-knob-pressed-horizontal
   rotate: false
-  xy: 190, 8
+  xy: 190, 49
   size: 40, 41
   orig: 40, 41
   offset: 0, 0
   index: -1
 slider-knob-pressed-vertical
   rotate: false
-  xy: 708, 130
+  xy: 231, 50
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 slider-vertical
   rotate: false
-  xy: 864, 887
+  xy: 877, 95
   size: 40, 50
   split: 0, 0, 23, 23
   pad: 0, 0, 1, 0
@@ -426,46 +412,30 @@ slider-vertical
   index: -1
 start-down
   rotate: false
-  xy: 365, 171
+  xy: 1, 91
   size: 291, 123
   orig: 300, 140
   offset: 8, 5
   index: -1
 start-over
   rotate: false
-  xy: 365, 47
+  xy: 293, 91
   size: 291, 123
   orig: 300, 140
   offset: 8, 5
   index: -1
 start-up
   rotate: false
-  xy: 657, 171
+  xy: 585, 91
   size: 291, 123
   orig: 300, 140
   offset: 8, 5
   index: -1
 touchpad
   rotate: false
-  xy: 864, 938
+  xy: 877, 146
   size: 68, 68
   orig: 68, 68
-  offset: 0, 0
-  index: -1
-window
-  rotate: false
-  xy: 1, 653
-  size: 469, 353
-  split: 202, 203, 143, 143
-  pad: 85, 86, 23, 24
-  orig: 469, 353
-  offset: 0, 0
-  index: -1
-window
-  rotate: false
-  xy: 1, 299
-  size: 468, 353
-  orig: 469, 353
   offset: 0, 0
   index: -1
 
@@ -474,33 +444,12 @@ size: 1024,1024
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-fish2-0
-  rotate: false
-  xy: 1, 361
-  size: 386, 359
-  orig: 400, 400
-  offset: 6, 24
-  index: -1
-fish2-1
+background2
   rotate: false
   xy: 1, 1
-  size: 386, 359
-  orig: 400, 400
-  offset: 6, 24
-  index: -1
-fish2-2
-  rotate: false
-  xy: 388, 361
-  size: 386, 359
-  orig: 400, 400
-  offset: 6, 24
-  index: -1
-fish2-3
-  rotate: false
-  xy: 388, 1
-  size: 386, 359
-  orig: 400, 400
-  offset: 6, 24
+  size: 1000, 800
+  orig: 1000, 800
+  offset: 0, 0
   index: -1
 
 skin4.png
@@ -508,24 +457,114 @@ size: 1024,1024
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-fish2-4
+background3
   rotate: false
-  xy: 1, 342
+  xy: 1, 1
+  size: 1000, 800
+  orig: 1000, 800
+  offset: 0, 0
+  index: -1
+
+skin5.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+but
+  rotate: false
+  xy: 1, 58
+  size: 363, 248
+  orig: 400, 400
+  offset: 7, 44
+  index: -1
+fish2-0
+  rotate: false
+  xy: 1, 307
   size: 386, 359
   orig: 400, 400
   offset: 6, 24
   index: -1
 herring
   rotate: false
-  xy: 388, 377
+  xy: 388, 342
   size: 394, 324
   orig: 400, 400
   offset: 6, 32
   index: -1
 player0
   rotate: false
-  xy: 1, 1
+  xy: 388, 1
   size: 384, 340
   orig: 400, 400
   offset: 10, 27
+  index: -1
+window
+  rotate: false
+  xy: 1, 667
+  size: 469, 353
+  split: 202, 203, 143, 143
+  pad: 85, 86, 23, 24
+  orig: 469, 353
+  offset: 0, 0
+  index: -1
+window
+  rotate: false
+  xy: 471, 667
+  size: 468, 353
+  orig: 469, 353
+  offset: 0, 0
+  index: -1
+
+skin6.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+enemy0
+  rotate: false
+  xy: 1, 365
+  size: 392, 355
+  orig: 400, 400
+  offset: 7, 30
+  index: -1
+fish2-1
+  rotate: false
+  xy: 394, 361
+  size: 386, 359
+  orig: 400, 400
+  offset: 6, 24
+  index: -1
+fish2-2
+  rotate: false
+  xy: 394, 1
+  size: 386, 359
+  orig: 400, 400
+  offset: 6, 24
+  index: -1
+player
+  rotate: false
+  xy: 1, 9
+  size: 392, 355
+  orig: 400, 400
+  offset: 7, 30
+  index: -1
+
+skin7.png
+size: 1024,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+fish2-3
+  rotate: false
+  xy: 1, 1
+  size: 386, 359
+  orig: 400, 400
+  offset: 6, 24
+  index: -1
+fish2-4
+  rotate: false
+  xy: 388, 1
+  size: 386, 359
+  orig: 400, 400
+  offset: 6, 24
   index: -1
