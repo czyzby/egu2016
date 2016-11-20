@@ -6,25 +6,47 @@ import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
-import ktx.collections.gdxArrayOf
-import ktx.collections.isEmpty
+import com.ownedoutcomes.logic.entity.Player
+import ktx.collections.gdxMapOf
+import ktx.collections.gdxSetOf
+import ktx.collections.isNotEmpty
+import ktx.collections.removeAll
 
 
 class GameRenderer(val gameController: GameController, val batch: Batch, skin: Skin) {
-    private val playerAttackSprite = skin.atlas.createSprite("player0")
+    private val playerAttackSprite1 = skin.atlas.createSprite("fish2-1")
+    private val playerAttackSprite2 = skin.atlas.createSprite("fish2-2")
+    private val playerAttackSprite3 = skin.atlas.createSprite("fish2-3")
+    private val playerAttackSprite4 = skin.atlas.createSprite("fish2-4")
+
     private val playerSprite = skin.atlas.createSprite("player")
     private val enemySprite = skin.atlas.createSprite("enemy0")
     private val shoeSprite = skin.atlas.createSprite("but")
     private val herringSprite = skin.atlas.createSprite("herring")
 
-    private val animations = gdxArrayOf<Animation>()
-
     private var stateTime = 0f
-    private var isEating = false
+
+    val textureAttackRegion1 = TextureRegion(playerAttackSprite1)
+    val textureAttackRegion2 = TextureRegion(playerAttackSprite2)
+    val textureAttackRegion3 = TextureRegion(playerAttackSprite3)
+    val textureAttackRegion4 = TextureRegion(playerAttackSprite4)
+
+
+    val eatingPlayers = gdxMapOf<Player, Animation>()
 
     init {
         playerSprite.setOriginCenter()
-        playerAttackSprite.setOriginCenter()
+
+        playerSprite.flip(true, false)
+//        playerAttackSprite1.flip(true, false)
+//        playerAttackSprite2.flip(true, false)
+//        playerAttackSprite3.flip(true, false)
+//        playerAttackSprite4.flip(true, false)
+
+        playerAttackSprite1.setOriginCenter()
+        playerAttackSprite2.setOriginCenter()
+        playerAttackSprite3.setOriginCenter()
+        playerAttackSprite4.setOriginCenter()
         enemySprite.setOriginCenter()
         shoeSprite.setOriginCenter()
         herringSprite.setOriginCenter()
@@ -33,17 +55,48 @@ class GameRenderer(val gameController: GameController, val batch: Batch, skin: S
     fun render(delta: Float) {
         batch.projectionMatrix = gameController.gameViewport.camera.combined
         batch.begin()
+        stateTime += delta
+
         gameController.players.forEach {
-            val playerSprite = Sprite(playerSprite)
-            playerSprite.flip(true, false)
-            val spriteSize = it.size * 2
-            playerSprite.x = it.body.position.x - it.size
-            playerSprite.y = it.body.position.y - it.size
-            playerSprite.setSize(spriteSize, spriteSize)
-            playerSprite.setOriginCenter()
-            playerSprite.rotation = MathUtils.radiansToDegrees * it.angle
-            playerSprite.draw(batch)
+            if (!(gameController.attackingPlayers.contains(it) || it in eatingPlayers.keys())) {
+                val playerSprite = Sprite(playerSprite)
+                val spriteSize = it.size * 2
+                playerSprite.x = it.body.position.x - it.size
+                playerSprite.y = it.body.position.y - it.size
+                playerSprite.setSize(spriteSize, spriteSize)
+                playerSprite.setOriginCenter()
+                playerSprite.rotation = MathUtils.radiansToDegrees * it.angle
+                playerSprite.draw(batch)
+            }
         }
+
+        if(gameController.attackingPlayers.isNotEmpty()) {
+            stateTime = 0f
+        }
+        gameController.attackingPlayers.forEach {
+            val eatingAnimation = Animation(1f / 16f, textureAttackRegion1, textureAttackRegion2, textureAttackRegion3, textureAttackRegion4)
+            eatingAnimation.playMode = Animation.PlayMode.LOOP_PINGPONG
+            eatingPlayers.put(it, eatingAnimation)
+        }
+
+        eatingPlayers.removeAll { !gameController.players.contains(it.key) }
+
+        eatingPlayers.forEach {
+            val player = it.key
+
+            println("SKURCZYSYNOW MOCNYCH Animacja atakujących - tworzenie")
+            val animationSprite = Sprite(playerAttackSprite1)
+            val spriteSize = player.size * 2
+            animationSprite.x = player.body.position.x - player.size
+            animationSprite.y = player.body.position.y - player.size
+            animationSprite.setSize(spriteSize, spriteSize)
+            animationSprite.setOriginCenter()
+            animationSprite.rotation = MathUtils.radiansToDegrees * player.angle
+            animationSprite.setRegion(it.value.getKeyFrame(stateTime))
+            animationSprite.draw(batch)
+        }
+
+        eatingPlayers.removeAll {it.value.isAnimationFinished(stateTime) }
 
         gameController.food.forEach {
             val enemySprite = Sprite(enemySprite)
@@ -95,38 +148,9 @@ class GameRenderer(val gameController: GameController, val batch: Batch, skin: S
         stateTime += delta
 
 
-        if (isEating) {
-            val animation = animations[0]
-            batch.draw(animation.getKeyFrame(stateTime), 0f, 0f)
-        } else {
-            if (animations.isEmpty()) {
-                val playerSprite = Sprite(playerAttackSprite)
-                playerSprite.flip(true, false)
-                val spriteSize = 2f
-                playerSprite.x = 0f
-                playerSprite.y = 0f
-                playerSprite.setSize(spriteSize, spriteSize)
-                playerSprite.setOriginCenter()
-                val textureRegion = TextureRegion(playerSprite)
-                val animation = Animation(1f/4f, textureRegion, textureRegion, textureRegion, textureRegion)
-                playerSprite.draw(batch)
-                animations.add(animation)
-            }
-            isEating = true
-        }
+        
 
         gameController.attackingPlayers.clear()
         batch.end()
     }
 }
-
-//
-//var currentFrame: Float
-//
-//    update () {
-//        if(eating?)
-//        currentFrame += delta
-//        sheet.get(currentFrame / framelength)
-//        if currentFrame is 0 -> eating = false
-//    }
-//}
