@@ -524,3 +524,30 @@ fish2-4
   orig: 400, 400
   offset: 6, 24
   index: -1
+
+skin8.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+enemy1
+  rotate: false
+  xy: 1, 357
+  size: 383, 355
+  orig: 400, 400
+  offset: 16, 30
+  index: -1
+enemy2
+  rotate: false
+  xy: 1, 1
+  size: 367, 355
+  orig: 400, 400
+  offset: 32, 30
+  index: -1
+enemy3
+  rotate: false
+  xy: 385, 357
+  size: 347, 355
+  orig: 400, 400
+  offset: 52, 30
+  index: -1
