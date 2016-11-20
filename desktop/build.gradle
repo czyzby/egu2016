@@ -1,7 +1,7 @@
 apply plugin: 'application'
 
 sourceSets.main.resources.srcDirs += [ rootProject.file('assets').absolutePath ]
-mainClassName = 'ownedoutcomes.desktop.DesktopLauncher'
+mainClassName = 'com.ownedoutcomes.desktop.DesktopLauncher'
 eclipse.project.name = appName + '-desktop'
 sourceCompatibility = 1.7
 
