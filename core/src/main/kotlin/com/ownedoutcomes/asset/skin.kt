@@ -31,6 +31,10 @@ fun loadSkin() = skin(atlas = loadOnDemand<TextureAtlas>(path = "skin.atlas").as
         font = bitmapFont
     }
 
+    label("points") {
+        font = bitmapFont
+    }
+
     button("start") {
         up = getDrawable("start-up")
         over = getDrawable("start-over")
