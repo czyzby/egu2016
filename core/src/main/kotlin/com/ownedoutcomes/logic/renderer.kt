@@ -97,11 +97,13 @@ class GameRenderer(val gameController: GameController, val batch: Batch, skin: S
 
         if (isEating) {
             val animation = animations[0]
-//            println("SKURCZYSYNOW MOCNYCH Animacja atakujących - uruchomienie")
-            batch.draw(animation.getKeyFrame(stateTime), 0f, 0f)
+            println("SKURCZYSYNOW MOCNYCH Animacja atakujących - uruchomienie")
+            playerAttackSprite.setRegion(animation.getKeyFrame(stateTime))
+            playerAttackSprite.setPosition(0f, 0f)
+            playerAttackSprite.setSize(2f, 2f)
+            playerAttackSprite.draw(batch)
         } else {
             if (animations.isEmpty()) {
-                val playerSprite = Sprite(playerAttackSprite)
                 playerSprite.flip(true, false)
                 val spriteSize = 2f
                 playerSprite.x = 0f
@@ -109,9 +111,12 @@ class GameRenderer(val gameController: GameController, val batch: Batch, skin: S
                 playerSprite.setSize(spriteSize, spriteSize)
                 playerSprite.setOriginCenter()
                 val textureRegion = TextureRegion(playerSprite)
-                val animation = Animation(1f/4f, textureRegion, textureRegion, textureRegion, textureRegion)
+                val textureAttackRegion = TextureRegion(playerAttackSprite)
+                val animation = Animation(1f/4f, textureRegion, textureAttackRegion, textureAttackRegion, textureRegion)
                 println("SKURCZYSYNOW MOCNYCH Animacja atakujących - rysowanie")
                 playerSprite.draw(batch)
+
+                animation.playMode = Animation.PlayMode.LOOP_PINGPONG
                 animations.add(animation)
             }
             isEating = true
