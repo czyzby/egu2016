@@ -1,5 +1,6 @@
 package com.ownedoutcomes.logic
 
+import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.Body
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer
 import com.badlogic.gdx.physics.box2d.World
@@ -51,14 +52,13 @@ class GameController {
     private var timeSinceShoeSpawn = 0f
     private var timeSinceBoostSpawn = 0f
 
+    var cameraX = .0f;
+    var cameraY = .0f;
+
     fun reload() {
         world = World(vec2(0f, 0f), true)
         world.setContactListener(ContactController(this))
-        addBodies()
-    }
-
-    private fun addBodies() {
-        players.add(Player(world, inputController).initiate())
+        players.add(Player(world, inputController, Vector2(0f, 0f)).initiate())
     }
 
     fun resize(width: Int, height: Int) {
@@ -66,19 +66,22 @@ class GameController {
     }
 
     fun update(delta: Float) {
+        if (!players.isEmpty()) {
+            updateCamera(delta)
+        }
 
         inputController.update()
+
         world.step(delta, 8, 3)
 
         runEeaters()
         runFoodReduction()
 
-        spawnFood(delta)
-        spawnShoe(delta)
+        spawnFood(delta, Vector2(gameViewport.camera.position.x, gameViewport.camera.position.y))
+        spawnShoe(delta, Vector2(gameViewport.camera.position.x, gameViewport.camera.position.y))
 
-        spawnNewPlayers(delta)
-        spawnBoosters(delta)
-
+        spawnNewPlayers(delta, Vector2(gameViewport.camera.position.x, gameViewport.camera.position.y))
+        spawnBoosters(delta, Vector2(gameViewport.camera.position.x, gameViewport.camera.position.y))
 
         players.forEach { it.update(delta) }
         food.forEach { it.update(delta) }
@@ -93,6 +96,17 @@ class GameController {
         // TODO add world bounds
         // TODO remove enemies that touch world bounds
         renderer.render(world, gameViewport.camera.combined)
+    }
+
+    private fun updateCamera(delta: Float) {
+        cameraX += (players.last().body.position.x - cameraX) * .8f * delta
+        cameraY += (players.last().body.position.y - cameraY) * .8f * delta
+
+        gameViewport.camera.position.set(
+                cameraX,
+                cameraY,
+                0f)
+        gameViewport.camera.update()
     }
 
     private fun runEeaters() {
@@ -117,34 +131,34 @@ class GameController {
         foodToReduce.clear()
     }
 
-    private fun spawnFood(delta: Float) {
+    private fun spawnFood(delta: Float, center: Vector2) {
         timeSinceSpawn += delta
         if (timeSinceSpawn > random(1f, 2f)) {
-            food.add(Food(world).initiate())
+            food.add(Food(world, center).initiate())
             timeSinceSpawn = 0f
         }
     }
 
-    private fun spawnShoe(delta: Float) {
+    private fun spawnShoe(delta: Float, center: Vector2) {
         timeSinceShoeSpawn += delta
         if (timeSinceShoeSpawn > random(10f, 20f)) {
-            shoes.add(Shoe(world).initiate())
+            shoes.add(Shoe(world, center).initiate())
             timeSinceShoeSpawn = 0f
         }
     }
 
-    private fun spawnBoosters(delta: Float) {
+    private fun spawnBoosters(delta: Float, center: Vector2) {
         timeSinceBoostSpawn += delta
         if (timeSinceBoostSpawn > random(1f, 2f)) {
-            boosters.add(FoodBooster(world).initiate())
+            boosters.add(FoodBooster(world, center).initiate())
             timeSinceBoostSpawn = 0f
         }
     }
 
-    private fun spawnNewPlayers(delta: Float) {
+    private fun spawnNewPlayers(delta: Float, center: Vector2) {
         if (playersToAdd > 0) {
-            while(playersToAdd-- > 0) {
-                addBodies()
+            while (playersToAdd-- > 0) {
+                players.add(Player(world, inputController, center).initiate())
             }
             playersToAdd = 0
         }
@@ -172,8 +186,10 @@ class GameController {
 
     private fun removeFood() {
         food.forEach {
-            if (it.body.position.x < -10 || it.body.position.y > 10 ||
-                    it.body.position.y < -10 || it.body.position.y > 10) {
+            if (it.body.position.x < gameViewport.camera.position.x - 3 * gameWorldWidth ||
+                    it.body.position.x > gameViewport.camera.position.x + 3 * gameWorldWidth ||
+                    it.body.position.y < gameViewport.camera.position.y - 3 * gameWorldWidth ||
+                    it.body.position.y > gameViewport.camera.position.y + 3 * gameWorldWidth) {
                 foodToRemove.add(it)
             }
         }
@@ -188,6 +204,15 @@ class GameController {
     }
 
     private fun removeShoes() {
+        shoes.forEach {
+            if (it.body.position.x < gameViewport.camera.position.x - 3 * gameWorldWidth ||
+                    it.body.position.x > gameViewport.camera.position.x + 3 * gameWorldWidth ||
+                    it.body.position.y < gameViewport.camera.position.y - 3 * gameWorldWidth ||
+                    it.body.position.y > gameViewport.camera.position.y + 3 * gameWorldWidth) {
+                shoesToRemove.add(it)
+            }
+        }
+
         if (shoesToRemove.isNotEmpty()) {
             shoesToRemove.forEach {
                 world.destroyBody(it.body)
@@ -198,6 +223,15 @@ class GameController {
     }
 
     private fun removeBoosters() {
+        boosters.forEach {
+            if (it.body.position.x < gameViewport.camera.position.x - 3 * gameWorldWidth ||
+                    it.body.position.x > gameViewport.camera.position.x + 3 * gameWorldWidth ||
+                    it.body.position.y < gameViewport.camera.position.y - 3 * gameWorldWidth ||
+                    it.body.position.y > gameViewport.camera.position.y + 3 * gameWorldWidth) {
+                boostersToRemove.add(it)
+            }
+        }
+
         if (boostersToRemove.isNotEmpty()) {
             boostersToRemove.forEach {
                 world.destroyBody(it.body)
@@ -229,4 +263,4 @@ class GameController {
     }
 }
 
-fun random(from: Float, to: Float) = from + ThreadLocalRandom.current().nextFloat()  * (to- from)
+fun random(from: Float, to: Float) = from + ThreadLocalRandom.current().nextFloat() * (to - from)

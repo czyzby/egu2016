@@ -2,6 +2,7 @@ package com.ownedoutcomes
 
 import com.badlogic.gdx.Application
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
@@ -9,10 +10,6 @@ import com.badlogic.gdx.utils.viewport.Viewport
 import com.ownedoutcomes.asset.loadSkin
 import com.ownedoutcomes.logic.GameController
 import com.ownedoutcomes.logic.GameRenderer
-import com.ownedoutcomes.view.Game
-import com.ownedoutcomes.view.Menu
-import com.ownedoutcomes.view.MockView
-import com.ownedoutcomes.view.View
 import com.ownedoutcomes.view.*
 import ktx.app.KotlinApplication
 import ktx.app.LetterboxingViewport
@@ -36,6 +33,7 @@ class Runner : KotlinApplication() {
         val runner = this
         val renderer = GameRenderer(gameController, batch, skin)
         val gameView = Game(stage, gameController, renderer)
+
         view = menuView
         register {
             bindSingleton(runner)
