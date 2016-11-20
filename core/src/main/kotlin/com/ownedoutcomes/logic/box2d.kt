@@ -35,6 +35,8 @@ class GameController {
 
     var playersToAdd = 0
 
+    val foodToReduce = gdxSetOf<Pair<Food, Float>>()
+
     val playersToRemove = gdxSetOf<Player>()
     val foodToRemove = gdxSetOf<Food>()
     val shoesToRemove = gdxSetOf<Shoe>()
@@ -71,6 +73,7 @@ class GameController {
         world.step(delta, 8, 3)
 
         runEeaters()
+        runFoodReduction()
 
         spawnFood(delta)
         spawnShoe(delta)
@@ -108,6 +111,17 @@ class GameController {
 
         }
         whatToEat.clear()
+    }
+
+    private fun runFoodReduction() {
+        foodToReduce.forEach {
+            pair ->
+            run {
+                pair.first.reduce(pair.second)
+            }
+
+        }
+        foodToReduce.clear()
     }
 
     private fun spawnFood(delta: Float) {
