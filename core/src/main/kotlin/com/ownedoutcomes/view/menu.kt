@@ -26,7 +26,7 @@ class Menu(stage: Stage) : AbstractView(stage) {
         image("title")
         row()
         textButton(text = "Play!", style = "play-button") {
-            color = Color.PINK
+            color = Color.FIREBRICK
             onChange { event, button ->
                 inject<GameController>().reload()
                 inject<Runner>().setCurrentView(inject<Game>())
@@ -39,11 +39,11 @@ class GameOver(stage: Stage) : AbstractView(stage) {
     override val root = table {
         setFillParent(true)
         textField(text = "GAME OVER!", style = "game-over") {
-
+            color = Color.FIREBRICK
         }
         row()
         textButton(text = "Play again!", style = "game-over-button") {
-            color = Color.PINK
+            color = Color.FIREBRICK
             onClick { event, button ->
                 inject<GameController>().reload()
                 inject<Runner>().setCurrentView(inject<Game>())
