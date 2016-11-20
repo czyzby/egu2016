@@ -25,12 +25,14 @@ abstract class AbstractEntity(val world: World) : Entity {
 }
 
 // Collision groups:
-val foodGroup: Short = 0b00000001
-val playerGroup: Short = 0b00000010
-val shoeGroup: Short = 0b00000100
-val foodBoosterGroup: Short = 0b00001000
+val foodGroup: Short =                      0b00000001
+val playerGroup: Short =                    0b00000010
+val shoeGroup: Short =                      0b00000100
+val foodBoosterGroup: Short =               0b00001000
+val playerSecondGroup: Short =              0b00010000
 
-val foodCollisionGroup: Short = 0b00001110
-val playerCollisionGroup: Short = 0b00001111
-val shoeCollisionGroup: Short = 0b00001111
-val foodBoosterCollisionGroup: Short = 0b00000111
+val foodCollisionGroup: Short =             0b00001110
+val playerCollisionGroup: Short =           0b00001101
+val shoeCollisionGroup: Short =             0b00001111
+val foodBoosterCollisionGroup: Short =      0b00000111
+val playerSecondCollisionGroup: Short =     0b00010000

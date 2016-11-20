@@ -18,6 +18,7 @@ class Player(world: World, val inputController: InputController, center: Vector2
     override fun createBody(world: World): Body {
         val circle = CircleShape()
         circle.radius = 0.2f
+
         val body = BodyDef().apply {
             type = BodyDef.BodyType.DynamicBody
             fixedRotation = true
@@ -34,8 +35,21 @@ class Player(world: World, val inputController: InputController, center: Vector2
             filter.categoryBits = playerGroup
             filter.maskBits = playerCollisionGroup
         }
+
+        val fixture2 = FixtureDef().apply {
+            shape = circle
+            shape.radius = .13f
+            density = playerDensity
+            friction = 0.3f
+            restitution = 0.1f
+
+            filter.categoryBits = playerSecondGroup
+            filter.maskBits = playerSecondCollisionGroup
+        }
+
         val result = world.createBody(body)
         result.createFixture(fixture).userData = this
+        result.createFixture(fixture2).userData = this
         circle.dispose()
         return result
     }
