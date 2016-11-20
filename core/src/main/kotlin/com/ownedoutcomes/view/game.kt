@@ -1,5 +1,6 @@
 package com.ownedoutcomes.view
 
+import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.utils.Align
@@ -22,6 +23,12 @@ class Game(stage: Stage, private val gameController: GameController, val gameRen
                     gameController.players.forEach { it.enlarge() }
                 if (c == '1')
                     gameController.players.forEach { it.smaller() }
+                if (c == 'p')
+                    (gameController.gameViewport.camera as OrthographicCamera).zoom += .1f
+                if (c == 'l')
+                    (gameController.gameViewport.camera as OrthographicCamera).zoom -= .1f
+                if (c == 'd')
+                    gameController.playersToAdd += 10
             }
         }
     }

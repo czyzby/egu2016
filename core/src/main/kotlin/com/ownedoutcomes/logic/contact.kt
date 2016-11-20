@@ -28,6 +28,7 @@ class ContactController(val gameController: GameController) : ContactListener {
             } else {
                 gameController.foodToRemove.add(firstEntity)
                 gameController.whatToEat.add(Pair(secondEntity, firstEntity))
+                gameController.attackingPlayers.add(secondEntity)
             }
         }
 

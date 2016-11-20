@@ -37,13 +37,15 @@ class GameController {
     var playersToAdd = 0
 
     val foodToReduce = gdxSetOf<Pair<Food, Float>>()
+    val whatToEat = gdxSetOf<Pair<AbstractEntity, AbstractEntity>>()
+
+    val attackingPlayers = gdxSetOf<Player>()
 
     val playersToRemove = gdxSetOf<Player>()
     val foodToRemove = gdxSetOf<Food>()
     val shoesToRemove = gdxSetOf<Shoe>()
-    val boostersToRemove = gdxSetOf<FoodBooster>()
 
-    val whatToEat = gdxSetOf<Pair<AbstractEntity, AbstractEntity>>()
+    val boostersToRemove = gdxSetOf<FoodBooster>()
 
     private var timeSinceSpawn = 100f
     private var timeSincePlayerSpawn = 0f
@@ -163,8 +165,6 @@ class GameController {
     }
 
     private fun removePlayers() {
-
-
         if (playersToRemove.isNotEmpty()) {
             playersToRemove.forEach {
                 val bd = Array<Body>()
@@ -186,8 +186,10 @@ class GameController {
 
     private fun removeFood() {
         food.forEach {
-            if (it.body.position.x < -10 || it.body.position.y > 10 ||
-                    it.body.position.y < -10 || it.body.position.y > 10) {
+            if (it.body.position.x < gameViewport.camera.position.x - 3 * gameWorldWidth ||
+                    it.body.position.x > gameViewport.camera.position.x + 3 * gameWorldWidth ||
+                    it.body.position.y < gameViewport.camera.position.y - 3 * gameWorldWidth ||
+                    it.body.position.y > gameViewport.camera.position.y + 3 * gameWorldWidth) {
                 foodToRemove.add(it)
             }
         }
@@ -202,6 +204,15 @@ class GameController {
     }
 
     private fun removeShoes() {
+        shoes.forEach {
+            if (it.body.position.x < gameViewport.camera.position.x - 3 * gameWorldWidth ||
+                    it.body.position.x > gameViewport.camera.position.x + 3 * gameWorldWidth ||
+                    it.body.position.y < gameViewport.camera.position.y - 3 * gameWorldWidth ||
+                    it.body.position.y > gameViewport.camera.position.y + 3 * gameWorldWidth) {
+                shoesToRemove.add(it)
+            }
+        }
+
         if (shoesToRemove.isNotEmpty()) {
             shoesToRemove.forEach {
                 world.destroyBody(it.body)
@@ -212,6 +223,15 @@ class GameController {
     }
 
     private fun removeBoosters() {
+        boosters.forEach {
+            if (it.body.position.x < gameViewport.camera.position.x - 3 * gameWorldWidth ||
+                    it.body.position.x > gameViewport.camera.position.x + 3 * gameWorldWidth ||
+                    it.body.position.y < gameViewport.camera.position.y - 3 * gameWorldWidth ||
+                    it.body.position.y > gameViewport.camera.position.y + 3 * gameWorldWidth) {
+                boostersToRemove.add(it)
+            }
+        }
+
         if (boostersToRemove.isNotEmpty()) {
             boostersToRemove.forEach {
                 world.destroyBody(it.body)
