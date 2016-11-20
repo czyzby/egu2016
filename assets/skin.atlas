@@ -4,65 +4,90 @@ size: 1024,1024
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
+background
+  rotate: false
+  xy: 1, 222
+  size: 1000, 800
+  orig: 1000, 800
+  offset: 0, 0
+  index: -1
 battery
   rotate: false
-  xy: 1009, 873
+  xy: 1002, 943
   size: 12, 8
   orig: 13, 8
   offset: 0, 0
   index: -1
-but
+button
   rotate: false
-  xy: 1, 58
-  size: 363, 248
-  orig: 400, 400
-  offset: 7, 44
+  xy: 875, 116
+  size: 133, 52
+  split: 30, 25, 0, 0
+  pad: 32, 27, 9, 9
+  orig: 133, 52
+  offset: 0, 0
   index: -1
 button
   rotate: false
-  xy: 779, 323
+  xy: 570, 11
   size: 117, 36
   orig: 133, 52
   offset: 8, 8
   index: -1
-enemy0
+button-pressed
   rotate: false
-  xy: 1, 307
-  size: 392, 355
-  orig: 400, 400
-  offset: 7, 30
+  xy: 875, 169
+  size: 133, 52
+  orig: 133, 52
+  offset: 0, 0
+  index: -1
+button-pressed
+  rotate: false
+  xy: 875, 169
+  size: 133, 52
+  split: 30, 25, 0, 0
+  pad: 32, 27, 9, 9
+  orig: 133, 52
+  offset: 0, 0
   index: -1
 font-export
   rotate: false
-  xy: 893, 208
+  xy: 875, 1
   size: 114, 114
   orig: 115, 115
   offset: 0, 1
   index: -1
 globe
   rotate: false
-  xy: 719, 148
+  xy: 355, 48
   size: 173, 173
   orig: 173, 173
   offset: 0, 0
   index: 1
 globe
   rotate: false
-  xy: 779, 360
+  xy: 529, 48
   size: 172, 173
   orig: 173, 173
   offset: 0, 0
   index: 2
+globe
+  rotate: false
+  xy: 702, 48
+  size: 172, 173
+  orig: 173, 173
+  offset: 0, 0
+  index: 3
 list
   rotate: false
-  xy: 940, 704
+  xy: 990, 6
   size: 27, 27
   orig: 27, 27
   offset: 0, 0
   index: -1
 list
   rotate: false
-  xy: 940, 704
+  xy: 990, 6
   size: 27, 27
   split: 8, 8, 8, 8
   pad: 10, 10, 10, 10
@@ -71,126 +96,91 @@ list
   index: -1
 minus
   rotate: false
-  xy: 1005, 730
+  xy: 1002, 968
   size: 17, 11
   orig: 17, 17
   offset: 0, 6
   index: -1
-pattern-bg
-  rotate: false
-  xy: 893, 534
-  size: 128, 128
-  orig: 128, 128
-  offset: 0, 0
-  index: -1
-play-button
-  rotate: false
-  xy: 1, 7
-  size: 400, 50
-  orig: 400, 50
-  offset: 0, 0
-  index: -1
-play-button-down
-  rotate: false
-  xy: 365, 69
-  size: 400, 50
-  orig: 400, 50
-  offset: 0, 0
-  index: -1
-play-button-over
-  rotate: false
-  xy: 402, 18
-  size: 400, 50
-  orig: 400, 50
-  offset: 0, 0
-  index: -1
-player0
-  rotate: false
-  xy: 394, 322
-  size: 384, 340
-  orig: 400, 400
-  offset: 10, 27
-  index: -1
 plus
   rotate: false
-  xy: 1011, 900
+  xy: 1002, 925
   size: 11, 17
   orig: 17, 17
   offset: 0, 0
   index: -1
 progress-bar-horizontal
   rotate: false
-  xy: 1022, 1007
+  xy: 1002, 696
   size: 1, 9
   orig: 1, 9
   offset: 0, 0
   index: -1
 progress-bar-vertical
   rotate: false
-  xy: 1009, 863
+  xy: 1002, 894
   size: 9, 1
   orig: 9, 1
   offset: 0, 0
   index: -1
 radio-button
   rotate: false
-  xy: 1015, 984
+  xy: 1002, 850
   size: 6, 32
   orig: 9, 32
   offset: 0, 0
   index: -1
 radio-button-off
   rotate: false
-  xy: 1015, 951
+  xy: 1002, 817
   size: 6, 32
   orig: 9, 32
   offset: 0, 0
   index: -1
 radio-button-over
   rotate: false
-  xy: 1012, 918
+  xy: 1002, 784
   size: 6, 32
   orig: 9, 32
   offset: 0, 0
   index: -1
 scroll-bar-back-horizontal
   rotate: false
-  xy: 1012, 952
+  xy: 1002, 706
   size: 2, 3
   orig: 2, 9
   offset: 0, 3
   index: -1
 scroll-bar-back-vertical
   rotate: false
-  xy: 1019, 948
+  xy: 1002, 720
   size: 3, 2
   orig: 9, 2
   offset: 3, 0
   index: -1
 scroll-bar-knob-horizontal
   rotate: false
-  xy: 1009, 946
+  xy: 1002, 710
   size: 2, 9
   orig: 2, 9
   offset: 0, 0
   index: -1
 scroll-bar-knob-vertical
   rotate: false
-  xy: 981, 893
+  xy: 1002, 896
   size: 9, 2
   orig: 9, 2
   offset: 0, 0
   index: -1
 select-box
   rotate: false
-  xy: 981, 852
+  xy: 990, 75
   size: 27, 40
   orig: 27, 40
   offset: 0, 0
   index: -1
 select-box
   rotate: false
-  xy: 981, 852
+  xy: 990, 75
   size: 27, 40
   split: 0, 15, 15, 0
   pad: 11, 15, 1, 1
@@ -199,125 +189,95 @@ select-box
   index: -1
 select-box-pressed
   rotate: false
-  xy: 940, 732
+  xy: 990, 34
   size: 27, 40
   orig: 27, 40
   offset: 0, 0
   index: -1
 select-box-pressed
   rotate: false
-  xy: 940, 732
+  xy: 990, 34
   size: 27, 40
   split: 0, 15, 15, 0
   pad: 11, 15, 1, 1
   orig: 27, 40
-  offset: 0, 0
-  index: -1
-signal-bar-1
-  rotate: false
-  xy: 766, 99
-  size: 188, 48
-  orig: 188, 48
-  offset: 0, 0
-  index: -1
-signal-bar-2
-  rotate: false
-  xy: 803, 50
-  size: 188, 48
-  orig: 188, 48
-  offset: 0, 0
-  index: -1
-signal-bar-3
-  rotate: false
-  xy: 803, 1
-  size: 188, 48
-  orig: 188, 48
   offset: 0, 0
   index: -1
 slider-horizontal
   rotate: false
-  xy: 940, 907
+  xy: 1002, 917
+  size: 10, 7
+  orig: 50, 40
+  offset: 20, 18
+  index: -1
+slider-horizontal
+  rotate: false
+  xy: 396, 7
   size: 50, 40
   split: 23, 23, 0, 0
   pad: 0, 0, 0, 0
   orig: 50, 40
   offset: 0, 0
   index: -1
-slider-horizontal
-  rotate: false
-  xy: 1009, 865
-  size: 10, 7
-  orig: 50, 40
-  offset: 20, 18
-  index: -1
 slider-knob-horizontal
   rotate: false
-  xy: 991, 912
+  xy: 1002, 1003
   size: 19, 19
   orig: 40, 41
   offset: 10, 11
   index: -1
 slider-knob-over-horizontal
   rotate: false
-  xy: 981, 811
+  xy: 447, 7
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 slider-knob-over-vertical
   rotate: false
-  xy: 940, 773
+  xy: 488, 7
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 slider-knob-pressed-horizontal
   rotate: false
-  xy: 940, 814
+  xy: 355, 6
   size: 40, 41
   orig: 40, 41
   offset: 0, 0
   index: -1
 slider-knob-pressed-vertical
   rotate: false
-  xy: 981, 770
+  xy: 529, 7
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 slider-knob-vertical
   rotate: false
-  xy: 991, 893
+  xy: 1002, 984
   size: 19, 18
   orig: 40, 40
   offset: 10, 11
   index: -1
 slider-vertical
   rotate: false
-  xy: 940, 856
-  size: 40, 50
-  split: 0, 0, 23, 23
-  pad: 0, 0, 1, 0
-  orig: 40, 50
-  offset: 0, 0
-  index: -1
-slider-vertical
-  rotate: false
-  xy: 981, 896
+  xy: 1002, 883
   size: 7, 10
   orig: 40, 50
   offset: 19, 20
   index: -1
 split-pane-horizontal
   rotate: false
-  xy: 1009, 956
+  xy: 1002, 723
   size: 3, 19
   orig: 3, 19
   offset: 0, 0
   index: -1
 split-pane-horizontal
   rotate: false
-  xy: 1009, 956
+  xy: 1002, 723
   size: 3, 19
   split: 1, 1, 7, 7
   pad: 0, 0, 0, 0
@@ -326,14 +286,14 @@ split-pane-horizontal
   index: -1
 split-pane-vertical
   rotate: false
-  xy: 968, 716
+  xy: 1002, 980
   size: 19, 3
   orig: 19, 3
   offset: 0, 0
   index: -1
 split-pane-vertical
   rotate: false
-  xy: 968, 716
+  xy: 1002, 980
   size: 19, 3
   split: 7, 7, 1, 1
   pad: 0, 0, 0, 0
@@ -342,21 +302,21 @@ split-pane-vertical
   index: -1
 style-bg
   rotate: false
-  xy: 1009, 976
+  xy: 1002, 743
   size: 5, 40
   orig: 5, 40
   offset: 0, 0
   index: -1
 textfield
   rotate: false
-  xy: 1011, 882
+  xy: 1002, 899
   size: 9, 17
   orig: 9, 17
   offset: 0, 0
   index: -1
 textfield
   rotate: false
-  xy: 1011, 882
+  xy: 1002, 899
   size: 9, 17
   split: 2, 2, 2, 2
   pad: 4, 4, 3, 3
@@ -365,14 +325,14 @@ textfield
   index: -1
 title
   rotate: false
-  xy: 365, 120
+  xy: 1, 35
   size: 353, 186
   orig: 400, 400
   offset: 25, 131
   index: -1
 tooltip
   rotate: false
-  xy: 968, 742
+  xy: 1, 7
   size: 45, 27
   split: 36, 0, 21, 0
   pad: 40, 0, 8, 0
@@ -381,35 +341,127 @@ tooltip
   index: -1
 tooltip
   rotate: false
-  xy: 968, 720
+  xy: 688, 26
   size: 36, 21
   orig: 45, 27
   offset: 0, 6
   index: -1
-touchpad
-  rotate: false
-  xy: 940, 948
-  size: 68, 68
-  orig: 68, 68
-  offset: 0, 0
-  index: -1
 touchpad-knob
   rotate: false
-  xy: 991, 932
+  xy: 1002, 952
   size: 15, 15
   orig: 15, 15
   offset: 0, 0
   index: -1
 white
   rotate: false
-  xy: 1022, 1005
+  xy: 1002, 694
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
+
+skin2.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+but
+  rotate: false
+  xy: 1, 62
+  size: 363, 248
+  orig: 400, 400
+  offset: 7, 44
+  index: -1
+enemy0
+  rotate: false
+  xy: 1, 311
+  size: 392, 355
+  orig: 400, 400
+  offset: 7, 30
+  index: -1
+globe
+  rotate: false
+  xy: 365, 137
+  size: 172, 173
+  orig: 173, 173
+  offset: 1, 0
+  index: 4
+globe
+  rotate: false
+  xy: 779, 347
+  size: 172, 172
+  orig: 173, 173
+  offset: 0, 0
+  index: 5
+herring
+  rotate: false
+  xy: 538, 1
+  size: 394, 324
+  orig: 400, 400
+  offset: 6, 32
+  index: -1
+pattern-bg
+  rotate: false
+  xy: 402, 8
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+play-button
+  rotate: false
+  xy: 1, 11
+  size: 400, 50
+  orig: 400, 50
+  offset: 0, 0
+  index: -1
+player0
+  rotate: false
+  xy: 394, 326
+  size: 384, 340
+  orig: 400, 400
+  offset: 10, 27
+  index: -1
+signal-bar-1
+  rotate: false
+  xy: 779, 618
+  size: 188, 48
+  orig: 188, 48
+  offset: 0, 0
+  index: -1
+signal-bar-2
+  rotate: false
+  xy: 779, 569
+  size: 188, 48
+  orig: 188, 48
+  offset: 0, 0
+  index: -1
+signal-bar-3
+  rotate: false
+  xy: 779, 520
+  size: 188, 48
+  orig: 188, 48
+  offset: 0, 0
+  index: -1
+slider-vertical
+  rotate: false
+  xy: 940, 901
+  size: 40, 50
+  split: 0, 0, 23, 23
+  pad: 0, 0, 1, 0
+  orig: 40, 50
+  offset: 0, 0
+  index: -1
+touchpad
+  rotate: false
+  xy: 940, 952
+  size: 68, 68
+  orig: 68, 68
+  offset: 0, 0
+  index: -1
 window
   rotate: false
-  xy: 1, 663
+  xy: 1, 667
   size: 469, 353
   split: 202, 203, 143, 143
   pad: 85, 86, 23, 24
@@ -418,67 +470,28 @@ window
   index: -1
 window
   rotate: false
-  xy: 471, 663
+  xy: 471, 667
   size: 468, 353
   orig: 469, 353
   offset: 0, 0
   index: -1
 
-skin2.png
-size: 1024,512
+skin3.png
+size: 1024,64
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-button
-  rotate: false
-  xy: 569, 447
-  size: 133, 52
-  split: 30, 25, 0, 0
-  pad: 32, 27, 9, 9
-  orig: 133, 52
-  offset: 0, 0
-  index: -1
-button-pressed
-  rotate: false
-  xy: 396, 273
-  size: 133, 52
-  orig: 133, 52
-  offset: 0, 0
-  index: -1
-button-pressed
-  rotate: false
-  xy: 396, 273
-  size: 133, 52
-  split: 30, 25, 0, 0
-  pad: 32, 27, 9, 9
-  orig: 133, 52
-  offset: 0, 0
-  index: -1
-globe
+play-button-down
   rotate: false
   xy: 1, 1
-  size: 172, 173
-  orig: 173, 173
+  size: 400, 50
+  orig: 400, 50
   offset: 0, 0
-  index: 3
-globe
+  index: -1
+play-button-over
   rotate: false
-  xy: 396, 326
-  size: 172, 173
-  orig: 173, 173
-  offset: 1, 0
-  index: 4
-globe
-  rotate: false
-  xy: 174, 2
-  size: 172, 172
-  orig: 173, 173
+  xy: 402, 1
+  size: 400, 50
+  orig: 400, 50
   offset: 0, 0
-  index: 5
-herring
-  rotate: false
-  xy: 1, 175
-  size: 394, 324
-  orig: 400, 400
-  offset: 6, 32
   index: -1

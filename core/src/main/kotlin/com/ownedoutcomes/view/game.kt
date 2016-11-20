@@ -15,7 +15,7 @@ class Game(stage: Stage, private val gameController: GameController, val gameRen
         table { cell ->
             cell.expand().align(Align.bottom)
         }
-
+        background = skin.getDrawable("background")
         onKey { inputEvent: InputEvent, kTableWidget: KTableWidget, c: Char ->
             run {
                 if (c == ' ')
@@ -43,7 +43,7 @@ class Game(stage: Stage, private val gameController: GameController, val gameRen
 
     override fun render(delta: Float) {
         gameController.update(delta)
-        gameRenderer.render(delta)
         super.render(delta)
+        gameRenderer.render(delta)
     }
 }
