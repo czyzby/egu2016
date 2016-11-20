@@ -27,9 +27,8 @@ fun loadSkin() = skin(atlas = loadOnDemand<TextureAtlas>(path = "skin.atlas").as
         down = getDrawable("button-pressed")
     }
 
-    textField("game-over") {
+    label("game-over") {
         font = bitmapFont
-        messageFont = bitmapFont
     }
 
     button("start") {

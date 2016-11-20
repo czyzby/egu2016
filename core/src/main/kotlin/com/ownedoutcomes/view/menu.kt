@@ -34,8 +34,10 @@ class Menu(stage: Stage) : AbstractView(stage) {
 class GameOver(stage: Stage) : AbstractView(stage) {
     override val root = table {
         setFillParent(true)
-        textField(text = "GAME OVER!", style = "game-over") {
+        label(text = "GAME OVER!", style = "game-over") {
             color = Color.FIREBRICK
+            fontScaleX = 2.0f
+            fontScaleY = 2.0f
         }
         row()
         textButton(text = "Play again!", style = "game-over-button") {
