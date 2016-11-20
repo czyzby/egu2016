@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import ktx.collections.gdxArrayOf
+import ktx.collections.isEmpty
 
 
 class GameRenderer(val gameController: GameController, val batch: Batch, skin: Skin) {
@@ -19,6 +20,7 @@ class GameRenderer(val gameController: GameController, val batch: Batch, skin: S
     private val animations = gdxArrayOf<Animation>()
 
     private var stateTime = 0f
+    private var isEating = false
 
     init {
         playerSprite.setOriginCenter()
@@ -29,8 +31,6 @@ class GameRenderer(val gameController: GameController, val batch: Batch, skin: S
     }
 
     fun render(delta: Float) {
-        println("renderuję skurczysynów")
-
         batch.projectionMatrix = gameController.gameViewport.camera.combined
         batch.begin()
         gameController.players.forEach {
@@ -77,31 +77,58 @@ class GameRenderer(val gameController: GameController, val batch: Batch, skin: S
             herringSprite.draw(batch)
         }
 
-        gameController.attackingPlayers.forEach {
-            println("SKURCZYSYNOW MOCNYCH Animacja atakujących - tworzenie")
-
-            val playerSprite = Sprite(playerAttackSprite)
-            playerSprite.flip(true, false)
-            val spriteSize = it.size * 2
-            playerSprite.x = it.body.position.x - it.size
-            playerSprite.y = it.body.position.y - it.size
-            playerSprite.setSize(spriteSize, spriteSize)
-            playerSprite.setOriginCenter()
-            playerSprite.rotation = MathUtils.radiansToDegrees * it.angle
-            val textureRegion = TextureRegion(playerSprite)
-            val animation = Animation(0.25f, textureRegion, textureRegion, textureRegion, textureRegion)
-            animations.add(animation)
-        }
+//        gameController.attackingPlayers.forEach {
+//            println("SKURCZYSYNOW MOCNYCH Animacja atakujących - tworzenie")
+//            val playerSprite = Sprite(playerAttackSprite)
+//            playerSprite.flip(true, false)
+//            val spriteSize = it.size * 2
+//            playerSprite.x = it.body.position.x - it.size
+//            playerSprite.y = it.body.position.y - it.size
+//            playerSprite.setSize(spriteSize, spriteSize)
+//            playerSprite.setOriginCenter()
+//            playerSprite.rotation = MathUtils.radiansToDegrees * it.angle
+//            val textureRegion = TextureRegion(playerSprite)
+//            val animation = Animation(0.25f, textureRegion, textureRegion, textureRegion, textureRegion)
+//            animations.add(animation)
+//        }
 
         stateTime += delta
 
-        animations.forEach {
-            if(!it.isAnimationFinished(stateTime))
-                println("SKURCZYSYNOW MOCNYCH Animacja atakujących - uruchomienie")
-                batch.draw(it.getKeyFrame(stateTime), 0f, 0f)
+
+        if (isEating) {
+            val animation = animations[0]
+//            println("SKURCZYSYNOW MOCNYCH Animacja atakujących - uruchomienie")
+            batch.draw(animation.getKeyFrame(stateTime), 0f, 0f)
+        } else {
+            if (animations.isEmpty()) {
+                val playerSprite = Sprite(playerAttackSprite)
+                playerSprite.flip(true, false)
+                val spriteSize = 2f
+                playerSprite.x = 0f
+                playerSprite.y = 0f
+                playerSprite.setSize(spriteSize, spriteSize)
+                playerSprite.setOriginCenter()
+                val textureRegion = TextureRegion(playerSprite)
+                val animation = Animation(1f/4f, textureRegion, textureRegion, textureRegion, textureRegion)
+                println("SKURCZYSYNOW MOCNYCH Animacja atakujących - rysowanie")
+                playerSprite.draw(batch)
+                animations.add(animation)
+            }
+            isEating = true
         }
 
         gameController.attackingPlayers.clear()
         batch.end()
     }
 }
+
+//
+//var currentFrame: Float
+//
+//    update () {
+//        if(eating?)
+//        currentFrame += delta
+//        sheet.get(currentFrame / framelength)
+//        if currentFrame is 0 -> eating = false
+//    }
+//}

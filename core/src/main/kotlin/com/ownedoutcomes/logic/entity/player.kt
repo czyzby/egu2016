@@ -68,10 +68,8 @@ class Player(world: World, val inputController: InputController) : AbstractEntit
     }
 
     fun eat(food: Food) {
-        println("przed eatem")
         size += food.size / 10f
         body.fixtureList.first().shape.radius = size
-        println("po eatem")
     }
 
     override fun eat(entity: AbstractEntity) {
