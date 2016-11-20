@@ -25,7 +25,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -237,20 +237,7 @@
   <g
      inkscape:groupmode="layer"
      id="layer3"
-     inkscape:label="strzalka">
-    <path
-       style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#15a2d6;fill-opacity:1;fill-rule:nonzero;stroke:#3b4d54;stroke-width:2.39499998;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
-       d="m 74.954095,238.64862 c 9.0072,-3.4921 8.56984,-2.43621 21.38006,-5.5727 -17.94773,15.83681 -23.29725,30.65403 -24.51177,41.73271 -12.68795,-21.01466 -16.28518,-23.9979 -25.50227,-49.79466 7.78258,6.58919 5.67306,5.16228 16.63814,11.79251 9.945,-113.72788 174.797395,-114.04054 167.621335,-5.80269 -16.3339,173.09037 -214.726103,55.10496 -90.45018,-9.16919 -16.06182,20.64041 -49.020315,62.56358 -2.70518,77.92099 63.70922,8.4572 86.77917,-67.88849 61.02626,-101.16081 -26.2372,-33.898 -92.23354,-30.34169 -123.496395,40.05384 z"
-       id="rect3614"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="ccccccccsc" />
-    <path
-       style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#138fbd;fill-opacity:1;fill-rule:nonzero;stroke:#3b4d54;stroke-width:1.60000002;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
-       d="m 49.224117,229.05312 c 5.604901,4.04011 10.525789,7.16819 14.941229,9.62235 1.068465,-56.24005 49.750174,-88.21114 93.318824,-86.9687 33.25628,1.23997 51.82078,18.02198 61.08545,32.08416 24.42828,37.07796 2.12777,87.716 -2.29078,97.57577 -17.36169,38.74174 -52.55037,41.34454 -70.12804,37.4372 -0.15524,-0.0345 -8.90638,-0.0621 -24.96456,-11.19908 -15.65076,-10.8544 -18.78953,-23.56766 -19.8782,-28.6117 -0.0275,-0.12748 -2.144125,-12.04685 3.06942,-23.44439 7.11674,-15.55822 30.35836,-31.76135 31.56616,-30.10895 -12.34597,15.15607 -37.112465,37.55901 -26.76752,60.89479 3.77885,4.89503 8.19016,10.63246 15.51356,15.14038 11.85212,7.29556 29.52487,7.97768 30.61688,7.88802 48.95712,-4.01965 56.8457,-44.7648 57.51031,-47.03079 16.75739,-57.13403 -5.53047,-77.28071 -7.12318,-78.90216 -30.17907,-30.72376 -76.22931,-17.5692 -80.30161,-15.48331 -39.521175,20.24337 -62.6905,54.81123 -54.413302,103.16967 -7.363086,-9.31497 -17.118834,-26.90928 -21.754641,-42.06326 z"
-       id="rect4417"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cccssssssccssssscc" />
-  </g>
+     inkscape:label="strzalka" />
   <g
      inkscape:groupmode="layer"
      id="layer2"
