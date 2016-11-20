@@ -1,20 +1,20 @@
 package com.ownedoutcomes.logic
 
+import com.badlogic.gdx.physics.box2d.Body
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer
 import com.badlogic.gdx.physics.box2d.World
+import com.badlogic.gdx.utils.Array
 import com.badlogic.gdx.utils.viewport.FitViewport
 import com.badlogic.gdx.utils.viewport.Viewport
 import com.ownedoutcomes.Runner
 import com.ownedoutcomes.logic.entity.*
 import com.ownedoutcomes.view.GameOver
-import ktx.collections.*
+import ktx.collections.gdxSetOf
+import ktx.collections.isEmpty
+import ktx.collections.isNotEmpty
 import ktx.inject.inject
 import ktx.math.vec2
 import java.util.concurrent.ThreadLocalRandom
-import com.badlogic.gdx.Gdx.app
-import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.physics.box2d.Body
-import com.badlogic.gdx.utils.Array
 
 
 val gameWorldWidth = 8f
@@ -36,13 +36,15 @@ class GameController {
     var playersToAdd = 0
 
     val foodToReduce = gdxSetOf<Pair<Food, Float>>()
+    val whatToEat = gdxSetOf<Pair<AbstractEntity, AbstractEntity>>()
+
+    val attackingPlayers = gdxSetOf<Player>()
 
     val playersToRemove = gdxSetOf<Player>()
     val foodToRemove = gdxSetOf<Food>()
     val shoesToRemove = gdxSetOf<Shoe>()
-    val boostersToRemove = gdxSetOf<FoodBooster>()
 
-    val whatToEat = gdxSetOf<Pair<AbstractEntity, AbstractEntity>>()
+    val boostersToRemove = gdxSetOf<FoodBooster>()
 
     private var timeSinceSpawn = 100f
     private var timeSincePlayerSpawn = 0f
@@ -56,7 +58,6 @@ class GameController {
     }
 
     private fun addBodies() {
-
         players.add(Player(world, inputController).initiate())
     }
 
@@ -66,10 +67,7 @@ class GameController {
 
     fun update(delta: Float) {
 
-        println("inputController.update()")
         inputController.update()
-        println("world.step(delta, 8, 3)")
-
         world.step(delta, 8, 3)
 
         runEeaters()
@@ -82,15 +80,10 @@ class GameController {
         spawnBoosters(delta)
 
 
-        println("foreache")
-
         players.forEach { it.update(delta) }
         food.forEach { it.update(delta) }
         shoes.forEach { it.update(delta) }
         boosters.forEach { it.update(delta) }
-
-        println("foreache stop")
-
 
         removeFood()
         removePlayers()
@@ -125,7 +118,6 @@ class GameController {
     }
 
     private fun spawnFood(delta: Float) {
-        println("spawn food")
         timeSinceSpawn += delta
         if (timeSinceSpawn > random(1f, 2f)) {
             food.add(Food(world).initiate())
@@ -134,7 +126,6 @@ class GameController {
     }
 
     private fun spawnShoe(delta: Float) {
-        println("spawn shoe")
         timeSinceShoeSpawn += delta
         if (timeSinceShoeSpawn > random(10f, 20f)) {
             shoes.add(Shoe(world).initiate())
@@ -144,19 +135,13 @@ class GameController {
 
     private fun spawnBoosters(delta: Float) {
         timeSinceBoostSpawn += delta
-        print("1 ")
         if (timeSinceBoostSpawn > random(1f, 2f)) {
-            print("2 ")
             boosters.add(FoodBooster(world).initiate())
-            print("3 ")
             timeSinceBoostSpawn = 0f
-            println("4 ")
         }
-        println("end spawning boost ")
     }
 
     private fun spawnNewPlayers(delta: Float) {
-        println("spawn new player")
         if (playersToAdd > 0) {
             while(playersToAdd-- > 0) {
                 addBodies()
@@ -166,8 +151,6 @@ class GameController {
     }
 
     private fun removePlayers() {
-
-
         if (playersToRemove.isNotEmpty()) {
             playersToRemove.forEach {
                 val bd = Array<Body>()
