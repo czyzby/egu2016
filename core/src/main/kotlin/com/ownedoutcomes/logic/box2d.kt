@@ -24,6 +24,8 @@ val gameWorldWidth = 8f
 val gameWorldHeight = 6f
 val halfGameWorldWidth = gameWorldWidth / 2f
 val halfGameWorldHeight = gameWorldHeight / 2f
+var currentGamePoints = 0
+var currentGameLevel = 1
 
 class GameController {
     val gameViewport: Viewport = FitViewport(gameWorldWidth, gameWorldHeight)
@@ -42,6 +44,7 @@ class GameController {
     val whatToEat = gdxSetOf<Pair<AbstractEntity, AbstractEntity>>()
 
     val attackingPlayers = gdxSetOf<Player>()
+    val attackingFoods = gdxSetOf<Food>()
 
     val playersToRemove = gdxSetOf<Player>()
     val foodToRemove = gdxSetOf<Food>()
@@ -56,9 +59,6 @@ class GameController {
 
     var cameraX = .0f;
     var cameraY = .0f;
-
-    var points = 0
-    var level = 1
 
     fun reload() {
         world = World(vec2(0f, 0f), true)
@@ -255,16 +255,12 @@ class GameController {
     }
 
     private fun checkIfNextLevelIsAvailable() : Boolean {
-        return points > level * 5
+        return currentGamePoints >= currentGameLevel * 100
     }
 
     private fun moveToNextLevel() {
-        val currentPoints = points
-        val currentLevel = level
+        currentGameLevel++
         inject<Runner>().setCurrentView(inject<NextLevel>())
-        // TODO Doesn't work :(
-        level = currentLevel
-        points = currentPoints
     }
 
 
@@ -283,6 +279,7 @@ class GameController {
 
         attackingPlayers.clear()
         foodToReduce.clear()
+        attackingFoods.clear()
 
         playersToAdd = 0
 
@@ -290,9 +287,6 @@ class GameController {
         timeSincePlayerSpawn = 0f
         timeSinceShoeSpawn = 0f
         timeSinceBoostSpawn = 0f
-
-        points = 0
-        level = 1
     }
 }
 

@@ -8,6 +8,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.utils.Align
 import com.ownedoutcomes.logic.GameController
 import com.ownedoutcomes.logic.GameRenderer
+import com.ownedoutcomes.logic.currentGameLevel
+import com.ownedoutcomes.logic.currentGamePoints
 import ktx.actors.onKey
 import ktx.scene2d.KTableWidget
 import ktx.scene2d.label
@@ -44,7 +46,7 @@ class Game(stage: Stage, private val gameController: GameController, val gameRen
     }
 
     override fun show() {
-        bgActor = Image(root.skin.getDrawable("background0"))
+        bgActor = Image(root.skin.getDrawable("background${currentGameLevel % 4}"))
         stage.addActor(bgActor)
         super.show()
         stage.keyboardFocus = root
@@ -63,7 +65,7 @@ class Game(stage: Stage, private val gameController: GameController, val gameRen
     override fun render(delta: Float) {
         gameController.update(delta)
         super.render(delta)
-        pointsLabel.setText("Points: ${gameController.points}")
+        pointsLabel.setText("Level: $currentGameLevel Points: $currentGamePoints")
         gameRenderer.render(delta)
     }
 }

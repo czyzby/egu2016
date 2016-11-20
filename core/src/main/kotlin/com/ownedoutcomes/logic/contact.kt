@@ -30,7 +30,7 @@ class ContactController(val gameController: GameController) : ContactListener {
                 gameController.whatToEat.add(Pair(secondEntity, firstEntity))
                 gameController.attackingPlayers.add(secondEntity)
 
-                gameController.points += 10
+                currentGamePoints += 10
             }
         }
 
@@ -38,7 +38,7 @@ class ContactController(val gameController: GameController) : ContactListener {
             gameController.playersToAdd++
             gameController.boostersToRemove.add(firstEntity)
             gameController.attackingPlayers.add(secondEntity)
-            gameController.points += 5
+            currentGamePoints += 5
         }
 
         if (firstEntity is FoodBooster && secondEntity is Food) {

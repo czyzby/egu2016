@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
+import com.ownedoutcomes.logic.entity.Food
 import com.ownedoutcomes.logic.entity.Player
 import ktx.collections.gdxMapOf
 import ktx.collections.isNotEmpty
@@ -40,6 +41,7 @@ class GameRenderer(val gameController: GameController, val batch: Batch, skin: S
 
 
     val eatingPlayers = gdxMapOf<Player, Animation>()
+    val eatingFoods = gdxMapOf<Food, Animation>()
 
     init {
         playerSprite.setOriginCenter()
@@ -54,6 +56,16 @@ class GameRenderer(val gameController: GameController, val batch: Batch, skin: S
         playerAttackSprite2.setOriginCenter()
         playerAttackSprite3.setOriginCenter()
         playerAttackSprite4.setOriginCenter()
+
+
+        enemyAttackSprite1.flip(true, false)
+        enemyAttackSprite2.flip(true, false)
+        enemyAttackSprite3.flip(true, false)
+
+        enemyAttackSprite1.setOriginCenter()
+        enemyAttackSprite2.setOriginCenter()
+        enemyAttackSprite3.setOriginCenter()
+
         enemySprite.setOriginCenter()
         shoeSprite.setOriginCenter()
         herringSprite.setOriginCenter()
