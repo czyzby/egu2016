@@ -94,11 +94,12 @@ class IntroductionView(stage: Stage) : AbstractView(stage) {
     override val root = table {
         background = skin.getDrawable("introduction")
 
-        imageButton("introduction") {
+        imageButton("introduction") { cell ->
             onClick { event, button ->
                 inject<GameController>().reload()
                 inject<Runner>().setCurrentView(inject<Game>())
             }
+            cell.grow()
         }
         setFillParent(true)
     }
