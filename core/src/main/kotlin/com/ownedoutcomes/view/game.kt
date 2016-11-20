@@ -26,7 +26,6 @@ class Game(stage: Stage, private val gameController: GameController, val gameRen
         pointsLabel = label(style = "points", text = "0") {
             cell -> cell.align(Align.topRight)
         }
-        //background = skin.getDrawable("background")
 
         onKey { inputEvent: InputEvent, kTableWidget: KTableWidget, c: Char ->
             run {
@@ -45,7 +44,7 @@ class Game(stage: Stage, private val gameController: GameController, val gameRen
     }
 
     override fun show() {
-        bgActor = Image(root.skin.getDrawable("background"))
+        bgActor = Image(root.skin.getDrawable("background0"))
         stage.addActor(bgActor)
         super.show()
         stage.keyboardFocus = root
