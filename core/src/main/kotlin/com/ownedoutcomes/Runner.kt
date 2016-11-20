@@ -10,6 +10,8 @@ import com.badlogic.gdx.utils.viewport.Viewport
 import com.ownedoutcomes.asset.loadSkin
 import com.ownedoutcomes.logic.GameController
 import com.ownedoutcomes.logic.GameRenderer
+import com.ownedoutcomes.music.loadMusic
+import com.ownedoutcomes.music.playMusic
 import com.ownedoutcomes.view.*
 import ktx.app.KotlinApplication
 import ktx.app.LetterboxingViewport
@@ -50,6 +52,8 @@ class Runner : KotlinApplication() {
         }
 
         loadSounds()
+        loadMusic()
+        playMusic()
 
         Gdx.input.inputProcessor = stage
         stage.addAction(Actions.sequence(Actions.alpha(0f), Actions.fadeIn(0.5f)))
