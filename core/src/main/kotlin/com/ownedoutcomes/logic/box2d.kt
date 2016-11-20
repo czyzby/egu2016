@@ -59,6 +59,11 @@ class GameController {
         world = World(vec2(0f, 0f), true)
         world.setContactListener(ContactController(this))
         players.add(Player(world, inputController, Vector2(0f, 0f)).initiate())
+
+        for (i in 1..40) {
+            food.add(Food(world, Vector2(gameViewport.camera.position.x,
+                    gameViewport.camera.position.y)).initiate())
+        }
     }
 
     fun resize(width: Int, height: Int) {
@@ -115,7 +120,6 @@ class GameController {
             run {
                 pair.first.eat(pair.second)
             }
-
         }
         whatToEat.clear()
     }
@@ -126,7 +130,6 @@ class GameController {
             run {
                 pair.first.reduce(pair.second)
             }
-
         }
         foodToReduce.clear()
     }
