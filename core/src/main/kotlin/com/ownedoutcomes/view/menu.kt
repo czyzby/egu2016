@@ -33,13 +33,33 @@ class Menu(stage: Stage) : AbstractView(stage) {
 
 class GameOver(stage: Stage) : AbstractView(stage) {
     override val root = table {
-        background = skin.getDrawable("background")
+        background = skin.getDrawable("background0")
         setFillParent(true)
         label(text = "GAME OVER!", style = "game-over") {
             color = Color.FIREBRICK
         }
         row()
         textButton(text = "Play again!", style = "game-over-button") { cell ->
+            pad(25f)
+            color = Color.FIREBRICK
+            onClick { event, button ->
+                inject<GameController>().reload()
+                inject<Runner>().setCurrentView(inject<Game>())
+            }
+            cell.padTop(15f)
+        }
+    }
+}
+
+class NextLevel(stage: Stage) : AbstractView(stage) {
+    override val root = table {
+        background = skin.getDrawable("background0")
+        setFillParent(true)
+        label(text = "Next level!", style = "game-over") {
+            color = Color.FIREBRICK
+        }
+        row()
+        textButton(text = "Go to next level!", style = "game-over-button") { cell ->
             pad(25f)
             color = Color.FIREBRICK
             onClick { event, button ->

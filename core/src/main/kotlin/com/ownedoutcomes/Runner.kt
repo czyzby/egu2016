@@ -29,6 +29,7 @@ class Runner : KotlinApplication() {
         Scene2DSkin.defaultSkin = skin
         val menuView = Menu(stage)
         val gameOverView = GameOver(stage)
+        val nextLevelView = NextLevel(stage)
         val gameController = GameController()
         val runner = this
         val renderer = GameRenderer(gameController, batch, skin)
@@ -45,6 +46,7 @@ class Runner : KotlinApplication() {
             bindSingleton(gameController)
             bindSingleton(renderer)
             bindSingleton(gameOverView)
+            bindSingleton(nextLevelView)
         }
         Gdx.input.inputProcessor = stage
         stage.addAction(Actions.sequence(Actions.alpha(0f), Actions.fadeIn(0.5f)))

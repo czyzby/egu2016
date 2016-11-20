@@ -24,7 +24,7 @@ class Game(stage: Stage, private val gameController: GameController, val gameRen
         pointsLabel = label(style = "points", text = "0") {
             cell -> cell.align(Align.topRight)
         }
-        background = skin.getDrawable("background")
+        background = skin.getDrawable("background0")
         onKey { inputEvent: InputEvent, kTableWidget: KTableWidget, c: Char ->
             run {
                 if (c == ' ')
