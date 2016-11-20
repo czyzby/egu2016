@@ -21,14 +21,12 @@ class Menu(stage: Stage) : AbstractView(stage) {
         setFillParent(true)
         backgroundImage.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear)
         background = TextureRegionDrawable(TextureRegion(backgroundImage, 0, 0, 1000, 750))
-        image("title")
-        row()
         button(style = "start") { cell ->
             onChange { event, button ->
                 inject<GameController>().reload()
                 inject<Runner>().setCurrentView(inject<Game>())
             }
-            cell.expandX().pad(100f).align(Align.bottomLeft)
+            cell.expand().pad(100f).align(Align.bottomLeft)
         }
     }
 }
