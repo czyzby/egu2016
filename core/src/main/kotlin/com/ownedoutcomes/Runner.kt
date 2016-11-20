@@ -2,7 +2,7 @@ package com.ownedoutcomes
 
 import com.badlogic.gdx.Application
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.graphics.OrthographicCamera
+import com.badlogic.gdx.audio.Sound
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
@@ -13,6 +13,7 @@ import com.ownedoutcomes.logic.GameRenderer
 import com.ownedoutcomes.view.*
 import ktx.app.KotlinApplication
 import ktx.app.LetterboxingViewport
+import ktx.assets.loadOnDemand
 import ktx.inject.inject
 import ktx.inject.register
 import ktx.scene2d.Scene2DSkin
@@ -47,6 +48,9 @@ class Runner : KotlinApplication() {
             bindSingleton(GameOver(stage))
             bindSingleton(nextLevelView)
         }
+
+        loadSounds()
+
         Gdx.input.inputProcessor = stage
         stage.addAction(Actions.sequence(Actions.alpha(0f), Actions.fadeIn(0.5f)))
         view.show()
@@ -58,6 +62,12 @@ class Runner : KotlinApplication() {
 
     override fun render(delta: Float) {
         view.render(delta)
+    }
+
+    fun loadSounds() {
+        arrayOf("kill.wav", "newPlayer.wav", "burp.wav").forEach {
+            loadOnDemand<Sound>(it).asset
+        }
     }
 
     fun setCurrentView(nextView: View) {

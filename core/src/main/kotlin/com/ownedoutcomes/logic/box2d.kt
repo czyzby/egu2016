@@ -1,5 +1,6 @@
 package com.ownedoutcomes.logic
 
+import com.badlogic.gdx.audio.Sound
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.Body
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer
@@ -9,9 +10,9 @@ import com.badlogic.gdx.utils.viewport.FitViewport
 import com.badlogic.gdx.utils.viewport.Viewport
 import com.ownedoutcomes.Runner
 import com.ownedoutcomes.logic.entity.*
-import com.ownedoutcomes.view.Game
 import com.ownedoutcomes.view.GameOver
 import com.ownedoutcomes.view.NextLevel
+import ktx.assets.asset
 import ktx.collections.gdxSetOf
 import ktx.collections.isEmpty
 import ktx.collections.isNotEmpty
@@ -103,7 +104,7 @@ class GameController {
         removeShoes()
         removeBoosters()
 
-        if(checkIfNextLevelIsAvailable()) {
+        if (checkIfNextLevelIsAvailable()) {
             moveToNextLevel()
         }
         // TODO add tutorial
@@ -173,6 +174,7 @@ class GameController {
             while (playersToAdd-- > 0) {
                 players.add(Player(world, inputController, center).initiate())
             }
+            asset<Sound>("newPlayer.wav").play()
             playersToAdd = 0
         }
     }
@@ -189,6 +191,7 @@ class GameController {
                 }
 
                 players.remove(it)
+                asset<Sound>("kill.wav").play()
             }
             playersToRemove.clear()
             if (players.isEmpty()) {
@@ -211,6 +214,7 @@ class GameController {
             foodToRemove.forEach {
                 world.destroyBody(it.body)
                 food.remove(it)
+                asset<Sound>("burp.wav").play()
             }
             foodToRemove.clear()
         }
@@ -254,7 +258,7 @@ class GameController {
         }
     }
 
-    private fun checkIfNextLevelIsAvailable() : Boolean {
+    private fun checkIfNextLevelIsAvailable(): Boolean {
         return points > level * 5
     }
 
