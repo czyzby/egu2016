@@ -3,6 +3,7 @@ package com.ownedoutcomes.view
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.TextureRegion
+import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import com.badlogic.gdx.utils.Align
@@ -33,20 +34,23 @@ class Menu(stage: Stage) : AbstractView(stage) {
 
 class GameOver(stage: Stage) : AbstractView(stage) {
     override val root = table {
-        background = skin.getDrawable("background0")
+        background = skin.getDrawable("gameover")
         setFillParent(true)
-        label(text = "GAME OVER!", style = "game-over") {
-            color = Color.FIREBRICK
-        }
-        row()
-        textButton(text = "Play again!", style = "game-over-button") { cell ->
-            pad(25f)
-            color = Color.FIREBRICK
-            onClick { event, button ->
-                inject<GameController>().reload()
-                inject<Runner>().setCurrentView(inject<Game>())
+        defaults().align(Align.left).expandX()
+        table {
+            defaults().pad(40f)
+            button(style = "play-again") { cell ->
+                onClick { event, button ->
+                    inject<GameController>().reload()
+                    inject<Runner>().setCurrentView(inject<Game>())
+                }
             }
-            cell.padTop(15f)
+            this.row()
+            button(style = "to-menu") { cell ->
+                onClick { event, button ->
+                    inject<Runner>().setCurrentView(inject<Menu>())
+                }
+            }
         }
     }
 }
