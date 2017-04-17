@@ -1,8 +1,16 @@
-# egu2016
+# East Games United game jam.
 
-A [LibGDX](http://libgdx.badlogicgames.com/) project generated with [gdx-setup](https://github.com/czyzby/gdx-setup).
+#### Become the king of the ocean!
 
-Project template included simple launchers and an empty `ApplicationAdapter` extension.
+Control your swarm of herrings! Eat the smaller fish, grow bigger. Be careful - the red ones are trying to stop you.
+
+### About
+
+Created in under 30 hours during the [East Games United](https://www.facebook.com/EastGamesUnited/) game jam by ~~3~~ 2 and half Java backend developers and one cute graphics designer using [KTX](https://github.com/czyzby/ktx). The jam's topic was "śledź" ("herring") and this _one_ of the games that we came up. The other one is [here](https://github.com/czyzby/egu-2016).
+
+- Initial project structure, tips: [@czyzby](https://github.com/czyzby)
+- Coding: [@Krzysiek](https://github.com/krzysiekruczaj), [@grafiszti](https://github.com/grafiszti)
+- Graphics: [@marsza](https://github.com/marszaa)
 
 ## Gradle
 
@@ -24,3 +32,4 @@ This project uses [Gradle](http://gradle.org/) to manage dependencies. Gradle wr
 
 Note that most tasks that are not specific to a single project can be run with `name:` prefix, where the `name` should be replaced with the ID of a specific project.
 For example, `core:clean` removes `build` folder only from the `core` project.
+
