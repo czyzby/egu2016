@@ -18,8 +18,6 @@ import ktx.assets.loadOnDemand
 import ktx.inject.inject
 import ktx.scene2d.*
 
-var introduction = true
-
 class Menu(stage: Stage) : AbstractView(stage) {
     val backgroundImage by loadOnDemand<Texture>(path = "menu-background.png")
     override val root = table {
@@ -28,13 +26,8 @@ class Menu(stage: Stage) : AbstractView(stage) {
         background = TextureRegionDrawable(TextureRegion(backgroundImage, 0, 0, 1000, 750))
         button(style = "start") { cell ->
             onChange { event, button ->
-                if (introduction) {
-                    inject<Runner>().setCurrentView(inject<IntroductionView>())
-                    introduction = false;
-                } else {
-                    inject<GameController>().reload()
-                    inject<Runner>().setCurrentView(inject<Game>())
-                }
+                inject<GameController>().reload()
+                inject<Runner>().setCurrentView(inject<Game>())
             }
             cell.expand().pad(100f).align(Align.bottomLeft)
         }
@@ -87,20 +80,5 @@ class NextLevel(stage: Stage) : AbstractView(stage) {
             }
             cell.padTop(15f)
         }
-    }
-}
-
-class IntroductionView(stage: Stage) : AbstractView(stage) {
-    override val root = table {
-        background = skin.getDrawable("introduction")
-
-        imageButton("introduction") { cell ->
-            onClick { event, button ->
-                inject<GameController>().reload()
-                inject<Runner>().setCurrentView(inject<Game>())
-            }
-            cell.grow()
-        }
-        setFillParent(true)
     }
 }

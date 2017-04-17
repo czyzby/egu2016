@@ -32,7 +32,6 @@ class Runner : KotlinApplication() {
         Scene2DSkin.defaultSkin = skin
         val menuView = Menu(stage)
         val nextLevelView = NextLevel(stage)
-        val introductionView = IntroductionView(stage)
         val gameController = GameController()
         val runner = this
         val renderer = GameRenderer(gameController, batch, skin)
@@ -50,7 +49,6 @@ class Runner : KotlinApplication() {
             bindSingleton(renderer)
             bindSingleton(GameOver(stage))
             bindSingleton(nextLevelView)
-            bindSingleton(introductionView)
         }
 
         loadSounds()

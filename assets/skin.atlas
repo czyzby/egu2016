@@ -457,24 +457,38 @@ filter: Linear,Linear
 repeat: none
 enemy0
   rotate: false
-  xy: 1, 1
+  xy: 396, 667
   size: 392, 355
   orig: 400, 400
   offset: 7, 30
   index: -1
-introduction
+fish2-0
   rotate: false
-  xy: 1, 357
-  size: 800, 600
-  orig: 800, 600
-  offset: 0, 0
+  xy: 394, 307
+  size: 386, 359
+  orig: 400, 400
+  offset: 6, 24
+  index: -1
+herring
+  rotate: false
+  xy: 1, 698
+  size: 394, 324
+  orig: 400, 400
+  offset: 6, 32
   index: -1
 player
   rotate: false
-  xy: 394, 1
+  xy: 1, 342
   size: 392, 355
   orig: 400, 400
   offset: 7, 30
+  index: -1
+player0
+  rotate: false
+  xy: 1, 1
+  size: 384, 340
+  orig: 400, 400
+  offset: 10, 27
   index: -1
 
 skin7.png
@@ -482,28 +496,28 @@ size: 1024,1024
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-fish2-0
+fish2-1
   rotate: false
   xy: 1, 361
   size: 386, 359
   orig: 400, 400
   offset: 6, 24
   index: -1
-fish2-1
+fish2-2
   rotate: false
   xy: 1, 1
   size: 386, 359
   orig: 400, 400
   offset: 6, 24
   index: -1
-fish2-2
+fish2-3
   rotate: false
   xy: 388, 361
   size: 386, 359
   orig: 400, 400
   offset: 6, 24
   index: -1
-fish2-3
+fish2-4
   rotate: false
   xy: 388, 1
   size: 386, 359
@@ -518,48 +532,21 @@ filter: Linear,Linear
 repeat: none
 enemy1
   rotate: false
-  xy: 1, 307
+  xy: 1, 357
   size: 383, 355
   orig: 400, 400
   offset: 16, 30
   index: -1
 enemy2
   rotate: false
-  xy: 385, 1
+  xy: 1, 1
   size: 367, 355
   orig: 400, 400
   offset: 32, 30
   index: -1
-fish2-4
-  rotate: false
-  xy: 1, 663
-  size: 386, 359
-  orig: 400, 400
-  offset: 6, 24
-  index: -1
-herring
-  rotate: false
-  xy: 388, 357
-  size: 394, 324
-  orig: 400, 400
-  offset: 6, 32
-  index: -1
-player0
-  rotate: false
-  xy: 388, 682
-  size: 384, 340
-  orig: 400, 400
-  offset: 10, 27
-  index: -1
-
-skin9.png
-size: 512,512
-format: RGBA8888
-filter: Linear,Linear
-repeat: none
 enemy3
   rotate: false
-  xy: 1, 1
+  xy: 385, 357
   size: 347, 355
   orig: 400, 400
   offset: 52, 30
