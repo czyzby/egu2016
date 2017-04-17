@@ -4,13 +4,19 @@
 
 Control your swarm of herrings! Eat the smaller fish, grow bigger. Be careful - the red ones are trying to stop you.
 
+![Menu](.github/sledz0.png)
+![Game](.github/sledz1.png)
+![Loss](.github/sledz2.png)
+
 ### About
 
-Created in under 30 hours during the [East Games United](https://www.facebook.com/EastGamesUnited/) game jam by ~~3~~ 2 and half Java backend developers and one cute graphics designer using [KTX](https://github.com/czyzby/ktx). The jam's topic was "śledź" ("herring") and this _one_ of the games that we came up. The other one is [here](https://github.com/czyzby/egu-2016).
+Created in under 30 hours using [KTX](https://github.com/czyzby/ktx) during the [East Games United](https://www.facebook.com/EastGamesUnited/) game jam by ~~3~~ 2 and half Java backend developers and one cute graphics designer. The jam's topic was _"śledź"_ (_"herring"_) and this _one_ of the games that we came up. The other one is [here](https://github.com/czyzby/egu-2016).
 
 - Initial project structure, tips: [@czyzby](https://github.com/czyzby)
-- Coding: [@Krzysiek](https://github.com/krzysiekruczaj), [@grafiszti](https://github.com/grafiszti)
+- Coding: [@krzysiek](https://github.com/krzysiekruczaj), [@grafiszti](https://github.com/grafiszti)
 - Graphics: [@marsza](https://github.com/marszaa)
+
+**Note**: we were desperate and sleep deprived. This ain't your Uncle Bob coding exercise. Don't judge us by this code.
 
 ## Gradle
 
