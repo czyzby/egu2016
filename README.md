@@ -1,4 +1,4 @@
-# East Games United game jam.
+# East Games United game jam
 
 #### Become the king of the ocean!
 
@@ -10,11 +10,11 @@ Control your swarm of herrings! Eat the smaller fish, grow bigger. Be careful - 
 
 ### About
 
-Created in under 30 hours using [KTX](https://github.com/czyzby/ktx) during the [East Games United](https://www.facebook.com/EastGamesUnited/) game jam by ~~3~~ 2 and half Java backend developers and one cute graphics designer. The jam's topic was _"śledź"_ (_"herring"_) and this _one_ of the games that we came up. The other one is [here](https://github.com/czyzby/egu-2016).
+Created in under 30 hours using [KTX](https://github.com/czyzby/ktx) during the [East Games United](https://www.facebook.com/EastGamesUnited/) game jam by ~~three~~ two and half Java backend developers and one cute graphics designer. The jam's topic was _"śledź"_ (_"herring"_) and this _one_ of the games that we came up. The other one is [here](https://github.com/czyzby/egu-2016).
 
-- Initial project structure, tips: [@czyzby](https://github.com/czyzby)
 - Coding: [@krzysiek](https://github.com/krzysiekruczaj), [@grafiszti](https://github.com/grafiszti)
 - Graphics: [@marsza](https://github.com/marszaa)
+- Initial project structure, tips: [@czyzby](https://github.com/czyzby)
 
 **Note**: we were desperate and sleep deprived. This ain't your Uncle Bob coding exercise. Don't judge us by this code.
 
